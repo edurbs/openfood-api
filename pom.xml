@@ -12,7 +12,7 @@
 	<artifactId>openfood-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>openfood-api</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Delivery system api like iFood</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

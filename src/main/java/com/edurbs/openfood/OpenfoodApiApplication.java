@@ -1,4 +1,4 @@
-package com.edurbs.openfoodapi;
+package com.edurbs.openfood;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
