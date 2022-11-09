@@ -1,6 +1,11 @@
 package com.edurbs.openfood.domain.model;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 public class Cliente {
+
     private String nome;
     private String telefone;
     private String email;
