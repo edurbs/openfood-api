@@ -6,5 +6,5 @@ import com.edurbs.openfood.domain.model.Cliente;
 
 @Component
 public interface Notificador {
-    public String enviar (Cliente cliente, String mensagem);
+    public void enviar (Cliente cliente, String mensagem);
 }

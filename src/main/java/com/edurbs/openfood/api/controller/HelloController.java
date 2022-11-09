@@ -22,8 +22,8 @@ public class HelloController {
     public String getHello() {
 
         Cliente c1 = new Cliente("Eduardo", "edurbs@gmail.com", "1234-5678");
-		        
-		return ativacaoClienteService.ativar(c1);
+		ativacaoClienteService.ativar(c1); 
+		return "Cliente ativado";
         
         
     }

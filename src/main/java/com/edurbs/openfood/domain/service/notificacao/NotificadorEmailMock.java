@@ -15,8 +15,8 @@ public class NotificadorEmailMock implements Notificador {
     }
 
     @Override
-    public String enviar(Cliente cliente, String mensagem) {
-        return String.format("Seria... notificado cliente %s pelo email %s a mensagem via %s: %s %n",
+    public void enviar(Cliente cliente, String mensagem) {
+        System.out.printf("Seria... notificado cliente %s pelo email %s a mensagem via %s: %s %n",
                 cliente.getNome(), cliente.getEmail(), this.getSmtp(), mensagem);
     }
 

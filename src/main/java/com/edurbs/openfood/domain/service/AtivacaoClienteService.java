@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
+import com.edurbs.openfood.domain.listener.ClienteAtivadoEvent;
 import com.edurbs.openfood.domain.model.Cliente;
 import com.edurbs.openfood.domain.service.notificacao.NivelUrgencia;
 import com.edurbs.openfood.domain.service.notificacao.Notificador;
@@ -15,6 +17,9 @@ import com.edurbs.openfood.domain.service.notificacao.TipoNotificador;
 
 @Component
 public class AtivacaoClienteService implements InitializingBean, DisposableBean{
+    
+    @Autowired    
+    ApplicationEventPublisher applicationEventPublisher;
    
     @Autowired
     // @Qualifer("email") 
@@ -40,9 +45,12 @@ public class AtivacaoClienteService implements InitializingBean, DisposableBean{
     
     
 
-    public String ativar(Cliente cliente){
+    public void ativar(Cliente cliente){
         cliente.setAtivo(true);
-        return notificador.enviar(cliente, "Cliente ativado");
+        
+        //notificador.enviar(cliente, "Cliente ativado");
+        applicationEventPublisher.publishEvent(new ClienteAtivadoEvent(cliente));
+
         // StringBuilder retorno = new StringBuilder();
         // for (Notificador notificador : listaNotificadores) {
         //     retorno.append(notificador.enviar(cliente, "Cliente ativado"));

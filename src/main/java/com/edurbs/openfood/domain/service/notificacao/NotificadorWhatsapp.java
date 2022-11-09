@@ -10,9 +10,9 @@ import com.edurbs.openfood.domain.model.Cliente;
 public class NotificadorWhatsapp implements Notificador {
 
     @Override
-    public String enviar(Cliente cliente, String mensagem) {
+    public void enviar(Cliente cliente, String mensagem) {
         
-        return String.format("Enviando mensagem Whatsapp %s para o cliente %s: %s %n", cliente.getTelefone(), cliente.getNome(), mensagem);
+        System.out.printf(String.format("Enviando mensagem Whatsapp %s para o cliente %s: %s %n", cliente.getTelefone(), cliente.getNome(), mensagem));
     }
     
 }

@@ -1,9 +1,9 @@
 package com.edurbs.openfood.config;
 
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 
 import com.edurbs.openfood.domain.service.notificacao.NivelUrgencia;
@@ -13,7 +13,17 @@ import com.edurbs.openfood.domain.service.notificacao.NotificadorSMS;
 import com.edurbs.openfood.domain.service.notificacao.TipoNotificador;
 
 @Configuration
-public class NotificadorSMSConfig {
+public class NotificadorConfig {
+
+    /*@Value("${notificador.email.host}")
+    private String stmp;
+
+    public String getStmp() {
+        return stmp;
+    }*/
+
+    @Autowired
+    private NotificadorProperties notificadorProperties;
 
     @Bean
     @TipoNotificador(NivelUrgencia.URGENTE)
@@ -28,7 +38,8 @@ public class NotificadorSMSConfig {
     @Profile("prod")
     // @Qualifier("email") 
     public NotificadorEmail notificadorEmail (){
-        return new NotificadorEmail("smtp.gmail.com.br");
+        //return new NotificadorEmail(getStmp());
+        return new NotificadorEmail(notificadorProperties.getHostServidor());
         
     }
 
@@ -36,6 +47,7 @@ public class NotificadorSMSConfig {
     @TipoNotificador(NivelUrgencia.NORMAL)
     @Profile("dev")
     public NotificadorEmailMock notificadorEmailMock(){
-        return new NotificadorEmailMock("smtp.falso.com.br");
+        
+        return new NotificadorEmailMock("Mock "+notificadorProperties.getHostServidor());
     }
 }
