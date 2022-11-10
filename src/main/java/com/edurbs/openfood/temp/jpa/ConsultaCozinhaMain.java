@@ -15,9 +15,9 @@ public class ConsultaCozinhaMain {
                 .web(WebApplicationType.NONE)
                 .run(args);
 
-        CozinhaRepository cadastroCozinha = app.getBean(CozinhaRepository.class);
+        CozinhaRepository cozinhaRepository = app.getBean(CozinhaRepository.class);
 
-        cadastroCozinha.todas()
+        cozinhaRepository.todas()
                 .stream()
                 .forEach(s -> System.out.println(s.getNome()));
 
@@ -27,22 +27,22 @@ public class ConsultaCozinhaMain {
         Cozinha c2 = new Cozinha();
         c2.setNome("Japonesa");
 
-        var cs1=cadastroCozinha.adicionar(c1);
-        var cs2=cadastroCozinha.adicionar(c2);
+        var cs1=cozinhaRepository.adicionar(c1);
+        var cs2=cozinhaRepository.adicionar(c2);
 
         System.out.printf("%d - %s %n", cs1.getId(), cs1.getNome());
         System.out.printf("%d - %s %n", cs2.getId(), cs2.getNome());
 
-        Cozinha busca = cadastroCozinha.porId(1L);
+        Cozinha busca = cozinhaRepository.porId(1L);
         System.out.println(busca.getNome());
 
         cs1.setNome("Argentina");
-        Cozinha cs1Alterado = cadastroCozinha.adicionar(cs1);
-        System.out.println(cadastroCozinha.porId(cs1Alterado.getId()).getNome());
+        Cozinha cs1Alterado = cozinhaRepository.adicionar(cs1);
+        System.out.println(cozinhaRepository.porId(cs1Alterado.getId()).getNome());
 
         Cozinha cRemover = new Cozinha();
         cRemover.setId(1L);
-        cadastroCozinha.remover(cRemover);
+        cozinhaRepository.remover(cRemover);
         
 
     }
