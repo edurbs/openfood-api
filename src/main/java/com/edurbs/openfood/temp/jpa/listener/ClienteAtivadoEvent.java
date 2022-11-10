@@ -1,8 +1,8 @@
-package com.edurbs.openfood.domain.listener;
+package com.edurbs.openfood.temp.jpa.listener;
 
 import org.springframework.stereotype.Component;
 
-import com.edurbs.openfood.domain.model.Cliente;
+import com.edurbs.openfood.temp.jpa.Cliente;
 
 
 public class ClienteAtivadoEvent {

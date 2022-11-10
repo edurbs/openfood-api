@@ -1,4 +1,4 @@
-package com.edurbs.openfood.config;
+package com.edurbs.openfood.temp.jpa.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -6,11 +6,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import com.edurbs.openfood.domain.service.notificacao.NivelUrgencia;
-import com.edurbs.openfood.domain.service.notificacao.NotificadorEmail;
-import com.edurbs.openfood.domain.service.notificacao.NotificadorEmailMock;
-import com.edurbs.openfood.domain.service.notificacao.NotificadorSMS;
-import com.edurbs.openfood.domain.service.notificacao.TipoNotificador;
+import com.edurbs.openfood.temp.jpa.service.notificacao.NivelUrgencia;
+import com.edurbs.openfood.temp.jpa.service.notificacao.NotificadorEmail;
+import com.edurbs.openfood.temp.jpa.service.notificacao.NotificadorEmailMock;
+import com.edurbs.openfood.temp.jpa.service.notificacao.NotificadorSMS;
+import com.edurbs.openfood.temp.jpa.service.notificacao.TipoNotificador;
 
 @Configuration
 public class NotificadorConfig {

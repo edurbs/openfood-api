@@ -1,4 +1,4 @@
-package com.edurbs.openfood.config;
+package com.edurbs.openfood.temp.jpa.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

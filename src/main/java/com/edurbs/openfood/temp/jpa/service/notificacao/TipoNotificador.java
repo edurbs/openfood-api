@@ -1,4 +1,4 @@
-package com.edurbs.openfood.domain.service.notificacao;
+package com.edurbs.openfood.temp.jpa.service.notificacao;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

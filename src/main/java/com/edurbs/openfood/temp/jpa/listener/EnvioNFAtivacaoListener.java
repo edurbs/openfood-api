@@ -1,4 +1,4 @@
-package com.edurbs.openfood.domain.listener;
+package com.edurbs.openfood.temp.jpa.listener;
 
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;

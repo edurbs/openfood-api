@@ -1,6 +1,6 @@
-package com.edurbs.openfood.domain.service.notificacao;
+package com.edurbs.openfood.temp.jpa.service.notificacao;
 
-import com.edurbs.openfood.domain.model.Cliente;
+import com.edurbs.openfood.temp.jpa.Cliente;
 
 public class NotificadorEmail implements Notificador {
 

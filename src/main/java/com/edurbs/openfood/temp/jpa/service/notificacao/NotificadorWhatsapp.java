@@ -1,9 +1,9 @@
-package com.edurbs.openfood.domain.service.notificacao;
+package com.edurbs.openfood.temp.jpa.service.notificacao;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
-import com.edurbs.openfood.domain.model.Cliente;
+import com.edurbs.openfood.temp.jpa.Cliente;
 
 @Component
 @TipoNotificador(NivelUrgencia.NENHUMA)

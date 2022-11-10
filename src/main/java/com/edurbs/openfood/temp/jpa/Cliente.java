@@ -1,4 +1,4 @@
-package com.edurbs.openfood.domain.model;
+package com.edurbs.openfood.temp.jpa;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

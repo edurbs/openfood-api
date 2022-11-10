@@ -1,9 +1,9 @@
-package com.edurbs.openfood.domain.service.notificacao;
+package com.edurbs.openfood.temp.jpa.service.notificacao;
 
 
 import org.springframework.context.annotation.Bean;
 
-import com.edurbs.openfood.domain.model.Cliente;
+import com.edurbs.openfood.temp.jpa.Cliente;
 
 
 public class NotificadorSMS implements Notificador {

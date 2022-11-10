@@ -1,11 +1,11 @@
-package com.edurbs.openfood.api.controller;
+package com.edurbs.openfood.temp.jpa.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.edurbs.openfood.domain.model.Cliente;
-import com.edurbs.openfood.domain.service.AtivacaoClienteService;
+import com.edurbs.openfood.temp.jpa.Cliente;
+import com.edurbs.openfood.temp.jpa.service.AtivacaoClienteService;
 
 
 @Controller

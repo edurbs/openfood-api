@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationContext;
 
 import com.edurbs.openfood.OpenfoodApiApplication;
 import com.edurbs.openfood.domain.model.Cozinha;
+import com.edurbs.openfood.domain.repository.CozinhaRepository;
 
 public class ConsultaCozinhaMain {
 
@@ -14,9 +15,9 @@ public class ConsultaCozinhaMain {
                 .web(WebApplicationType.NONE)
                 .run(args);
 
-        CadastroCozinha cadastroCozinha = app.getBean(CadastroCozinha.class);
+        CozinhaRepository cadastroCozinha = app.getBean(CozinhaRepository.class);
 
-        cadastroCozinha.listar()
+        cadastroCozinha.todas()
                 .stream()
                 .forEach(s -> System.out.println(s.getNome()));
 
@@ -26,18 +27,18 @@ public class ConsultaCozinhaMain {
         Cozinha c2 = new Cozinha();
         c2.setNome("Japonesa");
 
-        var cs1=cadastroCozinha.salvar(c1);
-        var cs2=cadastroCozinha.salvar(c2);
+        var cs1=cadastroCozinha.adicionar(c1);
+        var cs2=cadastroCozinha.adicionar(c2);
 
         System.out.printf("%d - %s %n", cs1.getId(), cs1.getNome());
         System.out.printf("%d - %s %n", cs2.getId(), cs2.getNome());
 
-        Cozinha busca = cadastroCozinha.buscar(1L);
+        Cozinha busca = cadastroCozinha.porId(1L);
         System.out.println(busca.getNome());
 
         cs1.setNome("Argentina");
-        Cozinha cs1Alterado = cadastroCozinha.salvar(cs1);
-        System.out.println(cadastroCozinha.buscar(cs1Alterado.getId()).getNome());
+        Cozinha cs1Alterado = cadastroCozinha.adicionar(cs1);
+        System.out.println(cadastroCozinha.porId(cs1Alterado.getId()).getNome());
 
         Cozinha cRemover = new Cozinha();
         cRemover.setId(1L);
