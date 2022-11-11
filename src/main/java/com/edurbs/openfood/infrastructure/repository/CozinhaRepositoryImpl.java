@@ -1,11 +1,13 @@
 package com.edurbs.openfood.infrastructure.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +19,7 @@ public class CozinhaRepositoryImpl implements CozinhaRepository {
 
     @PersistenceContext
     EntityManager entityManager;
-    
+
     @Override
     public List<Cozinha> listar() {
         TypedQuery<Cozinha> query = entityManager.createQuery("from Cozinha", Cozinha.class);
@@ -32,15 +34,18 @@ public class CozinhaRepositoryImpl implements CozinhaRepository {
 
     @Override
     public Cozinha buscar(Long id) {
-        return entityManager.find(Cozinha.class, id);  
+        return entityManager.find(Cozinha.class, id);
     }
 
     @Override
     @Transactional
-    public void remover(Cozinha cozinha) {
-        Cozinha cozinhaDoBanco = buscar(cozinha.getId());
-        entityManager.remove(cozinhaDoBanco);
-        
+    public void remover(Long id) {
+        Optional.ofNullable(buscar(id))
+                .ifPresentOrElse(
+                        c -> entityManager.remove(c),
+                        () -> {
+                            throw new EmptyResultDataAccessException(1);
+                        });
     }
-    
+
 }

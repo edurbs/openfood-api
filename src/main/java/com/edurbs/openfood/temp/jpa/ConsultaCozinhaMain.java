@@ -42,7 +42,7 @@ public class ConsultaCozinhaMain {
 
         Cozinha cRemover = new Cozinha();
         cRemover.setId(1L);
-        cozinhaRepository.remover(cRemover);
+        cozinhaRepository.remover(cRemover.getId());
         
 
     }

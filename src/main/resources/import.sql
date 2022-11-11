@@ -20,6 +20,10 @@ INSERT INTO openfood.forma_pagamento (descricao) VALUES('Cartão débito');
 INSERT INTO openfood.estado (id, nome) VALUES(1, 'Minas Gerais');
 INSERT INTO openfood.estado (id, nome) VALUES(2, 'São Paulo');
 INSERT INTO openfood.estado (id, nome) VALUES(3, 'Rio de Janeiro');
+INSERT INTO openfood.estado (id, nome) VALUES(4, 'Mato Grosso do Sul');
+INSERT INTO openfood.estado (id, nome) VALUES(5, 'Rio Grande do Sul');
+INSERT INTO openfood.estado (id, nome) VALUES(6, 'Mato Grosso do Norte');
+INSERT INTO openfood.estado (id, nome) VALUES(7, 'Amazonas');
 
 INSERT INTO openfood.cidade (nome, estado_id) VALUES('Varginha', 1);
 INSERT INTO openfood.cidade (nome, estado_id) VALUES('Passos', 1);
