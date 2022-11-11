@@ -1,8 +1,5 @@
 package com.edurbs.openfood.domain.model;
 
-import java.math.BigDecimal;
-import java.time.OffsetDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,30 +15,16 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Restaurante {
+public class Cidade {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
-    
+
     @Column(nullable = false)
     private String nome;
 
-    @Column(nullable = false)
-    private BigDecimal taxaFrete;
-
-    @Column(nullable = false)
-    private Boolean ativo;
-
-    private Boolean aberto;
-
-    @Column(nullable = false)
-    private OffsetDateTime dataCadastro;
-
-    private OffsetDateTime dataAtualizacao;
-
     @ManyToOne
-    private Cozinha cozinha;
-
+    private Estado estado;
 }

@@ -10,19 +10,19 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Cozinha {
+@Entity
+public class FormaPagamento {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
+    @EqualsAndHashCode.Include    
     private Long id;
 
     @Column(nullable = false)
-    private String nome;
+    private String descricao;
 
-    
+
 }
