@@ -19,25 +19,25 @@ public class PermissaoRepositoryImpl implements PermissaoRepository{
     EntityManager entityManager;
 
     @Override
-    public List<Permissao> todas() {
+    public List<Permissao> listar() {
         return entityManager.createQuery("from Permissao", Permissao.class).getResultList();
     }
 
     @Override
     @Transactional
-    public Permissao adicionar(Permissao permissao) {
+    public Permissao salvar(Permissao permissao) {
         return entityManager.find(Permissao.class, permissao);
     }
 
     @Override
-    public Permissao porId(Long id) {
+    public Permissao buscar(Long id) {
         return entityManager.find(Permissao.class, id);
     }
 
     @Override
     @Transactional
     public void remover(Permissao permissao) {
-        entityManager.remove(porId(permissao.getId()));        
+        entityManager.remove(buscar(permissao.getId()));        
     }
     
 }

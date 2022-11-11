@@ -28,7 +28,7 @@ public class TestaRestaurante {
         r1.setAtivo(true);
         r1.setDataCadastro(OffsetDateTime.now());
         
-        r1.setCozinha(cozinhaRepository.porId(2L));
+        r1.setCozinha(cozinhaRepository.buscar(2L));
 
         restauranteRepository.adicionar(r1);
 

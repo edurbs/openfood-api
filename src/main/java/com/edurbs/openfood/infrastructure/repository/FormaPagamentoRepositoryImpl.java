@@ -19,25 +19,25 @@ public class FormaPagamentoRepositoryImpl implements FormaPagamentoRepository {
     EntityManager entityManager;
 
     @Override
-    public List<FormaPagamento> todas() {
+    public List<FormaPagamento> listar() {
         return entityManager.createQuery("from FormaPagamento", FormaPagamento.class).getResultList();
     }
 
     @Override
     @Transactional
-    public FormaPagamento adicionar(FormaPagamento formaPagamento) {        
+    public FormaPagamento salvar(FormaPagamento formaPagamento) {        
         return entityManager.merge(formaPagamento);
     }
 
     @Override
-    public FormaPagamento porId(Long id) {        
+    public FormaPagamento buscar(Long id) {        
         return entityManager.find(FormaPagamento.class, id);
     }
 
     @Override
     @Transactional
     public void remover(FormaPagamento formaPagamento) {
-        entityManager.remove(porId(formaPagamento.getId()));
+        entityManager.remove(buscar(formaPagamento.getId()));
         
     }
     

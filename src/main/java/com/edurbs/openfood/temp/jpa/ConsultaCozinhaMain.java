@@ -17,7 +17,7 @@ public class ConsultaCozinhaMain {
 
         CozinhaRepository cozinhaRepository = app.getBean(CozinhaRepository.class);
 
-        cozinhaRepository.todas()
+        cozinhaRepository.listar()
                 .stream()
                 .forEach(s -> System.out.println(s.getNome()));
 
@@ -27,18 +27,18 @@ public class ConsultaCozinhaMain {
         Cozinha c2 = new Cozinha();
         c2.setNome("Japonesa");
 
-        var cs1=cozinhaRepository.adicionar(c1);
-        var cs2=cozinhaRepository.adicionar(c2);
+        var cs1=cozinhaRepository.salvar(c1);
+        var cs2=cozinhaRepository.salvar(c2);
 
         System.out.printf("%d - %s %n", cs1.getId(), cs1.getNome());
         System.out.printf("%d - %s %n", cs2.getId(), cs2.getNome());
 
-        Cozinha busca = cozinhaRepository.porId(1L);
+        Cozinha busca = cozinhaRepository.buscar(1L);
         System.out.println(busca.getNome());
 
         cs1.setNome("Argentina");
-        Cozinha cs1Alterado = cozinhaRepository.adicionar(cs1);
-        System.out.println(cozinhaRepository.porId(cs1Alterado.getId()).getNome());
+        Cozinha cs1Alterado = cozinhaRepository.salvar(cs1);
+        System.out.println(cozinhaRepository.buscar(cs1Alterado.getId()).getNome());
 
         Cozinha cRemover = new Cozinha();
         cRemover.setId(1L);

@@ -20,27 +20,27 @@ public class TestaExercicio1 {
 
         Estado estadoMT = new Estado();
         estadoMT.setNome("Mato Grosso");
-        estadoMT = estadoRepository.adicionar(estadoMT);
+        estadoMT = estadoRepository.salvar(estadoMT);
 
         Cidade cidade1 = new Cidade();
         cidade1.setNome("Nova Xavantina");
         cidade1.setEstado(estadoMT);
-        cidade1 = cidadeRepository.adicionar(cidade1);
+        cidade1 = cidadeRepository.salvar(cidade1);
 
         Cidade cidade2 = new Cidade();
         cidade2.setNome("Barra do Garças");
         cidade2.setEstado(estadoMT);
-        cidade2 = cidadeRepository.adicionar(cidade2);
+        cidade2 = cidadeRepository.salvar(cidade2);
 
         Cidade cidade3 = new Cidade();
         cidade3.setNome("Campinápolis");
         cidade3.setEstado(estadoMT);
-        cidade3 = cidadeRepository.adicionar(cidade3);
+        cidade3 = cidadeRepository.salvar(cidade3);
 
 
         cidadeRepository.remover(cidade2);
 
-        cidadeRepository.todas()
+        cidadeRepository.listar()
                 .stream()
                 .forEach(cidade -> System.out.printf("Cidade %s está em %s %n", cidade.getNome(), cidade.getEstado().getNome()));
 

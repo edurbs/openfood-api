@@ -5,8 +5,8 @@ import java.util.List;
 import com.edurbs.openfood.domain.model.Estado;
 
 public interface EstadoRepository {
-    List<Estado> todos();
-    Estado adicionar(Estado estado);
-    Estado porId(Long id);
+    List<Estado> listar();
+    Estado salvar(Estado estado);
+    Estado buscar(Long id);
     void remover(Estado estado);
 }

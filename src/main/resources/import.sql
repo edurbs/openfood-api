@@ -9,9 +9,8 @@ INSERT INTO openfood.restaurante (ativo, data_cadastro, nome, taxa_frete, cozinh
 
 
 
-INSERT INTO openfood.permissao (descricao, nome) VALUES('Administradores', 'Admin');
-INSERT INTO openfood.permissao (descricao, nome) VALUES('Gerentes', 'Gerente');
-INSERT INTO openfood.permissao (descricao, nome) VALUES('Vendedores', 'Vendedor');
+insert into permissao (id, nome, descricao) values (1, 'CONSULTAR_COZINHAS', 'Permite consultar cozinhas');
+insert into permissao (id, nome, descricao) values (2, 'EDITAR_COZINHAS', 'Permite editar cozinhas');
 
 INSERT INTO openfood.forma_pagamento (descricao) VALUES('Dinheiro');
 INSERT INTO openfood.forma_pagamento (descricao) VALUES('Pix');
