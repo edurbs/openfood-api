@@ -18,7 +18,7 @@ import com.edurbs.openfood.domain.repository.CozinhaRepository;
 public class CozinhaRepositoryImpl implements CozinhaRepository {
 
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     @Override
     public List<Cozinha> listar() {

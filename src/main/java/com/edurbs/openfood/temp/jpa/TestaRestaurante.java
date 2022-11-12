@@ -30,9 +30,9 @@ public class TestaRestaurante {
         
         r1.setCozinha(cozinhaRepository.buscar(2L));
 
-        restauranteRepository.adicionar(r1);
+        restauranteRepository.salvar(r1);
 
-        restauranteRepository.todos().forEach(
+        restauranteRepository.listar().forEach(
             r -> System.out.printf("%s - %f - %s %n", 
                     r.getNome(), r.getTaxaFrete(), r.getCozinha().getNome()));
 

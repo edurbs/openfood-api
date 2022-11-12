@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -24,9 +24,6 @@ import com.edurbs.openfood.domain.model.Cozinha;
 import com.edurbs.openfood.domain.model.CozinhaXmlWrapper;
 import com.edurbs.openfood.domain.repository.CozinhaRepository;
 import com.edurbs.openfood.domain.service.CadastroCozinhaService;
-import com.edurbs.openfood.temp.jpa.service.CadastroClienteService;
-
-import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/cozinhas")
@@ -48,7 +45,7 @@ public class CozinhaController {
 
         return Optional.ofNullable(cozinhaRepository.buscar(cozinhaId))
                 .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElse(ResponseEntity.notFound().build());
 
         // Cozinha cozinha = cozinhaRepository.buscar(cozinhaId);
         // if(cozinha != null)){
@@ -75,10 +72,10 @@ public class CozinhaController {
         return Optional.ofNullable(cozinhaRepository.buscar(id))
                 .map(cozinhaAtual -> {
                     BeanUtils.copyProperties(cozinha, cozinhaAtual, "id");
-                    Cozinha cozinhaSalva = cozinhaRepository.salvar(cozinhaAtual);
+                    Cozinha cozinhaSalva = cadastroCozinhaService.salvar(cozinhaAtual);
                     return ResponseEntity.ok(cozinhaSalva);
                 })
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
