@@ -2,11 +2,11 @@ package com.edurbs.openfood.domain.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import com.edurbs.openfood.domain.model.Permissao;
 
-public interface PermissaoRepository {
-    List<Permissao> listar();
-    Permissao salvar(Permissao permissao);
-    Permissao buscar(Long id);
-    void remover(Permissao permissao);
+@Repository
+public interface PermissaoRepository extends JpaRepository<Permissao, Long> {
 }
