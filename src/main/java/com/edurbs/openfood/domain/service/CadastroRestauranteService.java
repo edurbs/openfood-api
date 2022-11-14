@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.edurbs.openfood.domain.exception.EntidadeEmUsoException;
 import com.edurbs.openfood.domain.exception.EntidadeNaoEncontradaException;
+import com.edurbs.openfood.domain.model.Cozinha;
 import com.edurbs.openfood.domain.model.Restaurante;
 import com.edurbs.openfood.domain.repository.CozinhaRepository;
 import com.edurbs.openfood.domain.repository.RestauranteRepository;
@@ -26,31 +27,13 @@ public class CadastroRestauranteService {
     private RestauranteRepository restauranteRepository;
 
     @Autowired
-    private CozinhaRepository cozinhaRepository;
+    private CadastroCozinhaService cadastroCozinhaService;
 
     public Restaurante salvar(Restaurante restaurante) {
         Long cozinhaId = restaurante.getCozinha().getId();
-        
-
-        if(cozinhaRepository.findById(cozinhaId).isEmpty()){
-            throw new EntidadeNaoEncontradaException(
-                    String.format(COZINHA_NAO_EXISTE, cozinhaId));
-        }
-
-        Optional<Long> restauranteId = Optional.ofNullable(restaurante.getId());
-        if(restauranteId.isEmpty()){
-            var restauranteSalvo = restauranteRepository.save(restaurante);
-            return restauranteRepository.findById(restauranteSalvo.getId()).get();
-        }else{
-            return restauranteRepository.findById(restauranteId.get())
-                    .map(restauranteAtual -> {
-                        BeanUtils.copyProperties(restaurante, restauranteAtual, "id");
-                        return restauranteRepository.save(restaurante);                         
-                    })              
-                    .orElseThrow( () -> new EntidadeNaoEncontradaException(String.format(RESTAURANTE_NAO_EXISTE, restauranteId.get())));
-        }
-                        
-
+        Cozinha cozinha = cadastroCozinhaService.buscar(cozinhaId);
+        restaurante.setCozinha(cozinha);
+        return restauranteRepository.save(restaurante);
     }
 
     public void remover(Long id) {

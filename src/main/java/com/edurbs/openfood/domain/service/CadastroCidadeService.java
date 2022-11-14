@@ -1,9 +1,7 @@
 package com.edurbs.openfood.domain.service;
 
 import java.util.List;
-import java.util.Optional;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -19,9 +17,6 @@ import com.edurbs.openfood.domain.repository.EstadoRepository;
 public class CadastroCidadeService {
 
 
-    /**
-     *
-     */
     private static final String ESTADO_EM_USO = "Estado código %d em uso";
     private static final String ESTADO_NAO_EXISTE = "Estado código %d não existe";
     private static final String CIDADE_NAO_EXISTE = "Cidade código %d não existe";
@@ -32,24 +27,16 @@ public class CadastroCidadeService {
     @Autowired
     EstadoRepository estadoRepository;
 
+    @Autowired
+    CadastroEstadoService cadastroEstadoService;
+
+
     public Cidade salvar(Cidade cidade) {
-        var estadoId = Optional.ofNullable(cidade.getEstado().getId());
-        if(estadoId.isPresent()){
-            if (estadoRepository.findById(estadoId.get()).isEmpty()) {
-                throw new EntidadeNaoEncontradaException(
-                        String.format(ESTADO_NAO_EXISTE, estadoId.get()));
-            }
-        }
-        var cidadeId = Optional.ofNullable(cidade.getId());
-        if (cidadeId.isPresent()) {
-            return cidadeRepository.findById(cidadeId.get())
-                    .map(cidadeAtual -> {
-                        BeanUtils.copyProperties(cidade, cidadeAtual, "id");
-                        return cidadeRepository.save(cidade);
-                    }).orElseThrow(() -> new EntidadeNaoEncontradaException(
-                            String.format(CIDADE_NAO_EXISTE, cidadeId.get())));
-        }
+        var estadoId = cidade.getEstado().getId();
+        var estado = cadastroEstadoService.buscar(estadoId);
+        cidade.setEstado(estado);        
         return cidadeRepository.save(cidade);
+                  
 
     }
 

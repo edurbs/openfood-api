@@ -1,12 +1,10 @@
 package com.edurbs.openfood.domain.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.edurbs.openfood.domain.exception.EntidadeEmUsoException;
@@ -38,13 +36,6 @@ public class CadastroEstadoService {
     }
 
     public Estado salvar(Estado estado) {
-        Long estadoId = estado.getId();
-        if(Optional.ofNullable(estadoId).isPresent()){
-            Optional.ofNullable(buscar(estadoId)).ifPresentOrElse(
-                estadoRepository::save, 
-                () -> {throw new EntidadeNaoEncontradaException(String.format(ESTADO_NAO_EXISTE, estadoId));});
-        }
-
         return estadoRepository.save(estado) ;  
     }
 

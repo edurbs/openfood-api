@@ -23,7 +23,7 @@ import com.edurbs.openfood.domain.service.CadastroEstadoService;
 public class EstadoController {
 
     @Autowired
-    CadastroEstadoService cadastroEstadoService;
+    private CadastroEstadoService cadastroEstadoService;
 
     @GetMapping
     public List<Estado> listar() {
