@@ -1,4 +1,4 @@
--- openfood.cozinha definition
+-- cozinha definition
 
 CREATE TABLE `cozinha` (
   `id` bigint NOT NULL AUTO_INCREMENT,
@@ -7,7 +7,7 @@ CREATE TABLE `cozinha` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
--- openfood.estado definition
+-- estado definition
 
 CREATE TABLE `estado` (
   `id` bigint NOT NULL AUTO_INCREMENT,
@@ -16,7 +16,7 @@ CREATE TABLE `estado` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
--- openfood.forma_pagamento definition
+-- forma_pagamento definition
 
 CREATE TABLE `forma_pagamento` (
   `id` bigint NOT NULL AUTO_INCREMENT,
@@ -25,7 +25,7 @@ CREATE TABLE `forma_pagamento` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
--- openfood.grupo definition
+-- grupo definition
 
 CREATE TABLE `grupo` (
   `id` bigint NOT NULL AUTO_INCREMENT,
@@ -34,7 +34,7 @@ CREATE TABLE `grupo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
--- openfood.permissao definition
+-- permissao definition
 
 CREATE TABLE `permissao` (
   `id` bigint NOT NULL AUTO_INCREMENT,
@@ -44,7 +44,7 @@ CREATE TABLE `permissao` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
--- openfood.usuario definition
+-- usuario definition
 
 CREATE TABLE `usuario` (
   `id` bigint NOT NULL AUTO_INCREMENT,
@@ -56,7 +56,7 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
--- openfood.cidade definition
+-- cidade definition
 
 CREATE TABLE `cidade` (
   `id` bigint NOT NULL AUTO_INCREMENT,
@@ -68,7 +68,7 @@ CREATE TABLE `cidade` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
--- openfood.grupo_permissao definition
+-- grupo_permissao definition
 
 CREATE TABLE `grupo_permissao` (
   `grupo_id` bigint NOT NULL,
@@ -80,7 +80,7 @@ CREATE TABLE `grupo_permissao` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
--- openfood.restaurante definition
+-- restaurante definition
 
 CREATE TABLE `restaurante` (
   `id` bigint NOT NULL AUTO_INCREMENT,
@@ -105,7 +105,7 @@ CREATE TABLE `restaurante` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
--- openfood.restaurante_forma_pagamento definition
+-- restaurante_forma_pagamento definition
 
 CREATE TABLE `restaurante_forma_pagamento` (
   `restaurante_id` bigint NOT NULL,
@@ -117,7 +117,7 @@ CREATE TABLE `restaurante_forma_pagamento` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
--- openfood.usuario_grupo definition
+-- usuario_grupo definition
 
 CREATE TABLE `usuario_grupo` (
   `usuario_id` bigint NOT NULL,
@@ -129,7 +129,7 @@ CREATE TABLE `usuario_grupo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
--- openfood.produto definition
+-- produto definition
 
 CREATE TABLE `produto` (
   `id` bigint NOT NULL AUTO_INCREMENT,

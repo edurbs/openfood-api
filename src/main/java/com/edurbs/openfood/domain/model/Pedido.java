@@ -2,6 +2,7 @@ package com.edurbs.openfood.domain.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -53,24 +53,19 @@ public class Pedido {
     private Endereco enderecoEntrega;
 
     @ManyToOne
-    @Column(nullable = false)
     private Usuario cliente;
 
     @ManyToOne
-    @Column(nullable = false)
     private Restaurante restaurante;
 
     @ManyToOne
-    @Column(nullable = false)
     private FormaPagamento formaPagamento;
 
-    @ManyToOne
     @Column(nullable = false)
-    private StatusPedido statusPedido;
+    private StatusPedido status;
 
     @OneToMany(mappedBy = "pedido")
-    @Column(nullable = false)
-    private List<ItemPedido> itens;
+    private List<ItemPedido> itens = new ArrayList<>();
 
 
 }
