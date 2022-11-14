@@ -35,7 +35,8 @@ public class CadastroRestauranteService {
 
         Optional<Long> restauranteId = Optional.ofNullable(restaurante.getId());
         if(restauranteId.isEmpty()){
-            return restauranteRepository.save(restaurante);
+            var restauranteSalvo = restauranteRepository.save(restaurante);
+            return restauranteRepository.findById(restauranteSalvo.getId()).get();
         }else{
             return restauranteRepository.findById(restauranteId.get())
                     .map(restauranteAtual -> {
