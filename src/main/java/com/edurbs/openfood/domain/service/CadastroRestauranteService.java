@@ -18,6 +18,10 @@ import com.edurbs.openfood.domain.repository.RestauranteRepository;
 @Service
 public class CadastroRestauranteService {
 
+    private static final String RESTAURANTE_EM_USO = "Restaurante código %d não pode ser removido, pois está em uso";
+    private static final String COZINHA_NAO_EXISTE = "Cozinha código %d não existe";
+    private static final String RESTAURANTE_NAO_EXISTE = "Restaurante código %d não existe";
+
     @Autowired
     private RestauranteRepository restauranteRepository;
 
@@ -30,7 +34,7 @@ public class CadastroRestauranteService {
 
         if(cozinhaRepository.findById(cozinhaId).isEmpty()){
             throw new EntidadeNaoEncontradaException(
-                    String.format("Cozinha código %d não existe", cozinhaId));
+                    String.format(COZINHA_NAO_EXISTE, cozinhaId));
         }
 
         Optional<Long> restauranteId = Optional.ofNullable(restaurante.getId());
@@ -43,7 +47,7 @@ public class CadastroRestauranteService {
                         BeanUtils.copyProperties(restaurante, restauranteAtual, "id");
                         return restauranteRepository.save(restaurante);                         
                     })              
-                    .orElseThrow( () -> new EntidadeNaoEncontradaException(String.format("Restaurante código %d não existe", restauranteId.get())));
+                    .orElseThrow( () -> new EntidadeNaoEncontradaException(String.format(RESTAURANTE_NAO_EXISTE, restauranteId.get())));
         }
                         
 
@@ -54,10 +58,10 @@ public class CadastroRestauranteService {
             restauranteRepository.deleteById(id);
         } catch (DataIntegrityViolationException e) {
             throw new EntidadeEmUsoException(
-                    String.format("Restaurante código %d não pode ser removido, pois está em uso", id));
+                    String.format(RESTAURANTE_EM_USO, id));
         } catch (EmptyResultDataAccessException e) {
             throw new EntidadeNaoEncontradaException(
-                    String.format("Restaurante código %d não existe", id));
+                    String.format(RESTAURANTE_NAO_EXISTE, id));
 
         }
     }
@@ -68,6 +72,6 @@ public class CadastroRestauranteService {
 
     public Restaurante buscar(Long id) {
         return restauranteRepository.findById(id)
-                .orElseThrow(() -> new EntidadeNaoEncontradaException(String.format("Restaurante %dnão encontrado", id)));
+                .orElseThrow(() -> new EntidadeNaoEncontradaException(String.format(RESTAURANTE_NAO_EXISTE, id)));
     }
 }

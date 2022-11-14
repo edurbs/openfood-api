@@ -16,6 +16,10 @@ import com.edurbs.openfood.domain.repository.CozinhaRepository;
 @Service
 public class CadastroCozinhaService {
 
+
+    private static final String COZINHA_EM_USO = "Cozinha código %d não pode ser removida, pois está em uso";
+    private static final String COZINHA_NAO_EXISTE = "Cozinha código %d não existe";
+    
     @Autowired
     CozinhaRepository cozinhaRepository;
 
@@ -29,10 +33,10 @@ public class CadastroCozinhaService {
             cozinhaRepository.deleteById(id);
         } catch (DataIntegrityViolationException e) {
             throw new EntidadeEmUsoException(
-                    String.format("Cozinha código %d não pode ser removida, pois está em uso", id));
+                    String.format(COZINHA_EM_USO, id));
         } catch (EmptyResultDataAccessException e) {
             throw new EntidadeNaoEncontradaException(
-                    String.format("Não existe cozinha com código %d", id));
+                    String.format(COZINHA_NAO_EXISTE, id));
         }
     }
 
@@ -42,6 +46,6 @@ public class CadastroCozinhaService {
 
     public Cozinha buscar(Long cozinhaId) {
         return cozinhaRepository.findById(cozinhaId)
-                .orElseThrow(() -> new EntidadeNaoEncontradaException(String.format("Cozinha %d não existe", cozinhaId)));
+                .orElseThrow(() -> new EntidadeNaoEncontradaException(String.format(COZINHA_NAO_EXISTE, cozinhaId)));
     }
 }

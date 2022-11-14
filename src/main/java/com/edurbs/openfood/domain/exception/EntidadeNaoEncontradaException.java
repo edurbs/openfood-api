@@ -1,9 +1,17 @@
 package com.edurbs.openfood.domain.exception;
 
-public class EntidadeNaoEncontradaException extends RuntimeException{
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
-    public EntidadeNaoEncontradaException(String message) {
-        super(message);
+
+public class EntidadeNaoEncontradaException extends ResponseStatusException {
+
+    public EntidadeNaoEncontradaException(HttpStatus status, String reason) {
+        super(status, reason);
+    }
+
+    public EntidadeNaoEncontradaException(String reason) {
+        this(HttpStatus.NOT_FOUND, reason);
     }
 
 }

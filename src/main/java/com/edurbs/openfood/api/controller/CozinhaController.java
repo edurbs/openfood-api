@@ -36,13 +36,9 @@ public class CozinhaController {
     }
 
     @GetMapping("/{cozinhaId}")
-    public ResponseEntity<Cozinha> buscar(@PathVariable Long cozinhaId) {
-        try {
-            return ResponseEntity.ok(cadastroCozinhaService.buscar(cozinhaId));
-        } catch (EntidadeNaoEncontradaException e) {
-            return ResponseEntity.notFound().build();
-        }
-
+    @ResponseStatus(HttpStatus.OK)
+    public Cozinha buscar(@PathVariable Long cozinhaId) {
+        return cadastroCozinhaService.buscar(cozinhaId);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
@@ -57,31 +53,17 @@ public class CozinhaController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Cozinha> atualizar(@PathVariable Long id, @RequestBody Cozinha cozinha) {
-        Cozinha cozinhaAtual;
-        try {
-            cozinhaAtual = cadastroCozinhaService.buscar(id);
-        } catch (EntidadeNaoEncontradaException e) {
-            return ResponseEntity.notFound().build();
-        }
-        
-        BeanUtils.copyProperties(cozinha, cozinhaAtual, "id");
-        Cozinha cozinhaSalva = cadastroCozinhaService.salvar(cozinhaAtual);
-        return ResponseEntity.ok(cozinhaSalva);
-              
+    public Cozinha atualizar(@PathVariable Long id, @RequestBody Cozinha cozinha) {
+        Cozinha cozinhaAtual = cadastroCozinhaService.buscar(id);             
+        BeanUtils.copyProperties(cozinha, cozinhaAtual, "id");        
+        return cadastroCozinhaService.salvar(cozinhaAtual);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> remover(@PathVariable Long id){
-        try {
-            cadastroCozinhaService.remover(id);
-            return ResponseEntity.noContent().build();
-        } catch (EntidadeNaoEncontradaException e) {
-            return ResponseEntity.notFound().build();
-        } catch (EntidadeEmUsoException e){
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        }
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void remover(@PathVariable Long id){
         
+        cadastroCozinhaService.remover(id);
     }
 
 }

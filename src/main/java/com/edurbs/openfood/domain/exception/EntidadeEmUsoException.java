@@ -1,9 +1,17 @@
 package com.edurbs.openfood.domain.exception;
 
-public class EntidadeEmUsoException extends RuntimeException {
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.server.ResponseStatusException;
+
+public class EntidadeEmUsoException extends ResponseStatusException {
+
+    public EntidadeEmUsoException(HttpStatus status, String message) {
+        super(status, message);       
+    }
 
     public EntidadeEmUsoException(String message) {
-        super(message);       
+        this(HttpStatus.CONFLICT, message);       
     }
     
 }
