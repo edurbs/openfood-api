@@ -7,7 +7,6 @@ import java.util.Map;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.edurbs.openfood.domain.exception.CozinhaNaoEncontradaException;
 import com.edurbs.openfood.domain.exception.EntidadeNaoEncontradaException;
+import com.edurbs.openfood.domain.exception.NegocioException;
 import com.edurbs.openfood.domain.model.Restaurante;
 import com.edurbs.openfood.domain.service.CadastroRestauranteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -53,8 +54,9 @@ public class RestauranteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Restaurante salvar(@RequestBody Restaurante restaurante) {
-        return cadastroRestauranteService.salvar(restaurante);
+    public Restaurante salvar(@RequestBody Restaurante restaurante) {       
+            return cadastroRestauranteService.salvar(restaurante);  
+        
     }
 
     @PutMapping("/{id}")
@@ -62,7 +64,11 @@ public class RestauranteController {
     public Restaurante atualizar(@PathVariable Long id, @RequestBody Restaurante restaurante) {
         Restaurante restauranteAtual = cadastroRestauranteService.buscar(id);
         BeanUtils.copyProperties(restaurante, restauranteAtual, "id", "dataCadastro", "formasPagamento", "endereco", "produtos");
-        return cadastroRestauranteService.salvar(restaurante);
+        try {
+            return cadastroRestauranteService.salvar(restaurante);  
+        } catch (EntidadeNaoEncontradaException e) {
+            throw new NegocioException(e.getMessage());
+        }
     }
 
     @PatchMapping("/{id}")

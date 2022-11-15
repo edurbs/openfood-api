@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.edurbs.openfood.domain.exception.EntidadeNaoEncontradaException;
+import com.edurbs.openfood.domain.exception.NegocioException;
 import com.edurbs.openfood.domain.model.Cidade;
 import com.edurbs.openfood.domain.repository.CidadeRepository;
 import com.edurbs.openfood.domain.service.CadastroCidadeService;
@@ -46,7 +47,11 @@ public class CidadeController {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public Cidade adicionar(@RequestBody Cidade cidade) {
-        return cadastroCidadeService.salvar(cidade);
+        try {
+            return cadastroCidadeService.salvar(cidade);            
+        } catch (EntidadeNaoEncontradaException e) {
+            throw new NegocioException(e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
@@ -55,7 +60,11 @@ public class CidadeController {
        
         Cidade cidadeAtual = cadastroCidadeService.buscar(id);
         BeanUtils.copyProperties(cidade, cidadeAtual, "id");
-        return cadastroCidadeService.salvar(cidadeAtual);
+        try {
+            return cadastroCidadeService.salvar(cidadeAtual);            
+        } catch (EntidadeNaoEncontradaException e) {
+            throw new NegocioException(e.getMessage());
+        }
         
     }
 

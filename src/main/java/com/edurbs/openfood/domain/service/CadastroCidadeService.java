@@ -7,8 +7,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.edurbs.openfood.domain.exception.CidadeNaoEncontradaException;
 import com.edurbs.openfood.domain.exception.EntidadeEmUsoException;
-import com.edurbs.openfood.domain.exception.EntidadeNaoEncontradaException;
 import com.edurbs.openfood.domain.model.Cidade;
 import com.edurbs.openfood.domain.repository.CidadeRepository;
 import com.edurbs.openfood.domain.repository.EstadoRepository;
@@ -18,8 +18,6 @@ public class CadastroCidadeService {
 
 
     private static final String ESTADO_EM_USO = "Estado código %d em uso";
-    private static final String ESTADO_NAO_EXISTE = "Estado código %d não existe";
-    private static final String CIDADE_NAO_EXISTE = "Cidade código %d não existe";
 
     @Autowired
     CidadeRepository cidadeRepository;
@@ -46,7 +44,7 @@ public class CadastroCidadeService {
         } catch (DataIntegrityViolationException e) {
             throw new EntidadeEmUsoException(String.format(ESTADO_EM_USO, id));
         } catch (EmptyResultDataAccessException e) {
-            throw new EntidadeNaoEncontradaException(String.format(CIDADE_NAO_EXISTE, id));
+            throw new CidadeNaoEncontradaException(id);
         }
 
 
@@ -58,8 +56,7 @@ public class CadastroCidadeService {
 
     public Cidade buscar(Long id) {
         return cidadeRepository.findById(id)
-            .orElseThrow(() -> new EntidadeNaoEncontradaException(
-                String.format(CIDADE_NAO_EXISTE, id)));
+            .orElseThrow(() -> new CidadeNaoEncontradaException(id));
     }
 
 }
