@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.groups.ConvertGroup;
 import javax.validation.groups.Default;
 
-import com.edurbs.openfood.Groups;
+import com.edurbs.openfood.core.validation.Groups;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

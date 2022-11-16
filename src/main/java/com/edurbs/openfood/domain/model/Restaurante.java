@@ -25,14 +25,16 @@ import javax.validation.groups.Default;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.edurbs.openfood.Groups;
-import com.edurbs.openfood.core.validation.TaxaFrete;
+import com.edurbs.openfood.core.validation.Groups;
+import com.edurbs.openfood.core.validation.Multiplo;
+import com.edurbs.openfood.core.validation.ValorZeroIncluiDescricao;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+@ValorZeroIncluiDescricao(valorField="taxaFrete", descricaoField="nome", descricaoObrigatoria="Frete grátis")
 @Entity
 @Getter
 @Setter
@@ -50,7 +52,8 @@ public class Restaurante {
 
     @NotNull
     //@PositiveOrZero
-    @TaxaFrete
+    //@TaxaFrete
+    @Multiplo(5)
     @Column(nullable = false)
     private BigDecimal taxaFrete;
 
