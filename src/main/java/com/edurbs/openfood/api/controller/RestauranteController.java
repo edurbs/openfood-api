@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.util.ReflectionUtils;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.SmartValidator;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.edurbs.openfood.core.validation.Groups;
+import com.edurbs.openfood.core.validation.ValidacaoException;
 import com.edurbs.openfood.domain.exception.EntidadeNaoEncontradaException;
 import com.edurbs.openfood.domain.exception.NegocioException;
 import com.edurbs.openfood.domain.model.Restaurante;
@@ -43,6 +46,9 @@ public class RestauranteController {
 
     @Autowired
     private CadastroRestauranteService cadastroRestauranteService;
+
+    @Autowired
+    private SmartValidator smartValidator;
 
     @GetMapping()
     public List<Restaurante> listar() {
@@ -89,9 +95,22 @@ public class RestauranteController {
     @PatchMapping("/{id}")
     public Restaurante atualizarParcial(@PathVariable Long id, @RequestBody Map<String, Object> campos, HttpServletRequest httpServletRequest){
         Restaurante restauranteAtual = cadastroRestauranteService.buscar(id);
+
         merge(campos, restauranteAtual, httpServletRequest);
+
+        validate(restauranteAtual, "restaurante");
+
         return atualizar(id, restauranteAtual);
 
+    }
+
+    private void validate(Restaurante restauranteAtual, String objectName) {
+
+        BeanPropertyBindingResult bindingResult = new BeanPropertyBindingResult(restauranteAtual, objectName);
+        smartValidator.validate(restauranteAtual, bindingResult);
+        if(bindingResult.hasErrors()){
+            throw new ValidacaoException(bindingResult);
+        }
     }
 
     private void merge(Map<String, Object> dadosOrigem, Restaurante restauranteDestino, HttpServletRequest httpServletRequest){
