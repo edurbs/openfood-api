@@ -4,6 +4,8 @@ import java.lang.StackWalker.Option;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.servlet.ServletException;
+
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpHeaders;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.edurbs.openfood.domain.exception.EntidadeEmUsoException;
@@ -48,6 +51,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
     }
 
+    
+
     @Override
     protected ResponseEntity<Object> handleTypeMismatch(
         TypeMismatchException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
@@ -68,6 +73,21 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
             
         }
         
+        return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
+    }
+
+    
+
+
+    @Override
+    protected ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers,
+            HttpStatus status, WebRequest request) {
+   
+        var problemType = ProblemType.RECURSO_NAO_ENCONTRADO;
+        var detail = String.format("O recurso '%s', que você tentou acessar, é inexistente.",
+            ((NoHandlerFoundException) ex).getRequestURL());
+        var problem = createProblemBuilder(status, problemType, detail).build();        
+
         return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
     }
 
@@ -100,7 +120,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleEntidadeNaoEncontrada (EntidadeNaoEncontradaException ex, WebRequest request){
 
         HttpStatus status = HttpStatus.NOT_FOUND;
-        ProblemType problemType = ProblemType.ENTIDADE_NAO_ENCONTRADA;
+        ProblemType problemType = ProblemType.RECURSO_NAO_ENCONTRADO;
         String detail = ex.getMessage();
 
         Problem problem = createProblemBuilder(status, problemType, detail).build();
@@ -143,7 +163,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, @Nullable Object body, HttpHeaders headers,
             HttpStatus status, WebRequest request) {
-        if(body == null){
+        /*if(body == null){
             body = Problem.builder()
                     .title(status.getReasonPhrase())
                     .status(status.value())
@@ -153,7 +173,20 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                     .title((String) body)
                     .status(status.value())
                     .build();
+        }*/
+
+        if(!(body instanceof Problem)){
+            ProblemType problemType = ProblemType.ERRO_DE_SISTEMA;
+            String detail ="Ocorreu um erro interno inesperado no ssitema. Tente novamente. Se o problema persistir, entre em contato com o administrador do sistema";
+            Problem problem = createProblemBuilder(status, problemType, detail).build();
+
+            ex.printStackTrace();
+            
+            return super.handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
         }
+
+        
+
         return super.handleExceptionInternal(ex, body, headers, status, request);
     }
 
