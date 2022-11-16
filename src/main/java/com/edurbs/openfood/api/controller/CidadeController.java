@@ -1,12 +1,12 @@
 package com.edurbs.openfood.api.controller;
 
 import java.util.List;
-import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.edurbs.openfood.domain.exception.EntidadeNaoEncontradaException;
 import com.edurbs.openfood.domain.exception.NegocioException;
 import com.edurbs.openfood.domain.model.Cidade;
-import com.edurbs.openfood.domain.repository.CidadeRepository;
 import com.edurbs.openfood.domain.service.CadastroCidadeService;
 
 
@@ -46,7 +45,7 @@ public class CidadeController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public Cidade adicionar(@RequestBody Cidade cidade) {
+    public Cidade adicionar(@RequestBody @Valid Cidade cidade) {
         try {
             return cadastroCidadeService.salvar(cidade);            
         } catch (EntidadeNaoEncontradaException e) {
@@ -56,7 +55,7 @@ public class CidadeController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Cidade atualizar(@PathVariable Long id, @RequestBody Cidade cidade) {
+    public Cidade atualizar(@PathVariable Long id, @RequestBody @Valid Cidade cidade) {
        
         Cidade cidadeAtual = cadastroCidadeService.buscar(id);
         BeanUtils.copyProperties(cidade, cidadeAtual, "id");

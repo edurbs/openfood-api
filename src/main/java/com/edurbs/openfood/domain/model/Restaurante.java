@@ -2,7 +2,6 @@ package com.edurbs.openfood.domain.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,10 +16,17 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.groups.ConvertGroup;
+import javax.validation.groups.Default;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.edurbs.openfood.Groups;
+import com.edurbs.openfood.core.validation.TaxaFrete;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.EqualsAndHashCode;
@@ -38,9 +44,13 @@ public class Restaurante {
     @EqualsAndHashCode.Include
     private Long id;
     
+    @NotBlank
     @Column(nullable = false)
     private String nome;
 
+    @NotNull
+    //@PositiveOrZero
+    @TaxaFrete
     @Column(nullable = false)
     private BigDecimal taxaFrete;
 
@@ -55,6 +65,9 @@ public class Restaurante {
     @UpdateTimestamp
     private LocalDateTime dataAtualizacao;
 
+    @Valid
+    @NotNull
+    @ConvertGroup(from=Default.class, to=Groups.CozinhaId.class)
     @ManyToOne
     private Cozinha cozinha;
 

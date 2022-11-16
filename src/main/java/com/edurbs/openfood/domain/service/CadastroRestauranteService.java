@@ -33,8 +33,8 @@ public class CadastroRestauranteService {
         Cozinha cozinha = cadastroCozinhaService.buscar(cozinhaId);
         restaurante.setCozinha(cozinha);
 
-        Cidade cidade = cadastroCidadeService.buscar(restaurante.getEndereco().getCidade().getId());
-        restaurante.getEndereco().setCidade(cidade);
+        // Cidade cidade = cadastroCidadeService.buscar(restaurante.getEndereco().getCidade().getId());
+        // restaurante.getEndereco().setCidade(cidade);
         
         return restauranteRepository.save(restaurante);
     }

@@ -1,16 +1,22 @@
 package com.edurbs.openfood.api.exceptionhandler;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.TypeMismatchException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.lang.Nullable;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -28,10 +34,10 @@ import com.fasterxml.jackson.databind.exc.PropertyBindingException;
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
-    /**
-     *
-     */
-    private static final String MSG_ERRO_GENERICA_USUARIO_FINAL = "Ocorreu um erro interno inesperado no ssitema. Tente novamente. Se o problema persistir, entre em contato com o administrador do sistema";
+    private static final String MSG_ERRO_GENERICA_USUARIO_FINAL = "Ocorreu um erro interno inesperado no sistema. Tente novamente. Se o problema persistir, entre em contato com o administrador do sistema";
+
+    @Autowired
+    MessageSource messageSource;
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
@@ -166,6 +172,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
     }
 
+
+
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, @Nullable Object body, HttpHeaders headers,
             HttpStatus status, WebRequest request) {
@@ -194,6 +202,33 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         
 
         return super.handleExceptionInternal(ex, body, headers, status, request);
+    }
+
+
+
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+            HttpHeaders headers, HttpStatus status, WebRequest request) {
+        
+        ProblemType problemType = ProblemType.DADOS_INVALIDOS;
+        String detail = "Um ou mais campos estão inválidos. Faça o preenchimento correto e tente novamente.";
+
+        BindingResult bindingResult = ex.getBindingResult();
+        List<Problem.Field> problemFields = bindingResult.getFieldErrors().stream()
+                    .map(fieldError -> {
+                            String msg = messageSource.getMessage(fieldError, LocaleContextHolder.getLocale());
+                            return Problem.Field.builder()
+                                    .name(fieldError.getField())
+                                    .userMessage(msg)
+                                    .build();
+                        })
+                    .collect(Collectors.toList());
+
+        Problem problem = createProblemBuilder(status, problemType, detail)
+                .fields(problemFields)
+                .build();
+
+        return super.handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
     }
 
 
