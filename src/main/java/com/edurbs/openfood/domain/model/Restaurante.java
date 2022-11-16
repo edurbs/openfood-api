@@ -59,6 +59,7 @@ public class Restaurante {
     private Cozinha cozinha;
 
     @Embedded
+    @JsonIgnore
     private Endereco endereco;
 
     @JsonIgnore

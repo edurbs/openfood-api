@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.edurbs.openfood.domain.exception.EntidadeEmUsoException;
 import com.edurbs.openfood.domain.exception.EntidadeNaoEncontradaException;
 import com.edurbs.openfood.domain.model.Cozinha;
-import com.edurbs.openfood.domain.model.CozinhaXmlWrapper;
 import com.edurbs.openfood.domain.service.CadastroCozinhaService;
 
 @RestController
@@ -39,11 +38,6 @@ public class CozinhaController {
     @ResponseStatus(HttpStatus.OK)
     public Cozinha buscar(@PathVariable Long cozinhaId) {
         return cadastroCozinhaService.buscar(cozinhaId);
-    }
-
-    @GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
-    public CozinhaXmlWrapper listarXml() {
-        return new CozinhaXmlWrapper(cadastroCozinhaService.listar());
     }
 
     @PostMapping
