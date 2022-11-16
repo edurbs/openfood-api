@@ -1,10 +1,8 @@
 package com.edurbs.openfood.api.exceptionhandler;
 
-import java.lang.StackWalker.Option;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import javax.servlet.ServletException;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.TypeMismatchException;
@@ -29,6 +27,11 @@ import com.fasterxml.jackson.databind.exc.PropertyBindingException;
 
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
+
+    /**
+     *
+     */
+    private static final String MSG_ERRO_GENERICA_USUARIO_FINAL = "Ocorreu um erro interno inesperado no ssitema. Tente novamente. Se o problema persistir, entre em contato com o administrador do sistema";
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
@@ -69,7 +72,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                     ex.getValue(),
                     Optional.ofNullable(ex.getRequiredType()).map(Class::getSimpleName));
     
-             problem = createProblemBuilder(status, problemType, detail).build();         
+             problem = createProblemBuilder(status, problemType, detail)
+                    .build();         
             
         }
         
@@ -133,7 +137,9 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 .status(status.value())
                 .type(problemType.getUri())
                 .title((problemType.getTitle()))
-                .detail(detail);
+                .detail(detail)
+                .userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL)
+                .localDateTime(LocalDateTime.now());
     }
 
     
@@ -177,7 +183,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
         if(!(body instanceof Problem)){
             ProblemType problemType = ProblemType.ERRO_DE_SISTEMA;
-            String detail ="Ocorreu um erro interno inesperado no ssitema. Tente novamente. Se o problema persistir, entre em contato com o administrador do sistema";
+            String detail =MSG_ERRO_GENERICA_USUARIO_FINAL;
             Problem problem = createProblemBuilder(status, problemType, detail).build();
 
             ex.printStackTrace();
