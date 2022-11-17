@@ -1,0 +1,10 @@
+{
+    "nome": "",
+    "taxaFrete": "",
+    "ativo": true,
+    "aberto": null,
+    "dataAtualizacao": null,
+    "cozinha": {
+        "id": ""
+    }
+}

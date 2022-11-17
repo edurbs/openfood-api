@@ -1,0 +1,10 @@
+{
+    "nome": "Tonin da Zona - Frete Grátis",
+    "taxaFrete": 10.00,
+    "ativo": true,
+    "aberto": null,
+    "dataAtualizacao": null,
+    "cozinha": {
+        "id": "1"
+    }
+}
