@@ -113,7 +113,17 @@
 			<groupId>com.github.javafaker</groupId>
 			<artifactId>javafaker</artifactId>
 			<version>1.0.2</version>
+			<scope>test</scope>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/uk.co.jemos.podam/podam -->
+		<dependency>
+			<groupId>uk.co.jemos.podam</groupId>
+			<artifactId>podam</artifactId>
+			<version>7.2.11.RELEASE</version>
+			<scope>test</scope>
+		</dependency>
+
 
 
 	</dependencies>

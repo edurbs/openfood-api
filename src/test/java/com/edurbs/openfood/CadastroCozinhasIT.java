@@ -21,6 +21,8 @@ import com.edurbs.openfood.util.ResourceUtils;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import uk.co.jemos.podam.api.PodamFactory;
+import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ExtendWith(SpringExtension.class)
@@ -58,21 +60,29 @@ public class CadastroCozinhasIT {
 
     
 	private void prepararDados() {
+		PodamFactory podamFactory = new PodamFactoryImpl();
+		
+		Cozinha c1 = podamFactory.manufacturePojo(Cozinha.class);
+		
+
 		List<Cozinha> cozinhas = new ArrayList<>();
 		
-		Cozinha c1 = new Cozinha();
-		c1.setNome("Vietnamita");
-		cozinhas.add(c1);
+		// Cozinha c1 = new Cozinha();
+		// c1.setNome("Vietnamita");
+		// cozinhas.add(c1);
 
-		Cozinha c2 = new Cozinha();
-		c2.setNome("Russa");
-		cozinhas.add(c2);
+		// Cozinha c2 = new Cozinha();
+		// c2.setNome("Russa");
+		// cozinhas.add(c2);
 
-		Cozinha c3 = new Cozinha();
-		c3.setNome("Palestina");
-		cozinhas.add(c3);
+		// Cozinha c3 = new Cozinha();
+		// c3.setNome("Palestina");
+		// cozinhas.add(c3);
 
 		cozinhas.forEach(cadastroCozinhaService::salvar);
+
+		
+		
 		
 		this.quantidadeCozinhas=cozinhas.size();
 		this.cozinhaTeste=c1;

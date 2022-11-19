@@ -8,8 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import javax.annotation.Resource;
+
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
@@ -32,6 +35,9 @@ import com.edurbs.openfood.domain.service.CadastroCidadeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
 
+import uk.co.jemos.podam.api.PodamFactory;
+import uk.co.jemos.podam.api.PodamFactoryImpl;
+
 
 
 @WebMvcTest(controllers = CidadeController.class)
@@ -49,33 +55,47 @@ public class CidadeControllerMockTest {
     // @Autowired
     // private ObjectMapper objectMapper;
 
+
     private Cidade cidade1;
     private Cidade cidade2;
     private Cidade cidade3;
     private List<Cidade> cidades = new ArrayList<>();
     private Estado estado;
 
+
+
     @BeforeEach
     public void init(){
 
-        Faker faker = new Faker(new Locale("pt_BR"));
+        //Faker faker = new Faker(new Locale("pt_BR"));
         //new Locale.Builder().setLanguage("pt").setVariant("BR").build();
 
-        estado = Estado.builder().nome(faker.address().state()).id(1L).build();
-        cidade1 = Cidade.builder().nome(faker.address().cityName()).estado(estado).id(1L).build();
-        cidade2 = Cidade.builder().nome(faker.address().cityName()).estado(estado).id(2L).build();
-        cidade3 = Cidade.builder().nome(faker.address().cityName()).estado(estado).id(3L).build();
+        // estado = Estado.builder().nome(faker.address().state()).id(1L).build();
+        // cidade1 = Cidade.builder().nome(faker.address().cityName()).estado(estado).id(1L).build();
+        // cidade2 = Cidade.builder().nome(faker.address().cityName()).estado(estado).id(2L).build();
+        // cidade3 = Cidade.builder().nome(faker.address().cityName()).estado(estado).id(3L).build();
 
+        PodamFactory podamFactory = new PodamFactoryImpl();
+
+        
+        estado = podamFactory.manufacturePojo(Estado.class);
+        cidade1 = podamFactory.manufacturePojo(Cidade.class);
+        cidade2 = podamFactory.manufacturePojo(Cidade.class);
+        cidade3 = podamFactory.manufacturePojo(Cidade.class);
+        
+        
         cidades.add(cidade1);
         cidades.add(cidade2);
         cidades.add(cidade3);
+
+
 
     }
 
     @Test
     public void shouldReturnCidade1_whenGetCidade1() throws Exception {
-        Long cidadeId = Long.valueOf(1);
-        when(cadastroCidadeService.buscar(cidadeId)).thenReturn(cidade1);
+        Long cidadeId = cidade1.getId();
+        when(cadastroCidadeService.buscar(cidadeId)).thenReturn(cidade1);        
         
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/cidades/"+cidadeId)
@@ -87,8 +107,8 @@ public class CidadeControllerMockTest {
                         MockMvcResultMatchers.status().isOk(),
                         MockMvcResultMatchers.jsonPath("$.nome", Matchers.is(cidade1.getNome())),
                         MockMvcResultMatchers.jsonPath("$.id", Matchers.is(cidade1.getId()), Long.class),
-                        MockMvcResultMatchers.jsonPath("$.estado.id", Matchers.is(estado.getId()), Long.class),
-                        MockMvcResultMatchers.jsonPath("$.estado.nome", Matchers.is(estado.getNome()))
+                        MockMvcResultMatchers.jsonPath("$.estado.id", Matchers.is(cidade1.getEstado().getId()), Long.class),
+                        MockMvcResultMatchers.jsonPath("$.estado.nome", Matchers.is(cidade1.getEstado().getNome()))
                 )
                 .andDo(MockMvcResultHandlers.print());
 
