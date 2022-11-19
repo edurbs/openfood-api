@@ -30,14 +30,12 @@ import com.edurbs.openfood.core.validation.Multiplo;
 import com.edurbs.openfood.core.validation.ValorZeroIncluiDescricao;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 @ValorZeroIncluiDescricao(valorField="taxaFrete", descricaoField="nome", descricaoObrigatoria="Frete grátis")
 @Entity
-@Getter
-@Setter
+@Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Restaurante {
     
@@ -68,21 +66,21 @@ public class Restaurante {
     @UpdateTimestamp
     private LocalDateTime dataAtualizacao;
 
+    
     @Valid
     @NotNull
     @ConvertGroup(from=Default.class, to=Groups.CozinhaId.class)
     @ManyToOne
     private Cozinha cozinha;
 
+    
     @Embedded
-    @JsonIgnore
     private Endereco endereco;
 
-    @JsonIgnore
+    
     @OneToMany(mappedBy = "restaurante")
     private List<Produto> produtos = new ArrayList<>();
 
-    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "restaurante_forma_pagamento",
             joinColumns = @JoinColumn(name="restaurante_id"),
