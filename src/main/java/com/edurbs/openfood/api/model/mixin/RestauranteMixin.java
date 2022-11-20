@@ -1,6 +1,6 @@
 package com.edurbs.openfood.api.model.mixin;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,13 +18,14 @@ public class RestauranteMixin {
     private Cozinha cozinha;
 
     @JsonIgnore
+    @JsonIgnoreProperties("hibernateLazyInitializer")
     private Endereco endereco;
 
     @JsonIgnore
-    private LocalDateTime dataCadastro;
+    private OffsetDateTime dataCadastro;
 
     @JsonIgnore
-    private LocalDateTime dataAtualizacao;
+    private OffsetDateTime dataAtualizacao;
 
     @JsonIgnore
     private Boolean ativo;

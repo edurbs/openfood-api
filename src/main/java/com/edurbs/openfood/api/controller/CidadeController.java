@@ -26,7 +26,7 @@ import com.edurbs.openfood.domain.service.CadastroCidadeService;
 
 
 @RestController
-@RequestMapping("/cidades")
+@RequestMapping(value="/cidades", produces = "application/json")
 public class CidadeController {
 
     @Autowired

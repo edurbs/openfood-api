@@ -1,6 +1,6 @@
 package com.edurbs.openfood.api.exceptionhandler;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -147,7 +147,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 .title((problemType.getTitle()))
                 .detail(detail)
                 .userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL)
-                .localDateTime(LocalDateTime.now());
+                .offsetDateTime(OffsetDateTime.now());
     }
 
     

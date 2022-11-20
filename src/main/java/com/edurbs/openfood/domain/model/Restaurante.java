@@ -1,7 +1,7 @@
 package com.edurbs.openfood.domain.model;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +28,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import com.edurbs.openfood.core.validation.Groups;
 import com.edurbs.openfood.core.validation.Multiplo;
 import com.edurbs.openfood.core.validation.ValorZeroIncluiDescricao;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -61,16 +61,17 @@ public class Restaurante {
     private Boolean aberto;
 
     @CreationTimestamp
-    private LocalDateTime dataCadastro;
+    private OffsetDateTime dataCadastro;
 
     @UpdateTimestamp
-    private LocalDateTime dataAtualizacao;
+    private OffsetDateTime dataAtualizacao;
 
     
     @Valid
     @NotNull
     @ConvertGroup(from=Default.class, to=Groups.CozinhaId.class)
     @ManyToOne
+    @JsonIgnoreProperties(value="nome", allowGetters = true)
     private Cozinha cozinha;
 
     

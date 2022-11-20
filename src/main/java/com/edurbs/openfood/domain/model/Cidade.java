@@ -13,6 +13,8 @@ import javax.validation.groups.ConvertGroup;
 import javax.validation.groups.Default;
 
 import com.edurbs.openfood.core.validation.Groups;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -43,5 +45,6 @@ public class Cidade {
     @NotNull
     @ConvertGroup(from=Default.class, to=Groups.EstadoId.class)
     @ManyToOne
+    @JsonIgnoreProperties(value = "nome", allowGetters = true)
     private Estado estado;
 }

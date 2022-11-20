@@ -1,7 +1,7 @@
 package com.edurbs.openfood.domain.model;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,11 +42,11 @@ public class Pedido {
 
     @Column(nullable = false)
     @CreationTimestamp
-    private LocalDateTime dataCriacao;
+    private OffsetDateTime dataCriacao;
 
-    private LocalDateTime dataConfirmacao;
+    private OffsetDateTime dataConfirmacao;
 
-    private LocalDateTime dataEntrega;
+    private OffsetDateTime dataEntrega;
 
     @Embedded
     @Column(nullable = false)
