@@ -56,7 +56,7 @@ public class Restaurante {
     private BigDecimal taxaFrete;
 
     @Column(nullable = false)
-    private Boolean ativo;
+    private Boolean ativo=true;
 
     private Boolean aberto;
 

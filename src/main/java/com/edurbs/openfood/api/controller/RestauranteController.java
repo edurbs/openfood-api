@@ -1,8 +1,6 @@
 package com.edurbs.openfood.api.controller;
 
-import java.lang.reflect.Field;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -14,12 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.server.ServletServerHttpRequest;
-import org.springframework.util.ReflectionUtils;
-import org.springframework.validation.BeanPropertyBindingResult;
-import org.springframework.validation.SmartValidator;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -28,13 +22,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.edurbs.openfood.core.validation.ValidacaoException;
+import com.edurbs.openfood.api.assembler.RestauranteInputDesassembler;
+import com.edurbs.openfood.api.assembler.RestauranteModelAssembler;
+import com.edurbs.openfood.api.model.RestauranteModel;
+import com.edurbs.openfood.api.model.input.RestauranteInput;
 import com.edurbs.openfood.domain.exception.EntidadeNaoEncontradaException;
 import com.edurbs.openfood.domain.exception.NegocioException;
 import com.edurbs.openfood.domain.model.Restaurante;
 import com.edurbs.openfood.domain.service.CadastroRestauranteService;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 
@@ -46,24 +41,32 @@ public class RestauranteController {
     private CadastroRestauranteService cadastroRestauranteService;
 
     @Autowired
-    private SmartValidator smartValidator;
+    private RestauranteModelAssembler restauranteModelAssembler;
+
+    @Autowired
+    private RestauranteInputDesassembler restauranteInputDesassembler;
 
     @GetMapping()
-    public List<Restaurante> listar() {
-        return cadastroRestauranteService.listar();
+    public List<RestauranteModel> listar() {
+        return restauranteModelAssembler.toCollectionModel(cadastroRestauranteService.listar());
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Restaurante buscar(@PathVariable Long id, HttpServletRequest httpServletRequest) {    
+    public RestauranteModel buscar(@PathVariable Long id, HttpServletRequest httpServletRequest) {    
             ServletServerHttpRequest serverHttpRequest = new ServletServerHttpRequest(httpServletRequest);
             try {
-                return cadastroRestauranteService.buscar(id);                
+                Restaurante restaurante = cadastroRestauranteService.buscar(id);       
+                
+                return restauranteModelAssembler.toModel(restaurante);
+                
             } catch (TypeMismatchException e) {
                 Throwable rootCause =ExceptionUtils.getRootCause(e);
                 throw new HttpMessageNotReadableException(e.getMessage(), rootCause, serverHttpRequest);
             }
     }
+
+    
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -73,30 +76,33 @@ public class RestauranteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Restaurante salvar(@RequestBody @Valid Restaurante restaurante) {       
-            return cadastroRestauranteService.salvar(restaurante);  
+    public RestauranteModel salvar(@RequestBody @Valid RestauranteInput restauranteInput) {       
+        return restauranteModelAssembler.toModel(cadastroRestauranteService.salvar(restauranteInputDesassembler.toDomainModel(restauranteInput)));  
         
     }
 
+
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Restaurante atualizar(@PathVariable Long id, @RequestBody @Valid Restaurante restaurante) {
-        Restaurante restauranteAtual = cadastroRestauranteService.buscar(id);
-        BeanUtils.copyProperties(restaurante, restauranteAtual, "id", "dataCadastro", "formasPagamento", "endereco", "produtos");
+    public RestauranteModel atualizar(@PathVariable Long id, @RequestBody @Valid RestauranteInput restauranteInput) {
         try {
-            return cadastroRestauranteService.salvar(restaurante);  
+            Restaurante restaurante = restauranteInputDesassembler.toDomainModel(restauranteInput);
+            Restaurante restauranteAtual = cadastroRestauranteService.buscar(id);
+            BeanUtils.copyProperties(restaurante, restauranteAtual, "id", "dataCadastro", "formasPagamento", "endereco", "produtos");
+        
+            return restauranteModelAssembler.toModel(cadastroRestauranteService.salvar(restauranteAtual));  
         } catch (EntidadeNaoEncontradaException e) {
             throw new NegocioException(e.getMessage());
         }
     }
 
-    @PatchMapping("/{id}")
-    public Restaurante atualizarParcial(@PathVariable Long id, @RequestBody Map<String, Object> campos, HttpServletRequest httpServletRequest){
+    /*@PatchMapping("/{id}")
+    public RestauranteModel atualizarParcial(@PathVariable Long id, @RequestBody Map<String, Object> campos, HttpServletRequest httpServletRequest){
         Restaurante restauranteAtual = cadastroRestauranteService.buscar(id);
 
         merge(campos, restauranteAtual, httpServletRequest);
 
-        validate(restauranteAtual, "restaurante");
+        validate(restauranteAtual, "restauranteInput");
 
         return atualizar(id, restauranteAtual);
 
@@ -135,7 +141,9 @@ public class RestauranteController {
 
         }
         
-    }
+    }*/
+
+
 
 
 
