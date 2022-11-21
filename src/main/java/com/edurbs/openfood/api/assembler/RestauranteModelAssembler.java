@@ -5,30 +5,41 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
-import com.edurbs.openfood.api.model.CozinhaModel;
-import com.edurbs.openfood.api.model.RestauranteModel;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.edurbs.openfood.api.model.RestauranteApiModel;
 import com.edurbs.openfood.api.model.input.RestauranteInput;
 import com.edurbs.openfood.domain.model.Cozinha;
 import com.edurbs.openfood.domain.model.Restaurante;
 
+@Component
 public class RestauranteModelAssembler {
-    public RestauranteModel toModel(Restaurante restaurante) {
-        CozinhaModel cozinhaModel = new CozinhaModel();
-        cozinhaModel.setId(restaurante.getCozinha().getId());
-        cozinhaModel.setNome(restaurante.getCozinha().getNome());
 
-        RestauranteModel restauranteModel = new RestauranteModel();
-        restauranteModel.setId(restaurante.getId());
-        restauranteModel.setNome(restaurante.getNome());
-        restauranteModel.setTaxaFrete(restaurante.getTaxaFrete());
-        restauranteModel.setCozinha(cozinhaModel);
-        return restauranteModel;
+    @Autowired
+    private ModelMapper modelMapper;
+
+    public RestauranteApiModel toApiModel(Restaurante restaurante) {
+        return modelMapper.map(restaurante, RestauranteApiModel.class);    
     }
 
-    public List<RestauranteModel> toCollectionModel(List<Restaurante> restaurantes){
+    public List<RestauranteApiModel> toCollectionApiModel(List<Restaurante> restaurantes){
         return restaurantes.stream()
-                .map(this::toModel)
+                .map(this::toApiModel)
                 .collect(Collectors.toList());
+    }
+
+    public Restaurante toDomainModel(@Valid RestauranteInput restauranteInput) {
+        return modelMapper.map(restauranteInput, Restaurante.class);
+    }
+
+    public void copyToDomainModel(@Valid RestauranteInput restauranteInput, Restaurante restaurante){
+        // Para evitar org.hibernate.HibernateException: identifier of an instance of 
+        // ...  was altered from 1 to 2
+        restaurante.setCozinha(new Cozinha());
+
+        modelMapper.map(restauranteInput, restaurante);
     }
     
 

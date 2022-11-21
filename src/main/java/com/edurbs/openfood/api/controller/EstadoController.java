@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.edurbs.openfood.api.assembler.EstadoModelAssembler;
+import com.edurbs.openfood.api.model.EstadoApiModel;
+import com.edurbs.openfood.api.model.input.EstadoInput;
 import com.edurbs.openfood.domain.model.Estado;
 import com.edurbs.openfood.domain.service.CadastroEstadoService;
 
@@ -27,6 +29,9 @@ public class EstadoController {
     @Autowired
     private CadastroEstadoService cadastroEstadoService;
 
+    @Autowired
+    private EstadoModelAssembler estadoModelAssembler;
+
     @GetMapping
     public List<Estado> listar() {
         return cadastroEstadoService.listar();
@@ -34,22 +39,29 @@ public class EstadoController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Estado buscar(@PathVariable Long id) {
-        return cadastroEstadoService.buscar(id);
+    public EstadoApiModel buscar(@PathVariable Long id) {
+        return estadoModelAssembler.toApiModel(cadastroEstadoService.buscar(id));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Estado adicionar (@RequestBody @Valid Estado estado) {        
-        return cadastroEstadoService.salvar(estado);
+    public EstadoApiModel adicionar (@RequestBody @Valid EstadoInput estadoInput) {        
+        var estado = estadoModelAssembler.toDomainModel(estadoInput);
+        var estadoSalvo = cadastroEstadoService.salvar(estado);
+        return estadoModelAssembler.toApiModel(estadoSalvo);
+        
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Estado atualizar (@PathVariable Long id, @RequestBody @Valid Estado estado) {
+    public EstadoApiModel atualizar (@PathVariable Long id, @RequestBody @Valid EstadoInput estadoInput) {
         Estado estadoAtual = cadastroEstadoService.buscar(id);
-        BeanUtils.copyProperties(estado, estadoAtual, "id");
-        return cadastroEstadoService.salvar(estadoAtual);
+
+        //BeanUtils.copyProperties(estado, estadoAtual, "id");
+        estadoModelAssembler.copyToDomainModel(estadoInput, estadoAtual);
+        Estado estadoSalvo = cadastroEstadoService.salvar(estadoAtual);
+        
+        return estadoModelAssembler.toApiModel(estadoSalvo);
     }
     
 

@@ -37,14 +37,12 @@ public class Cidade {
     @EqualsAndHashCode.Include
     private Long id;
 
-    @NotBlank
+
     @Column(nullable = false)
     private String nome;
 
-    @Valid
-    @NotNull
-    @ConvertGroup(from=Default.class, to=Groups.EstadoId.class)
-    @ManyToOne
-    @JsonIgnoreProperties(value = "nome", allowGetters = true)
+
+
+    @ManyToOne    
     private Estado estado;
 }

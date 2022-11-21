@@ -6,24 +6,18 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-
-import javax.annotation.Resource;
 
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -32,8 +26,6 @@ import com.edurbs.openfood.domain.exception.CidadeNaoEncontradaException;
 import com.edurbs.openfood.domain.model.Cidade;
 import com.edurbs.openfood.domain.model.Estado;
 import com.edurbs.openfood.domain.service.CadastroCidadeService;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.javafaker.Faker;
 
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
@@ -78,7 +70,7 @@ public class CidadeControllerMockTest {
         PodamFactory podamFactory = new PodamFactoryImpl();
 
         
-        estado = podamFactory.manufacturePojo(Estado.class);
+        // estado = podamFactory.manufacturePojo(Estado.class);
         cidade1 = podamFactory.manufacturePojo(Cidade.class);
         cidade2 = podamFactory.manufacturePojo(Cidade.class);
         cidade3 = podamFactory.manufacturePojo(Cidade.class);

@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,9 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.edurbs.openfood.api.assembler.RestauranteInputDesassembler;
 import com.edurbs.openfood.api.assembler.RestauranteModelAssembler;
-import com.edurbs.openfood.api.model.RestauranteModel;
+import com.edurbs.openfood.api.model.RestauranteApiModel;
 import com.edurbs.openfood.api.model.input.RestauranteInput;
 import com.edurbs.openfood.domain.exception.EntidadeNaoEncontradaException;
 import com.edurbs.openfood.domain.exception.NegocioException;
@@ -43,22 +41,27 @@ public class RestauranteController {
     @Autowired
     private RestauranteModelAssembler restauranteModelAssembler;
 
-    @Autowired
-    private RestauranteInputDesassembler restauranteInputDesassembler;
+    private Restaurante domainModel;
+
+    private Restaurante salvar;
+
 
     @GetMapping()
-    public List<RestauranteModel> listar() {
-        return restauranteModelAssembler.toCollectionModel(cadastroRestauranteService.listar());
+    public List<RestauranteApiModel> listar() {
+        return restauranteModelAssembler.toCollectionApiModel(cadastroRestauranteService.listar());
+        
+       
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public RestauranteModel buscar(@PathVariable Long id, HttpServletRequest httpServletRequest) {    
+    public RestauranteApiModel buscar(@PathVariable Long id, HttpServletRequest httpServletRequest) {    
             ServletServerHttpRequest serverHttpRequest = new ServletServerHttpRequest(httpServletRequest);
             try {
                 Restaurante restaurante = cadastroRestauranteService.buscar(id);       
                 
-                return restauranteModelAssembler.toModel(restaurante);
+                return restauranteModelAssembler.toApiModel(restaurante);
+                
                 
             } catch (TypeMismatchException e) {
                 Throwable rootCause =ExceptionUtils.getRootCause(e);
@@ -76,21 +79,26 @@ public class RestauranteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public RestauranteModel salvar(@RequestBody @Valid RestauranteInput restauranteInput) {       
-        return restauranteModelAssembler.toModel(cadastroRestauranteService.salvar(restauranteInputDesassembler.toDomainModel(restauranteInput)));  
+    public RestauranteApiModel salvar(@RequestBody @Valid RestauranteInput restauranteInput) {       
+        var domainModel = restauranteModelAssembler.toDomainModel(restauranteInput);
+        var salvar = cadastroRestauranteService.salvar(domainModel);
+        return restauranteModelAssembler.toApiModel(salvar);  
         
     }
 
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public RestauranteModel atualizar(@PathVariable Long id, @RequestBody @Valid RestauranteInput restauranteInput) {
+    public RestauranteApiModel atualizar(@PathVariable Long id, @RequestBody @Valid RestauranteInput restauranteInput) {
         try {
-            Restaurante restaurante = restauranteInputDesassembler.toDomainModel(restauranteInput);
+            // Restaurante restaurante = restauranteInputDesassembler.toDomainModel(restauranteInput);
             Restaurante restauranteAtual = cadastroRestauranteService.buscar(id);
-            BeanUtils.copyProperties(restaurante, restauranteAtual, "id", "dataCadastro", "formasPagamento", "endereco", "produtos");
+            
+            restauranteModelAssembler.copyToDomainModel(restauranteInput, restauranteAtual);
+
+            // BeanUtils.copyProperties(restaurante, restauranteAtual, "id", "dataCadastro", "formasPagamento", "endereco", "produtos");
         
-            return restauranteModelAssembler.toModel(cadastroRestauranteService.salvar(restauranteAtual));  
+            return restauranteModelAssembler.toApiModel(cadastroRestauranteService.salvar(restauranteAtual));  
         } catch (EntidadeNaoEncontradaException e) {
             throw new NegocioException(e.getMessage());
         }

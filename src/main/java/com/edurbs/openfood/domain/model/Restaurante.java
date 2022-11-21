@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 import javax.validation.groups.ConvertGroup;
 import javax.validation.groups.Default;
 
@@ -44,14 +45,11 @@ public class Restaurante {
     @EqualsAndHashCode.Include
     private Long id;
     
-    @NotBlank
+    
     @Column(nullable = false)
     private String nome;
 
-    @NotNull
-    //@PositiveOrZero
-    //@TaxaFrete
-    @Multiplo(5)
+    
     @Column(nullable = false)
     private BigDecimal taxaFrete;
 
@@ -67,11 +65,10 @@ public class Restaurante {
     private OffsetDateTime dataAtualizacao;
 
     
-    @Valid
-    @NotNull
-    @ConvertGroup(from=Default.class, to=Groups.CozinhaId.class)
+
+
     @ManyToOne
-    @JsonIgnoreProperties(value="nome", allowGetters = true)
+
     private Cozinha cozinha;
 
     

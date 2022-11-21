@@ -2,6 +2,8 @@ package com.edurbs.openfood.domain.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -25,10 +27,12 @@ public class CadastroCozinhaService {
         return cozinhaRepository.save(cozinha);
     }
 
+    @Transactional
     public void remover(Long id) {
 
         try {
             cozinhaRepository.deleteById(id);
+            cozinhaRepository.flush(); //para excluir e se der exception já lançar agora, visto que o Transactional está anotado.
         } catch (DataIntegrityViolationException e) {
             throw new EntidadeEmUsoException(
                     String.format(COZINHA_EM_USO, id));

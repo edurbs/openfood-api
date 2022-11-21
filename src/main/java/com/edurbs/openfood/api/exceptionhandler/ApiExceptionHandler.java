@@ -139,16 +139,6 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
     }
 
-    private Problem.ProblemBuilder createProblemBuilder(HttpStatus status, ProblemType problemType,
-            String detail) {
-        return Problem.builder()
-                .status(status.value())
-                .type(problemType.getUri())
-                .title((problemType.getTitle()))
-                .detail(detail)
-                .userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL)
-                .offsetDateTime(OffsetDateTime.now());
-    }
 
     
     @ExceptionHandler(EntidadeEmUsoException.class)
@@ -231,6 +221,18 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 .build();
         return handleExceptionInternal(ex, problem, headers, status, request);        
     }
+
+    private Problem.ProblemBuilder createProblemBuilder(HttpStatus status, ProblemType problemType,
+    String detail) {
+        return Problem.builder()
+                .status(status.value())
+                .type(problemType.getUri())
+                .title((problemType.getTitle()))
+                .detail(detail)
+                .userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL)
+                .offsetDateTime(OffsetDateTime.now().toString());
+    }
+
 
 
     

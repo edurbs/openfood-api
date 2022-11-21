@@ -1,4 +1,4 @@
-package com.edurbs.openfood.api.model.input;
+package com.edurbs.openfood.api.model;
 
 import java.math.BigDecimal;
 
@@ -7,25 +7,20 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
-import com.edurbs.openfood.core.validation.Multiplo;
-
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class RestauranteInput {
+public class RestauranteApiModel {
+    private Long id;
 
-    @NotBlank
+
     private String nome;
 
-    @NotNull
-    @PositiveOrZero
-    //@TaxaFrete
-    //@Multiplo(5)    
+
     private BigDecimal taxaFrete;
 
-    @Valid
-    @NotNull
-    private CozinhaIdInput cozinha;
+    private CozinhaApiModel cozinha;
+    
 }
