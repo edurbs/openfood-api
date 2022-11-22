@@ -14,6 +14,9 @@ import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,10 +28,6 @@ import com.edurbs.openfood.domain.exception.GrupoNaoEncontradoException;
 import com.edurbs.openfood.domain.exception.NegocioException;
 import com.edurbs.openfood.domain.model.Grupo;
 import com.edurbs.openfood.domain.service.CadastroGrupoService;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -64,6 +63,7 @@ public class GrupoController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public GrupoApiModel adicionar(@RequestBody @Valid GrupoInput grupoInput) {
         try {
             
@@ -76,8 +76,9 @@ public class GrupoController {
             throw new NegocioException(e.getMessage());
         }
     }
-
+    
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public GrupoApiModel atualizar(@PathVariable Long id, @RequestBody @Valid GrupoInput grupoInput) {
         try {
             Grupo grupoAtual = cadastroGrupoService.buscar(id);
@@ -92,6 +93,7 @@ public class GrupoController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void remover(@PathVariable Long id) {
         cadastroGrupoService.remover(id);        
     }

@@ -77,3 +77,11 @@ insert ignore into permissao (id, nome, descricao) values (1, 'CONSULTAR_COZINHA
 insert ignore into permissao (id, nome, descricao) values (2, 'EDITAR_COZINHAS', 'Permite editar cozinhas');
 
 insert ignore into grupo (nome) values ('Gerente'), ('Vendedor'), ('Secretária'), ('Cadastrador');
+
+insert ignore into usuario (data_cadastro, email, nome, senha) values (utc_timestamp, 'bastiao@asd.com', 'Bastião', '123456');
+
+insert ignore into usuario (data_cadastro, email, nome, senha) values (utc_timestamp, 'joaquim@asd.com', 'Joaquim', '123456');
+
+insert ignore into usuario (data_cadastro, email, nome, senha) values (utc_timestamp, 'jose@asd.com', 'José', '123456');
+
+insert ignore into usuario (data_cadastro, email, nome, senha) values (utc_timestamp, 'maria@asd.com', 'Maria', '123456');
