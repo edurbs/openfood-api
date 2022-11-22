@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import lombok.EqualsAndHashCode;
@@ -37,9 +38,11 @@ public class ItemPedido {
     private String observacao;
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     private Produto produto;
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     private Pedido pedido;
 
 }

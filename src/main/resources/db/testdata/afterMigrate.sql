@@ -75,3 +75,5 @@ insert ignore into produto (id, nome, descricao, preco, ativo, restaurante_id) v
 
 insert ignore into permissao (id, nome, descricao) values (1, 'CONSULTAR_COZINHAS', 'Permite consultar cozinhas');
 insert ignore into permissao (id, nome, descricao) values (2, 'EDITAR_COZINHAS', 'Permite editar cozinhas');
+
+insert ignore into grupo (nome) values ('Gerente'), ('Vendedor'), ('Secretária'), ('Cadastrador');

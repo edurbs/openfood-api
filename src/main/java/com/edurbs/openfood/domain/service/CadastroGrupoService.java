@@ -1,0 +1,45 @@
+package com.edurbs.openfood.domain.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.stereotype.Service;
+
+import com.edurbs.openfood.domain.exception.EntidadeEmUsoException;
+import com.edurbs.openfood.domain.exception.GrupoNaoEncontradoException;
+import com.edurbs.openfood.domain.model.Cidade;
+import com.edurbs.openfood.domain.model.Grupo;
+import com.edurbs.openfood.domain.repository.GrupoRepository;
+
+@Service
+public class CadastroGrupoService {
+
+    @Autowired
+    private GrupoRepository grupoRepository;
+
+    public Grupo salvar(Grupo grupo) {
+        return grupoRepository.save(grupo);
+    }
+
+    public void remover(Long id) {
+        try {
+            grupoRepository.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new EntidadeEmUsoException(String.format("Grupo código %d está em uso", id));
+        } catch (EmptyResultDataAccessException e) {
+            throw new GrupoNaoEncontradoException(id); 
+        }
+        
+    }
+
+    public List<Grupo> listar(){
+        return grupoRepository.findAll();
+    }
+
+    public Grupo buscar(Long id){
+        return grupoRepository.findById(id)
+                .orElseThrow(() -> new GrupoNaoEncontradoException(id));
+    }
+}

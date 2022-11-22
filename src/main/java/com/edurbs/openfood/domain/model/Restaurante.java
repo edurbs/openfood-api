@@ -68,7 +68,7 @@ public class Restaurante {
 
 
     @ManyToOne
-
+    @JoinColumn(nullable = false)
     private Cozinha cozinha;
 
     
