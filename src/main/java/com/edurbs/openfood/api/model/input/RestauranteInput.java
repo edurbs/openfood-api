@@ -7,8 +7,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
-import com.edurbs.openfood.core.validation.Multiplo;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,4 +26,8 @@ public class RestauranteInput {
     @Valid
     @NotNull
     private CozinhaIdInput cozinha;
+
+    @Valid
+    @NotNull
+    private EnderecoInput endereco;
 }

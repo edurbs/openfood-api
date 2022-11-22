@@ -1,6 +1,7 @@
 package com.edurbs.openfood.api.assembler;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -11,7 +12,9 @@ import org.springframework.stereotype.Component;
 
 import com.edurbs.openfood.api.model.RestauranteApiModel;
 import com.edurbs.openfood.api.model.input.RestauranteInput;
+import com.edurbs.openfood.domain.model.Cidade;
 import com.edurbs.openfood.domain.model.Cozinha;
+import com.edurbs.openfood.domain.model.Endereco;
 import com.edurbs.openfood.domain.model.Restaurante;
 
 @Component
@@ -38,6 +41,10 @@ public class RestauranteModelAssembler {
         // Para evitar org.hibernate.HibernateException: identifier of an instance of 
         // ...  was altered from 1 to 2
         restaurante.setCozinha(new Cozinha());
+
+        if(restaurante.getEndereco() != null){
+            restaurante.getEndereco().setCidade(new Cidade());
+        }        
 
         modelMapper.map(restauranteInput, restaurante);
     }

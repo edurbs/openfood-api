@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.edurbs.openfood.api.assembler.RestauranteModelAssembler;
 import com.edurbs.openfood.api.model.RestauranteApiModel;
 import com.edurbs.openfood.api.model.input.RestauranteInput;
+import com.edurbs.openfood.domain.exception.CidadeNaoEncontradaException;
+import com.edurbs.openfood.domain.exception.CozinhaNaoEncontradaException;
 import com.edurbs.openfood.domain.exception.EntidadeNaoEncontradaException;
 import com.edurbs.openfood.domain.exception.NegocioException;
 import com.edurbs.openfood.domain.model.Restaurante;
@@ -80,9 +82,14 @@ public class RestauranteController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public RestauranteApiModel salvar(@RequestBody @Valid RestauranteInput restauranteInput) {       
-        var domainModel = restauranteModelAssembler.toDomainModel(restauranteInput);
-        var salvar = cadastroRestauranteService.salvar(domainModel);
-        return restauranteModelAssembler.toApiModel(salvar);  
+        try {
+            var domainModel = restauranteModelAssembler.toDomainModel(restauranteInput);
+            var salvar = cadastroRestauranteService.salvar(domainModel);
+            return restauranteModelAssembler.toApiModel(salvar);  
+            
+        } catch (CozinhaNaoEncontradaException | CidadeNaoEncontradaException e) {
+            throw new NegocioException(e.getMessage());
+        }
         
     }
 
@@ -99,7 +106,7 @@ public class RestauranteController {
             // BeanUtils.copyProperties(restaurante, restauranteAtual, "id", "dataCadastro", "formasPagamento", "endereco", "produtos");
         
             return restauranteModelAssembler.toApiModel(cadastroRestauranteService.salvar(restauranteAtual));  
-        } catch (EntidadeNaoEncontradaException e) {
+        } catch (CozinhaNaoEncontradaException | CidadeNaoEncontradaException e) {
             throw new NegocioException(e.getMessage());
         }
     }
