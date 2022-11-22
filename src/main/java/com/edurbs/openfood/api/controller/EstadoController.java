@@ -33,8 +33,8 @@ public class EstadoController {
     private EstadoModelAssembler estadoModelAssembler;
 
     @GetMapping
-    public List<Estado> listar() {
-        return cadastroEstadoService.listar();
+    public List<EstadoApiModel> listar() {
+        return estadoModelAssembler.toCollectionApiModel(cadastroEstadoService.listar());
     }
 
     @GetMapping("/{id}")

@@ -2,6 +2,8 @@ package com.edurbs.openfood.domain.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -9,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.edurbs.openfood.domain.exception.EntidadeEmUsoException;
 import com.edurbs.openfood.domain.exception.RestauranteNaoEncontradoException;
-import com.edurbs.openfood.domain.model.Cidade;
 import com.edurbs.openfood.domain.model.Cozinha;
 import com.edurbs.openfood.domain.model.Restaurante;
 import com.edurbs.openfood.domain.repository.RestauranteRepository;
@@ -33,9 +34,6 @@ public class CadastroRestauranteService {
         Cozinha cozinha = cadastroCozinhaService.buscar(cozinhaId);
         restaurante.setCozinha(cozinha);
 
-        // Cidade cidade = cadastroCidadeService.buscar(restaurante.getEndereco().getCidade().getId());
-        // restaurante.getEndereco().setCidade(cidade);
-        
         return restauranteRepository.save(restaurante);
     }
 
@@ -58,5 +56,21 @@ public class CadastroRestauranteService {
     public Restaurante buscar(Long id) {
         return restauranteRepository.findById(id)
                 .orElseThrow(() -> new RestauranteNaoEncontradoException(id));
+    }
+
+    @Transactional
+    public void ativar(Long restauranteId){
+        Restaurante restauranteAtual = buscar(restauranteId);
+        restauranteAtual.ativar();
+        // não precisa salvar porque está sendo gerenciado pelo JPA
+
+    }
+
+    @Transactional
+    public void desativar(Long restauranteId){
+        Restaurante restauranteAtual = buscar(restauranteId);
+        restauranteAtual.ativar();
+
+
     }
 }

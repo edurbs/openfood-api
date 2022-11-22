@@ -4,6 +4,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.stereotype.Component;
+
+
 public class CidadeInput {
     
     @NotBlank

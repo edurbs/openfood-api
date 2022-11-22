@@ -14,13 +14,9 @@ import lombok.Setter;
 @Setter
 public class RestauranteApiModel {
     private Long id;
-
-
     private String nome;
-
-
     private BigDecimal taxaFrete;
-
     private CozinhaApiModel cozinha;
+    private Boolean ativo;
     
 }

@@ -8,7 +8,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.edurbs.openfood.domain.exception.EntidadeEmUsoException;
-import com.edurbs.openfood.domain.exception.EstadoNaoEncontradoException;
+import com.edurbs.openfood.domain.exception.FormaPagamentoNaoEncontradaException;
 import com.edurbs.openfood.domain.model.Estado;
 import com.edurbs.openfood.domain.repository.EstadoRepository;
 
@@ -21,7 +21,7 @@ public class CadastroEstadoService {
 
     public Estado buscar(Long id) {
         return estadoRepository.findById(id)
-            .orElseThrow(() -> new EstadoNaoEncontradoException(id));
+            .orElseThrow(() -> new FormaPagamentoNaoEncontradaException(id));
     }
 
     public void remover(Long id) {
@@ -30,7 +30,7 @@ public class CadastroEstadoService {
         } catch (DataIntegrityViolationException e) {
             throw new EntidadeEmUsoException(String.format(ESTADO_EM_USO, id));
         } catch (EmptyResultDataAccessException e) {
-            throw new EstadoNaoEncontradoException(id);
+            throw new FormaPagamentoNaoEncontradaException(id);
         }
     }
 
