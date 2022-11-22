@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -40,9 +41,8 @@ public class Cidade {
 
     @Column(nullable = false)
     private String nome;
-
-
-
-    @ManyToOne    
+    
+    @ManyToOne
+    @JoinColumn(nullable = false)
     private Estado estado;
 }

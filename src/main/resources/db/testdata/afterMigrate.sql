@@ -15,8 +15,20 @@ delete from usuario_grupo;
 
 set foreign_key_checks = 1;
 
-insert ignore into cozinha (id, nome) values (1, 'Tailandesa');
-insert ignore into cozinha (id, nome) values (2, 'Indiana');
+alter table cidade auto_increment = 1;
+alter table cozinha auto_increment = 1;
+alter table estado auto_increment = 1;
+alter table forma_pagamento auto_increment = 1;
+alter table grupo auto_increment = 1;
+alter table permissao auto_increment = 1;
+alter table produto auto_increment = 1;
+alter table restaurante auto_increment = 1;
+alter table usuario auto_increment = 1;
+
+insert into cozinha (id, nome) values (1, 'Tailandesa');
+insert into cozinha (id, nome) values (2, 'Indiana');
+insert into cozinha (id, nome) values (3, 'Argentina');
+insert into cozinha (id, nome) values (4, 'Brasileira');
 
 INSERT ignore INTO forma_pagamento (id, descricao) VALUES(1, 'Dinheiro');
 INSERT ignore INTO forma_pagamento (id, descricao) VALUES(2, 'Pix');
@@ -37,15 +49,12 @@ INSERT ignore INTO cidade (id, nome, estado_id) VALUES(3, 'Manhumirom', 1);
 INSERT ignore INTO cidade (id, nome, estado_id) VALUES(4, 'Franca', 2);
 INSERT ignore INTO cidade (id, nome, estado_id) VALUES(5, 'Niterói', 3);
 
-INSERT ignore INTO restaurante (id, ativo, nome, taxa_frete, cozinha_id, data_atualizacao, data_cadastro) VALUES(1,  1, 'Da mamãe', 5.00, 1, utc_timestamp, utc_timestamp);
-INSERT ignore INTO restaurante (id, ativo,nome, taxa_frete, cozinha_id, data_atualizacao, data_cadastro) VALUES(2,  1, 'Da titia', 4.00, 1, utc_timestamp, utc_timestamp);
-INSERT ignore INTO restaurante (id, ativo, nome, taxa_frete, cozinha_id, data_atualizacao, data_cadastro) VALUES(3,  1, 'Da prima', 6.00, 2, utc_timestamp, utc_timestamp);
-INSERT ignore INTO restaurante (id, ativo, nome, taxa_frete, cozinha_id, data_atualizacao, data_cadastro) VALUES(4,  1, 'Da sogra', 5.00, 1, utc_timestamp, utc_timestamp);
-INSERT ignore INTO restaurante (id, ativo,nome, taxa_frete, cozinha_id, data_atualizacao, data_cadastro) VALUES(5,  1, 'Da esposa', 4.00, 1, utc_timestamp, utc_timestamp);
-INSERT ignore INTO restaurante (id, ativo, nome, taxa_frete, cozinha_id, data_atualizacao, data_cadastro) VALUES(6,  1, 'Da vizinha', 6.00, 2, utc_timestamp, utc_timestamp);
-INSERT ignore INTO restaurante (id, ativo, nome, taxa_frete, cozinha_id, data_atualizacao, data_cadastro) VALUES(7,  1, 'Da irmã', 5.00, 1, utc_timestamp, utc_timestamp);
-INSERT ignore INTO restaurante (id, ativo,nome, taxa_frete, cozinha_id, data_atualizacao, data_cadastro) VALUES(8,  1, 'Da filha', 4.00, 1, utc_timestamp, utc_timestamp);
-INSERT ignore INTO restaurante (id, ativo, nome, taxa_frete, cozinha_id, data_atualizacao, data_cadastro) VALUES(9,  1, 'Da neta', 6.00, 2, utc_timestamp, utc_timestamp);
+insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, ativo, endereco_cidade_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro) values (1, 'Thai Gourmet', 10, 1, utc_timestamp, utc_timestamp, true, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
+insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, ativo) values (2, 'Thai Delivery', 9.50, 1, utc_timestamp, utc_timestamp, true);
+insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, ativo) values (3, 'Tuk Tuk Comida Indiana', 15, 2, utc_timestamp, utc_timestamp, true);
+insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, ativo) values (4, 'Java Steakhouse', 12, 3, utc_timestamp, utc_timestamp, true);
+insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, ativo) values (5, 'Lanchonete do Tio Sam', 11, 4, utc_timestamp, utc_timestamp, true);
+insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, ativo) values (6, 'Bar da Maria', 6, 4, utc_timestamp, utc_timestamp, true);
 
 insert ignore into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) values (1, 1), (1, 2), (1, 3), (2, 3), (3, 2), (3, 3);
 

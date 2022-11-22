@@ -49,7 +49,6 @@ public class Pedido {
     private OffsetDateTime dataEntrega;
 
     @Embedded
-    @Column(nullable = false)
     private Endereco enderecoEntrega;
 
     @ManyToOne
