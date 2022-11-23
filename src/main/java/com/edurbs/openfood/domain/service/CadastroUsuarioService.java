@@ -27,7 +27,8 @@ public class CadastroUsuarioService {
     @Transactional
     public Usuario salvar(Usuario usuario) {   
 
-        //usuarioRepository.detach(usuario);
+        // para não salvar 2 vezes (a primeira seria quando fizer o findByEmail visto estar gerenciado pelo JPA)
+        usuarioRepository.detach(usuario); 
         
         Optional<Usuario> usuarioExistente = usuarioRepository.findByEmail(usuario.getEmail());
 

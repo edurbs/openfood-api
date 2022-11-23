@@ -30,6 +30,9 @@ public class CadastroRestauranteService {
     @Autowired
     private CadastroCidadeService cadastroCidadeService;
 
+    @Autowired
+    private CadastroFormaPagamentoService cadastroFormaPagamentoService;
+
     public Restaurante salvar(Restaurante restaurante) {
         Long cozinhaId = restaurante.getCozinha().getId();
         Long cidadeId = restaurante.getEndereco().getCidade().getId();
@@ -91,9 +94,28 @@ public class CadastroRestauranteService {
 
     public Restaurante buscaPrimeiro() {
         var result = restauranteRepository.buscarPrimeiro();
-        if(result.isPresent()){
-            return result.get();
-        }
-        return null;
+        // if(result.isPresent()){
+        //     return result.get();
+        // }
+        // return null;
+
+        return result.orElseThrow(() -> new RestauranteNaoEncontradoException("Não há restaurantes cadastrados."));
+    }
+
+    @Transactional
+    public void associarFormaPagamento(Long restauranteId, Long formaPagamentoId){
+        var restaurante = buscar(restauranteId);
+        var formaPagamento = cadastroFormaPagamentoService.buscar(formaPagamentoId);
+        restaurante.associarFormaPagamento(formaPagamento);
+        
+        
+    }
+
+    @Transactional
+    public void desassociarFormaPagamento(Long restauranteId, Long formaPagamentoId){
+        var restaurante = buscar(restauranteId);
+        var formaPagamento = cadastroFormaPagamentoService.buscar(formaPagamentoId);
+        restaurante.desassociarFormaPagamento(formaPagamento);
+     
     }
 }

@@ -1,6 +1,8 @@
 package com.edurbs.openfood.api.assembler;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -21,7 +23,7 @@ public class FormaPagamentoAssembler {
         return modelMapper.map(formaPagamento, FormaPagamentoApiModel.class);
     }
 
-    public List<FormaPagamentoApiModel> toCollectionApiModel(List<FormaPagamento> formaPagamentos){
+    public List<FormaPagamentoApiModel> toCollectionApiModel(Collection<FormaPagamento> formaPagamentos){
         return formaPagamentos.stream()
                 .map(this::toApiModel)
                 .collect(Collectors.toList());
