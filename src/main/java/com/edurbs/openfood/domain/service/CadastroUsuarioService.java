@@ -1,7 +1,9 @@
 package com.edurbs.openfood.domain.service;
 
 import java.util.List;
+import java.util.Optional;
 
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,17 @@ public class CadastroUsuarioService {
     @Autowired
     UsuarioRepository usuarioRepository;
 
-    public Usuario salvar(Usuario usuario) {        
+    @Transactional
+    public Usuario salvar(Usuario usuario) {   
+
+        //usuarioRepository.detach(usuario);
+        
+        Optional<Usuario> usuarioExistente = usuarioRepository.findByEmail(usuario.getEmail());
+
+        if(usuarioExistente.isPresent() && !usuarioExistente.get().equals(usuario)){
+            throw new NegocioException(String.format("Já existe um usuário com o email %s", usuario.getEmail()));
+        }
+        
         return usuarioRepository.save(usuario);
     }
 

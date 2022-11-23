@@ -57,6 +57,9 @@ public class CadastroRestauranteService {
 
     public List<Restaurante> listar() {
         return restauranteRepository.findAll();
+        //return restauranteRepository.consultaPorNome("a", 1L);
+        //return restauranteRepository.consultaPorNomeViaXML("ar", 1L);
+        //return restauranteRepository.consultaPorNomeViaSDJCustomizado("a", BigDecimal.valueOf(1L), BigDecimal.valueOf(10L));
     }
 
     public Restaurante buscar(Long id) {
@@ -78,5 +81,19 @@ public class CadastroRestauranteService {
         restauranteAtual.ativar();
 
 
+    }
+
+    public List<Restaurante> listarAtivosComFreteGratis() {
+
+        return restauranteRepository.listarAtivosComFreteGratis();
+        
+    }
+
+    public Restaurante buscaPrimeiro() {
+        var result = restauranteRepository.buscarPrimeiro();
+        if(result.isPresent()){
+            return result.get();
+        }
+        return null;
     }
 }

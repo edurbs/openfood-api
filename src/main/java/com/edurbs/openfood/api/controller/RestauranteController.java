@@ -50,8 +50,7 @@ public class RestauranteController {
 
     @GetMapping()
     public List<RestauranteApiModel> listar() {
-        return restauranteModelAssembler.toCollectionApiModel(cadastroRestauranteService.listar());
-        
+        return restauranteModelAssembler.toCollectionApiModel(cadastroRestauranteService.listar());      
        
     }
 
@@ -122,6 +121,20 @@ public class RestauranteController {
     public void desativar(@PathVariable Long id) {
         cadastroRestauranteService.desativar(id);        
     }
+
+    
+    @GetMapping("/ativos-com-frete-gratis")
+    public List<RestauranteApiModel> listarAtivosComFreteGratis() {
+        return restauranteModelAssembler.toCollectionApiModel(cadastroRestauranteService.listarAtivosComFreteGratis());      
+       
+    }
+
+    @GetMapping("/primeiro")
+    public RestauranteApiModel buscaPrimeiro() {
+        return restauranteModelAssembler.toApiModel(cadastroRestauranteService.buscaPrimeiro());
+       
+    }
+
 
     /*@PatchMapping("/{id}")
     public RestauranteModel atualizarParcial(@PathVariable Long id, @RequestBody Map<String, Object> campos, HttpServletRequest httpServletRequest){
