@@ -93,4 +93,12 @@ public class Restaurante {
         return getFormasPagamento().remove(formaPagamento);
     }
 
+    public void fechar() {
+        setAberto(false);
+    }
+
+    public void abrir(){
+        setAberto(true);
+    }
+
 }

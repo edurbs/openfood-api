@@ -88,3 +88,5 @@ insert ignore into usuario (data_cadastro, email, nome, senha) values (utc_times
 insert ignore into usuario (data_cadastro, email, nome, senha) values (utc_timestamp, 'jose@asd.com', 'José', '123456');
 
 insert ignore into usuario (data_cadastro, email, nome, senha) values (utc_timestamp, 'maria@asd.com', 'Maria', '123456');
+
+update restaurante set aberto=false;

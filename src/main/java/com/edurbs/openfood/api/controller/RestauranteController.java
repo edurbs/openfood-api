@@ -121,6 +121,18 @@ public class RestauranteController {
         cadastroRestauranteService.desativar(id);        
     }
 
+    @PutMapping("/{restauranteId}/fechamento")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void fechamento(@PathVariable Long restauranteId) {
+        cadastroRestauranteService.fechar(restauranteId);
+    }
+
+    @PutMapping("/{restauranteId}/abertura")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void abertura(@PathVariable Long restauranteId) {
+        cadastroRestauranteService.abrir(restauranteId);
+    }
+
     
     @GetMapping("/ativos-com-frete-gratis")
     public List<RestauranteApiModel> listarAtivosComFreteGratis() {
