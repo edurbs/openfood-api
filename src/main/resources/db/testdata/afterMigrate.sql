@@ -59,34 +59,30 @@ insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_a
 insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, ativo) values (8, 'Bar da Josélia', 0, 1, utc_timestamp, utc_timestamp, true);
 insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, ativo) values (9, 'Bar da Creuza', 0, 1, utc_timestamp, utc_timestamp, false);
 
+update restaurante set aberto=false;
+
 insert ignore into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) values (1, 1), (1, 2), (1, 3), (2, 3), (3, 2), (3, 3);
 
 insert ignore into produto (id, nome, descricao, preco, ativo, restaurante_id) values (1, 'Porco com molho agridoce', 'Deliciosa carne suína ao molho especial', 78.90, 1, 1);
 insert ignore into produto (id, nome, descricao, preco, ativo, restaurante_id) values (2, 'Camarão tailandês', '16 camarões grandes ao molho picante', 110, 1, 1);
-
 insert ignore into produto (id, nome, descricao, preco, ativo, restaurante_id) values (3, 'Salada picante com carne grelhada', 'Salada de folhas com cortes finos de carne bovina grelhada e nosso molho especial de pimenta vermelha', 87.20, 1, 2);
-
 insert ignore into produto (id, nome, descricao, preco, ativo, restaurante_id) values (4, 'Garlic Naan', 'Pão tradicional indiano com cobertura de alho', 21, 1, 3);
 insert ignore into produto (id, nome, descricao, preco, ativo, restaurante_id) values (5, 'Murg Curry', 'Cubos de frango preparados com molho curry e especiarias', 43, 1, 3);
-
 insert ignore into produto (id, nome, descricao, preco, ativo, restaurante_id) values (6, 'Bife Ancho', 'Corte macio e suculento, com dois dedos de espessura, retirado da parte dianteira do contrafilé', 79, 1, 4);
 insert ignore into produto (id, nome, descricao, preco, ativo, restaurante_id) values (7, 'T-Bone', 'Corte muito saboroso, com um osso em formato de T, sendo de um lado o contrafilé e do outro o filé mignon', 89, 1, 4);
-
 insert ignore into produto (id, nome, descricao, preco, ativo, restaurante_id) values (8, 'Sanduíche X-Tudo', 'Sandubão com muito queijo, hamburger bovino, bacon, ovo, salada e maionese', 19, 1, 5);
-
 insert ignore into produto (id, nome, descricao, preco, ativo, restaurante_id) values (9, 'Espetinho de Cupim', 'Acompanha farinha, mandioca e vinagrete', 8, 1, 6);
 
 insert ignore into permissao (id, nome, descricao) values (1, 'CONSULTAR_COZINHAS', 'Permite consultar cozinhas');
 insert ignore into permissao (id, nome, descricao) values (2, 'EDITAR_COZINHAS', 'Permite editar cozinhas');
+insert ignore into permissao (id, nome, descricao) values (3, 'DELETAR_COZINHAS', 'Permite excluir cozinhas');
 
 insert ignore into grupo (nome) values ('Gerente'), ('Vendedor'), ('Secretária'), ('Cadastrador');
 
+insert ignore into grupo_permissao (grupo_id, permissao_id) values (1, 1), (1, 2), (1, 3), (2, 1), (3, 1), (3, 2), (4, 1), (4,2);
+
 insert ignore into usuario (data_cadastro, email, nome, senha) values (utc_timestamp, 'bastiao@asd.com', 'Bastião', '123456');
-
 insert ignore into usuario (data_cadastro, email, nome, senha) values (utc_timestamp, 'joaquim@asd.com', 'Joaquim', '123456');
-
 insert ignore into usuario (data_cadastro, email, nome, senha) values (utc_timestamp, 'jose@asd.com', 'José', '123456');
-
 insert ignore into usuario (data_cadastro, email, nome, senha) values (utc_timestamp, 'maria@asd.com', 'Maria', '123456');
 
-update restaurante set aberto=false;

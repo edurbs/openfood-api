@@ -1,11 +1,12 @@
-package com.edurbs.openfood.api.model.input;
+package com.edurbs.openfood.api.model;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
 @Getter
-public class GrupoInput {
+@Setter
+public class PermissaoApiModel {
+    private Long id;
     private String nome;
     private String descricao;
 }

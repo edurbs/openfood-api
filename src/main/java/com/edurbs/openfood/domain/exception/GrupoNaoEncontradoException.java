@@ -7,7 +7,7 @@ public class GrupoNaoEncontradoException extends EntidadeNaoEncontradaException 
     }
     
     public GrupoNaoEncontradoException(Long id) {
-        this(String.format("Cidade código %d não encontrada", id));
+        this(String.format("Grupo código %d não encontrado.", id));
     }
     
 }
