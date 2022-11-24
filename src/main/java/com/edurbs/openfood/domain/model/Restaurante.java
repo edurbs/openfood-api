@@ -76,6 +76,11 @@ public class Restaurante {
     // para não permtir Formas de Pagamento repetidas
     private Set<FormaPagamento> formasPagamento = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(name="restaurante_usuario_responsavel",
+            joinColumns =  @JoinColumn(name="restaurante_id"),
+            inverseJoinColumns = @JoinColumn(name="usuario_id"))
+    private Set<Usuario> responsaveis = new HashSet<>();
 
     public void ativar(){
         setAtivo(true);
@@ -91,6 +96,15 @@ public class Restaurante {
 
     public boolean desassociarFormaPagamento(FormaPagamento formaPagamento) {
         return getFormasPagamento().remove(formaPagamento);
+    }
+
+    public void associarResponsavel(Usuario usuario) {
+        getResponsaveis().add(usuario);
+    }
+
+    public void desassociarResponsavel(Usuario usuario) {
+        getResponsaveis().remove(usuario);
+        
     }
 
     public void fechar() {

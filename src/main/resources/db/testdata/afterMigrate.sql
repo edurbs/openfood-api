@@ -87,3 +87,5 @@ insert ignore into usuario (data_cadastro, email, nome, senha) values (utc_times
 insert ignore into usuario (data_cadastro, email, nome, senha) values (utc_timestamp, 'maria@asd.com', 'Maria', '123456');
 
 insert ignore into usuario_grupo (usuario_id, grupo_id) values (1,1), (1,2), (2,2), (3,2), (4,3), (4,4);
+
+insert ignore into restaurante_usuario_responsavel (usuario_id, restaurante_id) values (1,1), (2,1), (2,2), (3,3), (4,4), (4,5), (4,6);
