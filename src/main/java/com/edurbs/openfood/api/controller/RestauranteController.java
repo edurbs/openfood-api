@@ -42,10 +42,6 @@ public class RestauranteController {
     @Autowired
     private RestauranteModelAssembler restauranteModelAssembler;
 
-    private Restaurante domainModel;
-
-    private Restaurante salvar;
-
 
     @GetMapping()
     public List<RestauranteApiModel> listar() {
@@ -119,6 +115,18 @@ public class RestauranteController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void desativar(@PathVariable Long id) {
         cadastroRestauranteService.desativar(id);        
+    }
+
+    @PutMapping(value="/ativacoes")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void ativacoes(@RequestBody List<Long> restauranteIds) {
+        cadastroRestauranteService.ativar(restauranteIds);
+    }
+
+    @DeleteMapping(value="/ativacoes")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void desativacoes(@RequestBody List<Long> restauranteIds) {
+        cadastroRestauranteService.desativar(restauranteIds);
     }
 
     @PutMapping("/{restauranteId}/fechamento")

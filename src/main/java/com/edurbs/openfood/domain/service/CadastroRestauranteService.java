@@ -36,6 +36,7 @@ public class CadastroRestauranteService {
     @Autowired
     private CadastroUsuarioService cadastroUsuarioService;
 
+    @Transactional
     public Restaurante salvar(Restaurante restaurante) {
         Long cozinhaId = restaurante.getCozinha().getId();
         Long cidadeId = restaurante.getEndereco().getCidade().getId();
@@ -49,6 +50,7 @@ public class CadastroRestauranteService {
         return restauranteRepository.save(restaurante);
     }
 
+    @Transactional
     public void remover(Long id) {
         try {
             restauranteRepository.deleteById(id);
@@ -68,6 +70,7 @@ public class CadastroRestauranteService {
         //return restauranteRepository.consultaPorNomeViaSDJCustomizado("a", BigDecimal.valueOf(1L), BigDecimal.valueOf(10L));
     }
 
+
     public Restaurante buscar(Long id) {
         return restauranteRepository.findById(id)
                 .orElseThrow(() -> new RestauranteNaoEncontradoException(id));
@@ -78,15 +81,22 @@ public class CadastroRestauranteService {
         Restaurante restauranteAtual = buscar(restauranteId);
         restauranteAtual.ativar();
         // não precisa salvar porque está sendo gerenciado pelo JPA
-
     }
 
     @Transactional
     public void desativar(Long restauranteId){
         Restaurante restauranteAtual = buscar(restauranteId);
-        restauranteAtual.ativar();
+        restauranteAtual.desativar();
+    }
 
+    @Transactional
+    public void ativar(List<Long> restauranteIds) {
+        restauranteIds.forEach(this::ativar);
+    }
 
+    @Transactional
+    public void desativar(List<Long> restauranteIds) {
+        restauranteIds.forEach(this::desativar);
     }
 
     public List<Restaurante> listarAtivosComFreteGratis() {

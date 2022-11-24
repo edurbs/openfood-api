@@ -21,6 +21,8 @@ public class ValorZeroIncluiDescricaoValidator implements ConstraintValidator<Va
         this.descricaoObrigatoria = constraintAnnotation.descricaoObrigatoria();
         
     }
+
+
     @Override
     public boolean isValid(Object objetoValidacao, ConstraintValidatorContext context) {
         var valido = true;
@@ -35,13 +37,13 @@ public class ValorZeroIncluiDescricaoValidator implements ConstraintValidator<Va
                         .contains(this.descricaoObrigatoria.toLowerCase());
             }
 
+            return valido;
             
         } catch (Exception e) {
             throw new ValidationException(e);
         }
+        
 
-
-        return valido;
     }
     
 }

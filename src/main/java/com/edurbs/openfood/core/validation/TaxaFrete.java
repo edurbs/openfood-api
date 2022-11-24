@@ -19,7 +19,7 @@ import javax.validation.constraints.PositiveOrZero;
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RUNTIME)
 @Constraint(validatedBy = { })
-@PositiveOrZero
+//@PositiveOrZero
 public @interface TaxaFrete {
 
     @OverridesAttribute(constraint = PositiveOrZero.class, name="message")
