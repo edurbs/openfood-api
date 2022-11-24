@@ -1,5 +1,6 @@
 package com.edurbs.openfood.api.assembler;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +21,7 @@ public class GrupoAssembler {
         return modelMapper.map(grupo, GrupoApiModel.class);
     }
 
-    public List<GrupoApiModel> toCollectionApiModel(List<Grupo> grupos){
+    public List<GrupoApiModel> toCollectionApiModel(Collection<Grupo> grupos){
         return grupos.stream()
                 .map(this::toApiModel)
                 .collect(Collectors.toList());

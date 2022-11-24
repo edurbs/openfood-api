@@ -1,5 +1,6 @@
 package com.edurbs.openfood.api.assembler;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,7 +22,7 @@ public class UsuarioAssembler {
         return modelMapper.map(usuario, UsuarioApiModel.class);
     }
 
-    public List<UsuarioApiModel> toCollectionApiModel(List<Usuario> usuarios){
+    public List<UsuarioApiModel> toCollectionApiModel(Collection<Usuario> usuarios){
         return usuarios.stream()
                 .map(this::toApiModel)
                 .collect(Collectors.toList());

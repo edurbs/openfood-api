@@ -1,9 +1,9 @@
 package com.edurbs.openfood.domain.service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.edurbs.openfood.domain.exception.EntidadeEmUsoException;
 import com.edurbs.openfood.domain.exception.NegocioException;
 import com.edurbs.openfood.domain.exception.UsuarioNaoEncontradoException;
+import com.edurbs.openfood.domain.model.Grupo;
 import com.edurbs.openfood.domain.model.Usuario;
 import com.edurbs.openfood.domain.repository.UsuarioRepository;
 
@@ -22,7 +23,10 @@ public class CadastroUsuarioService {
     
 
     @Autowired
-    UsuarioRepository usuarioRepository;
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private CadastroGrupoService cadastroGrupoService;
 
     @Transactional
     public Usuario salvar(Usuario usuario) {   
@@ -69,5 +73,25 @@ public class CadastroUsuarioService {
             throw new NegocioException("Nova senha não pode ser igual a senha atual.");
         }
         usuario.setSenha(senhaNova);
+    }
+
+    @Transactional
+    public void associarGrupo(Long usuarioId, Long grupoId){
+        Grupo grupo = cadastroGrupoService.buscar(grupoId);
+        Usuario usuario = buscar(usuarioId);
+        usuario.associarGrupo(grupo);
+    }
+
+    @Transactional
+    public void desassociarGrupo(Long usuarioId, Long grupoId) {
+        Grupo grupo = cadastroGrupoService.buscar(grupoId);
+        Usuario usuario = buscar(usuarioId);
+        usuario.desassociarGrupo(grupo);
+        
+    }
+
+    public Collection<Grupo> listarGrupos(Long usuarioId) {
+        Usuario usuario = buscar(usuarioId);
+        return usuario.getGrupos();
     }
 }
