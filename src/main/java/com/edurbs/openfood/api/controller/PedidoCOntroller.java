@@ -9,25 +9,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.edurbs.openfood.api.assembler.PedidoAssembler;
+import com.edurbs.openfood.api.assembler.PedidoResumoAssembler;
 import com.edurbs.openfood.api.model.PedidoApiModel;
+import com.edurbs.openfood.api.model.PedidoResumoApiModel;
 import com.edurbs.openfood.domain.model.Pedido;
 import com.edurbs.openfood.domain.service.CadastroPedidoService;
 
-
-
 @RestController
 @RequestMapping("/pedidos")
-public class PedidoCOntroller {
+public class PedidoController {
     @Autowired
     private CadastroPedidoService cadastroPedidoService;
 
     @Autowired
     private PedidoAssembler pedidoAssembler;
 
+    @Autowired
+    private PedidoResumoAssembler pedidoResumoAssembler;
+
     @GetMapping
-    public List<PedidoApiModel> listar() {
+    public List<PedidoResumoApiModel> listar() {
         List<Pedido> pedidos = cadastroPedidoService.listar();
-        return pedidoAssembler.toCollectionApiModel(pedidos);
+        return pedidoResumoAssembler.toCollectionApiModel(pedidos);
     }
 
     @GetMapping(value="/{pedidoId}")
