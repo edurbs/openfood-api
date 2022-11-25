@@ -4,9 +4,9 @@
 
 CREATE TABLE pedido (
 	id BIGINT auto_increment NOT NULL,
-	subtotal DECIMAL NOT NULL,
-	taxa_frete DECIMAL NOT NULL,
-	valor_total DECIMAL NOT NULL,
+	subtotal DECIMAL(19,2) NOT NULL,
+	taxa_frete DECIMAL(19,2) NOT NULL,
+	valor_total DECIMAL(19,2) NOT NULL,
 	data_criacao DATETIME NOT NULL,
 	data_confirmacao DATETIME NULL,
 	data_entrega DATETIME NULL,
@@ -36,8 +36,8 @@ COLLATE=utf8mb4_0900_ai_ci;
 CREATE TABLE item_pedido (
 	id BIGINT auto_increment NOT NULL,
 	quantidade INT NOT NULL,
-	preco_unitario DECIMAL NOT NULL,
-	precoTotal DECIMAL NOT NULL,
+	preco_unitario DECIMAL(19,2) NOT NULL,
+	precoTotal DECIMAL(19,2) NOT NULL,
 	observacao varchar(255) NULL,
 	produto_id BIGINT NOT NULL,
 	pedido_id BIGINT NOT NULL,
