@@ -119,13 +119,18 @@ public class RestauranteController {
 
     @PutMapping(value="/ativacoes")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void ativacoes(@RequestBody List<Long> restauranteIds) {
-        cadastroRestauranteService.ativar(restauranteIds);
+    public void ativarMultiplos(@RequestBody List<Long> restauranteIds) {
+        try {
+            cadastroRestauranteService.ativar(restauranteIds);
+        } catch (Exception e) {
+            throw new NegocioException(e.getMessage());
+        }
+
     }
 
     @DeleteMapping(value="/ativacoes")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void desativacoes(@RequestBody List<Long> restauranteIds) {
+    public void desativarMultiplos(@RequestBody List<Long> restauranteIds) {
         cadastroRestauranteService.desativar(restauranteIds);
     }
 
