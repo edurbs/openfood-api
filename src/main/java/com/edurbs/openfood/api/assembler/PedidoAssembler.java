@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.edurbs.openfood.api.model.PedidoApiModel;
+import com.edurbs.openfood.api.model.input.PedidoInput;
 import com.edurbs.openfood.domain.model.Pedido;
 
 @Component
@@ -26,13 +27,13 @@ public class PedidoAssembler {
                 .collect(Collectors.toList());
     }
 
-    // public Pedido toDomainModel(PedidoInput pedidoInput){
-    //     return modelMapper.map(pedidoInput, Pedido.class);
-    // }
+    public Pedido toDomainModel(PedidoInput pedidoInput){
+        return modelMapper.map(pedidoInput, Pedido.class);
+    }
 
-    // public void copyToDomainModel(PedidoInput sourcePedidoInput, Pedido destinationPedido){       
+    public void copyToDomainModel(PedidoInput sourcePedidoInput, Pedido destinationPedido){       
         
-    //     modelMapper.map(sourcePedidoInput, destinationPedido);
+        modelMapper.map(sourcePedidoInput, destinationPedido);
         
-    // }
+    }
 }

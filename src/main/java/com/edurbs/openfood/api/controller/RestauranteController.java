@@ -75,7 +75,7 @@ public class RestauranteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public RestauranteApiModel salvar(@RequestBody @Valid RestauranteInput restauranteInput) {       
+    public RestauranteApiModel salvar(@Valid @RequestBody RestauranteInput restauranteInput) {       
         try {
             var domainModel = restauranteModelAssembler.toDomainModel(restauranteInput);
             var salvar = cadastroRestauranteService.salvar(domainModel);

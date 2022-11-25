@@ -45,4 +45,8 @@ public class ItemPedido {
     @JoinColumn(nullable = false)
     private Pedido pedido;
 
+    public void calcularPrecoTotal() {
+        this.precoTotal = precoUnitario.multiply(BigDecimal.valueOf(quantidade));
+    }
+
 }
