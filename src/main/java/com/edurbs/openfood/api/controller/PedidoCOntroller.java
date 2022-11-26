@@ -44,9 +44,9 @@ public class PedidoController {
         return pedidoResumoAssembler.toCollectionApiModel(pedidos);
     }
 
-    @GetMapping(value="/{pedidoId}")
-    public PedidoApiModel buscar(@PathVariable Long pedidoId) {
-        Pedido pedido = cadastroPedidoService.buscar(pedidoId);
+    @GetMapping(value="/{codigoPedido}")
+    public PedidoApiModel buscar(@PathVariable String codigoPedido) {
+        Pedido pedido = cadastroPedidoService.buscar(codigoPedido);
         return pedidoAssembler.toApiModel(pedido);
     }
 

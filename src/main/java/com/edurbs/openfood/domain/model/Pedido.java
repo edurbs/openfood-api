@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,6 +18,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -36,6 +38,9 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
+
+    @Column(nullable = false)
+    private String codigo;
 
     @Column(nullable = false)
     private BigDecimal subtotal;
@@ -68,9 +73,8 @@ public class Pedido {
     @ManyToOne(fetch = FetchType.LAZY)
     private FormaPagamento formaPagamento;
 
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private StatusPedido status;
+    private StatusPedido status = StatusPedido.CRIADO;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ItemPedido> itens = new ArrayList<>();
@@ -88,11 +92,6 @@ public class Pedido {
 
     public void atribuirPedidoAosItens() {
         getItens().forEach(item -> item.setPedido(this));
-    }
-
-    public void criar(){
-        setStatus(StatusPedido.CRIADO);
-        setDataCriacao(OffsetDateTime.now());
     }
 
     public void entregar(){
@@ -113,11 +112,16 @@ public class Pedido {
     private void setStatus(StatusPedido novoStatus){
         if(getStatus().naoPodeAlterarPara(novoStatus)){
             throw new NegocioException(
-                    String.format("Status do pedido %d não pode ser alterado de %s para %s.",
-                            getId(), 
+                    String.format("Status do pedido %s não pode ser alterado de %s para %s.",
+                            getCodigo(), 
                             getStatus().getDescricao(), 
                             novoStatus.getDescricao()));
         }
+    }
+
+    @PrePersist // antes de inserir uma nova entidade, executa esse método
+    private void gerarCodigo(){
+        setCodigo(UUID.randomUUID().toString());
     }
 
 

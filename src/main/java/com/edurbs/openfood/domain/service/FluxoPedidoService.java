@@ -12,23 +12,23 @@ public class FluxoPedidoService {
     private CadastroPedidoService cadastroPedidoService;
 
     @Transactional
-    public void confirmar(Long pedidoId) {
-        var pedido = cadastroPedidoService.buscar(pedidoId);
+    public void confirmar(String codigoPedido) {
+        var pedido = cadastroPedidoService.buscar(codigoPedido);
 
         pedido.confirmar();
 
     }
 
     @Transactional
-    public void entregar(Long pedidoId) {
-        var pedido = cadastroPedidoService.buscar(pedidoId);
+    public void entregar(String codigoPedido) {
+        var pedido = cadastroPedidoService.buscar(codigoPedido);
 
         pedido.entregar();
     }
 
     @Transactional
-    public void cancelar(Long pedidoId) {
-        var pedido = cadastroPedidoService.buscar(pedidoId);
+    public void cancelar(String codigoPedido) {
+        var pedido = cadastroPedidoService.buscar(codigoPedido);
 
         pedido.cancelar();
 

@@ -5,26 +5,14 @@ import java.util.Set;
 
 import javax.transaction.Transactional;
 
-import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.edurbs.openfood.domain.exception.CidadeNaoEncontradaException;
-import com.edurbs.openfood.domain.exception.FormaPagamentoNaoEncontradaException;
 import com.edurbs.openfood.domain.exception.NegocioException;
 import com.edurbs.openfood.domain.exception.PedidoNaoEncontradoException;
-import com.edurbs.openfood.domain.exception.ProdutoNaoEncontradoException;
-import com.edurbs.openfood.domain.exception.RestauranteNaoEncontradoException;
-import com.edurbs.openfood.domain.model.Cidade;
 import com.edurbs.openfood.domain.model.FormaPagamento;
-import com.edurbs.openfood.domain.model.ItemPedido;
 import com.edurbs.openfood.domain.model.Pedido;
 import com.edurbs.openfood.domain.model.Produto;
-import com.edurbs.openfood.domain.model.Restaurante;
-import com.edurbs.openfood.domain.model.StatusPedido;
-import com.edurbs.openfood.domain.model.Usuario;
-import com.edurbs.openfood.domain.repository.ItemPedidoRepository;
 import com.edurbs.openfood.domain.repository.PedidoRepository;
 
 @Service
@@ -32,9 +20,6 @@ public class CadastroPedidoService {
     
     @Autowired
     private PedidoRepository pedidoRepository;
-
-    @Autowired 
-    private ItemPedidoRepository itemPedidoRepository;
 
     @Autowired
     private CadastroProdutoService cadastroProdutoService;
@@ -56,8 +41,9 @@ public class CadastroPedidoService {
         return pedidoRepository.findAll();
     }
 
-    public Pedido buscar(Long pedidoId) {        
-        return pedidoRepository.findById(pedidoId).orElseThrow(() -> new PedidoNaoEncontradoException(pedidoId));        
+    public Pedido buscar(String codigoPedido) {        
+        return pedidoRepository.findByCodigo(codigoPedido)
+                .orElseThrow(() -> new PedidoNaoEncontradoException(codigoPedido));        
     }
 
     @Transactional
@@ -68,8 +54,6 @@ public class CadastroPedidoService {
 
         pedido.definirFrete();
         pedido.calcularValorTotal(); // e subtotal também
-        
-        pedido.criar();
 
         var pedidoSalvo = pedidoRepository.save(pedido);
 

@@ -2,10 +2,6 @@ package com.edurbs.openfood.api.model;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.Embedded;
 
 import com.edurbs.openfood.domain.model.StatusPedido;
 
@@ -16,7 +12,7 @@ import lombok.Setter;
 @Setter
 public class PedidoResumoApiModel {
     
-    private Long id;
+    private String codigo;
     private BigDecimal subtotal;
     private BigDecimal taxaFrete;
     private BigDecimal valorTotal;

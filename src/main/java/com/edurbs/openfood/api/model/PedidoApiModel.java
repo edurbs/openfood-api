@@ -16,7 +16,7 @@ import lombok.Setter;
 @Setter
 public class PedidoApiModel {
     
-    private Long id;
+    private String codigo;
 
     private BigDecimal subtotal;
 
