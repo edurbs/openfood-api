@@ -69,7 +69,7 @@ public class CadastroPedidoService {
         pedido.definirFrete();
         pedido.calcularValorTotal(); // e subtotal também
         
-        pedido.setStatus(StatusPedido.CRIADO);
+        pedido.criar();
 
         var pedidoSalvo = pedidoRepository.save(pedido);
 
@@ -118,7 +118,7 @@ public class CadastroPedidoService {
             item.setProduto(produto);
             item.setPrecoUnitario(produto.getPreco());
             item.calcularPrecoTotal();
-            //itemPedidoRepository.save(item); 
+            
         });
     }
 
