@@ -4,8 +4,10 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +26,11 @@ import com.edurbs.openfood.domain.exception.NegocioException;
 import com.edurbs.openfood.domain.model.Pedido;
 import com.edurbs.openfood.domain.model.Usuario;
 import com.edurbs.openfood.domain.service.CadastroPedidoService;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController
@@ -38,11 +45,31 @@ public class PedidoController {
     @Autowired
     private PedidoResumoAssembler pedidoResumoAssembler;
 
-    @GetMapping
-    public List<PedidoResumoApiModel> listar() {
+    // @GetMapping
+    // public List<PedidoResumoApiModel> listar() {
+    //     List<Pedido> pedidos = cadastroPedidoService.listar();
+    //     return pedidoResumoAssembler.toCollectionApiModel(pedidos);
+    // }
+
+    @GetMapping()
+    public MappingJacksonValue listarFiltrando(@RequestParam(required = false) String campos) {
         List<Pedido> pedidos = cadastroPedidoService.listar();
-        return pedidoResumoAssembler.toCollectionApiModel(pedidos);
+        var pedidosResumoApiModel = pedidoAssembler.toCollectionApiModel(pedidos);
+
+        var wrapperPedidos = new MappingJacksonValue(pedidosResumoApiModel);
+
+        var simpleFilterProvider = new SimpleFilterProvider();
+        simpleFilterProvider.addFilter("pedidosFilter", SimpleBeanPropertyFilter.serializeAll());
+
+        if(StringUtils.isNotBlank(campos)){
+            simpleFilterProvider.addFilter("pedidosFilter", SimpleBeanPropertyFilter.filterOutAllExcept(campos.split(",")));
+        }
+
+        wrapperPedidos.setFilters(simpleFilterProvider);
+
+        return wrapperPedidos;
     }
+    
 
     @GetMapping(value="/{codigoPedido}")
     public PedidoApiModel buscar(@PathVariable String codigoPedido) {

@@ -8,10 +8,12 @@ import java.util.List;
 import javax.persistence.Embedded;
 
 import com.edurbs.openfood.domain.model.StatusPedido;
+import com.fasterxml.jackson.annotation.JsonFilter;
 
 import lombok.Getter;
 import lombok.Setter;
 
+@JsonFilter("pedidosFilter")
 @Getter
 @Setter
 public class PedidoApiModel {
