@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,9 +28,6 @@ import com.edurbs.openfood.domain.service.CadastroRestauranteService;
 public class RestauranteProdutosController {
 
     @Autowired
-    private CadastroRestauranteService cadastroRestauranteService;
-
-    @Autowired
     private CadastroProdutoService cadastroProdutoService;
 
     @Autowired
@@ -37,9 +35,14 @@ public class RestauranteProdutosController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ProdutoApiModel> listar(@PathVariable Long restauranteId){
-        var restaurantes = cadastroProdutoService.listarDoRestaurante(restauranteId);
-        return produtoModelAssembler.toCollectionApiModel(restaurantes);
+    public List<ProdutoApiModel> listarProdutosDoRestaurante(@PathVariable Long restauranteId, @RequestParam(required = false) boolean incluirInativos){
+        List<Produto> produtos =null;
+        if(incluirInativos){
+            produtos = cadastroProdutoService.listarDoRestaurante(restauranteId);
+        }else{
+            produtos = cadastroProdutoService.listarAtivosDoRestaurante(restauranteId);
+        }
+        return produtoModelAssembler.toCollectionApiModel(produtos);
 
     }
 

@@ -50,6 +50,11 @@ public class CadastroProdutoService {
         return produtoRepository.findByRestauranteId(restauranteId);        
     }
 
+    public List<Produto> listarAtivosDoRestaurante(Long restauranteId) {
+        cadastroRestauranteService.buscar(restauranteId);
+        return produtoRepository.findByRestauranteIdAndAtivoIsTrue(restauranteId);
+    }
+
     public Produto buscarDoRestaurante(Long restauranteId, Long produtoId) {
         cadastroRestauranteService.buscar(restauranteId);        
         return produtoRepository.findByIdAndRestauranteId(produtoId, restauranteId)
