@@ -51,25 +51,25 @@ public class RestauranteController {
        
     }
 
-    @GetMapping(params = "projecao=resumo")
-    public MappingJacksonValue listarResumo() {
-        var listaRestaurantes= cadastroRestauranteService.listar();
-        var listaRestaurantesApiModel = restauranteModelAssembler.toCollectionApiModel(listaRestaurantes);
+    // @GetMapping(params = "projecao=resumo")
+    // public MappingJacksonValue listarResumo() {
+    //     var listaRestaurantes= cadastroRestauranteService.listar();
+    //     var listaRestaurantesApiModel = restauranteModelAssembler.toCollectionApiModel(listaRestaurantes);
 
-        MappingJacksonValue restauranteWrapper = new MappingJacksonValue(listaRestaurantesApiModel);
+    //     MappingJacksonValue restauranteWrapper = new MappingJacksonValue(listaRestaurantesApiModel);
 
-        restauranteWrapper.setSerializationView(RestauranteView.Resumo.class);
+    //     restauranteWrapper.setSerializationView(RestauranteView.Resumo.class);
 
-        return restauranteWrapper;
-    }
+    //     return restauranteWrapper;
+    // }
 
-    @GetMapping(params = "projecao=apenas-nome")
-    public MappingJacksonValue listarApenasNome() {
-        var listaRestaurantesApiModel = restauranteModelAssembler.toCollectionApiModel(cadastroRestauranteService.listar());
-        MappingJacksonValue restauranteWrapper = new MappingJacksonValue(listaRestaurantesApiModel);
-        restauranteWrapper.setSerializationView(RestauranteView.ApenasNome.class);
-        return restauranteWrapper;
-    }
+    // @GetMapping(params = "projecao=apenas-nome")
+    // public MappingJacksonValue listarApenasNome() {
+    //     var listaRestaurantesApiModel = restauranteModelAssembler.toCollectionApiModel(cadastroRestauranteService.listar());
+    //     MappingJacksonValue restauranteWrapper = new MappingJacksonValue(listaRestaurantesApiModel);
+    //     restauranteWrapper.setSerializationView(RestauranteView.ApenasNome.class);
+    //     return restauranteWrapper;
+    // }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

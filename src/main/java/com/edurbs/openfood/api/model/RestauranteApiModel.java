@@ -12,13 +12,13 @@ import lombok.Setter;
 @Setter
 public class RestauranteApiModel {
 
-    @JsonView(RestauranteView.Resumo.class)
+    // @JsonView(RestauranteView.Resumo.class)
     private Long id;
 
-    @JsonView({RestauranteView.Resumo.class, RestauranteView.ApenasNome.class})
+    // @JsonView({RestauranteView.Resumo.class, RestauranteView.ApenasNome.class})
     private String nome;
 
-    @JsonView(RestauranteView.Resumo.class)
+    // @JsonView(RestauranteView.Resumo.class)
     private BigDecimal taxaFrete;
 
     private CozinhaApiModel cozinha;
