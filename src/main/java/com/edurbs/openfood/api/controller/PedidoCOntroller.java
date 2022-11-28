@@ -25,7 +25,10 @@ import com.edurbs.openfood.domain.exception.EntidadeNaoEncontradaException;
 import com.edurbs.openfood.domain.exception.NegocioException;
 import com.edurbs.openfood.domain.model.Pedido;
 import com.edurbs.openfood.domain.model.Usuario;
+import com.edurbs.openfood.domain.repository.PedidoRepository;
+import com.edurbs.openfood.domain.repository.filter.PedidoFilter;
 import com.edurbs.openfood.domain.service.CadastroPedidoService;
+import com.edurbs.openfood.infrastructure.repository.specifications.PedidoSpecs;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 
@@ -45,12 +48,18 @@ public class PedidoController {
     @Autowired
     private PedidoResumoAssembler pedidoResumoAssembler;
 
-    // @GetMapping
-    // public List<PedidoResumoApiModel> listar() {
-    //     List<Pedido> pedidos = cadastroPedidoService.listar();
-    //     return pedidoResumoAssembler.toCollectionApiModel(pedidos);
-    // }
+    @Autowired
+    private PedidoRepository pedidoRepository;
 
+    @GetMapping
+    public List<PedidoResumoApiModel> pesquisar(PedidoFilter pedidoFilter) {
+        //List<Pedido> pedidos = cadastroPedidoService.listar();
+        
+        var pedidos = pedidoRepository.findAll(PedidoSpecs.usandoFiltro(pedidoFilter));
+
+        return pedidoResumoAssembler.toCollectionApiModel(pedidos);
+    }
+    /*
     @GetMapping()
     public MappingJacksonValue listarFiltrando(@RequestParam(required = false) String campos) {
         List<Pedido> pedidos = cadastroPedidoService.listar();
@@ -68,7 +77,7 @@ public class PedidoController {
         wrapperPedidos.setFilters(simpleFilterProvider);
 
         return wrapperPedidos;
-    }
+    }*/
     
 
     @GetMapping(value="/{codigoPedido}")
