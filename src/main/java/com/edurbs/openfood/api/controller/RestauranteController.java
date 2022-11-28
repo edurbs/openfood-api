@@ -10,6 +10,7 @@ import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.edurbs.openfood.api.assembler.RestauranteModelAssembler;
 import com.edurbs.openfood.api.model.RestauranteApiModel;
 import com.edurbs.openfood.api.model.input.RestauranteInput;
+import com.edurbs.openfood.api.model.view.RestauranteView;
 import com.edurbs.openfood.domain.exception.CidadeNaoEncontradaException;
 import com.edurbs.openfood.domain.exception.CozinhaNaoEncontradaException;
 import com.edurbs.openfood.domain.exception.NegocioException;
@@ -43,10 +45,30 @@ public class RestauranteController {
     private RestauranteModelAssembler restauranteModelAssembler;
 
 
-    @GetMapping()
+    @GetMapping
     public List<RestauranteApiModel> listar() {
         return restauranteModelAssembler.toCollectionApiModel(cadastroRestauranteService.listar());      
        
+    }
+
+    @GetMapping(params = "projecao=resumo")
+    public MappingJacksonValue listarResumo() {
+        var listaRestaurantes= cadastroRestauranteService.listar();
+        var listaRestaurantesApiModel = restauranteModelAssembler.toCollectionApiModel(listaRestaurantes);
+
+        MappingJacksonValue restauranteWrapper = new MappingJacksonValue(listaRestaurantesApiModel);
+
+        restauranteWrapper.setSerializationView(RestauranteView.Resumo.class);
+
+        return restauranteWrapper;
+    }
+
+    @GetMapping(params = "projecao=apenas-nome")
+    public MappingJacksonValue listarApenasNome() {
+        var listaRestaurantesApiModel = restauranteModelAssembler.toCollectionApiModel(cadastroRestauranteService.listar());
+        MappingJacksonValue restauranteWrapper = new MappingJacksonValue(listaRestaurantesApiModel);
+        restauranteWrapper.setSerializationView(RestauranteView.ApenasNome.class);
+        return restauranteWrapper;
     }
 
     @GetMapping("/{id}")
