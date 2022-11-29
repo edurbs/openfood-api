@@ -4,8 +4,11 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +24,7 @@ import com.edurbs.openfood.api.assembler.CozinhaModelAssembler;
 import com.edurbs.openfood.api.model.CozinhaApiModel;
 import com.edurbs.openfood.api.model.input.CozinhaInput;
 import com.edurbs.openfood.domain.model.Cozinha;
+import com.edurbs.openfood.domain.repository.CozinhaRepository;
 import com.edurbs.openfood.domain.service.CadastroCozinhaService;
 
 @RestController
@@ -33,9 +37,17 @@ public class CozinhaController {
     @Autowired
     CozinhaModelAssembler cozinhaModelAssembler;
 
+    @Autowired
+    CozinhaRepository cozinhaRepository;
+
     @GetMapping
-    public List<CozinhaApiModel> listar() {
-        return cozinhaModelAssembler.toCollectionApiModel(cadastroCozinhaService.listar());
+    public Page<CozinhaApiModel> listar(@PageableDefault(size=10) Pageable pageable) {
+        
+        Page<Cozinha> cozinhasPage = cozinhaRepository.findAll(pageable);
+        List<Cozinha> cozinhasList = cozinhasPage.getContent();
+        List<CozinhaApiModel> cozinhasApiModel = cozinhaModelAssembler.toCollectionApiModel(cozinhasList);
+        return new PageImpl<>(cozinhasApiModel, pageable, cozinhasPage.getTotalElements());
+        
     }
 
     @GetMapping("/{cozinhaId}")
