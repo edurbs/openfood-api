@@ -6,8 +6,8 @@ import javax.persistence.criteria.Predicate;
 
 import org.springframework.data.jpa.domain.Specification;
 
+import com.edurbs.openfood.domain.filter.PedidoFilter;
 import com.edurbs.openfood.domain.model.Pedido;
-import com.edurbs.openfood.domain.repository.filter.PedidoFilter;
 
 public class PedidoSpecs {
     public static Specification<Pedido> usandoFiltro(PedidoFilter pedidoFilter) {

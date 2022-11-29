@@ -1,4 +1,4 @@
-package com.edurbs.openfood.domain.repository.filter;
+package com.edurbs.openfood.domain.filter;
 
 import java.time.OffsetDateTime;
 
