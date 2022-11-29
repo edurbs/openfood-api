@@ -13,9 +13,12 @@ public class PedidoSpecs {
     public static Specification<Pedido> usandoFiltro(PedidoFilter pedidoFilter) {
         return (root, query, builder) -> {
             
-            // para não fazer vários selects duplicados, problema do N+1
-            root.fetch("restaurante").fetch("cozinha"); 
-            root.fetch("cliente");
+            // para não fazer o fetch quando for fazer um select count (para pageable)
+            if(Pedido.class.equals(query.getResultType())){
+                // para não fazer vários selects duplicados, problema do N+1
+                root.fetch("restaurante").fetch("cozinha"); 
+                root.fetch("cliente");
+            }
 
             var predicates = new ArrayList<Predicate>();
             
