@@ -19,5 +19,6 @@ public class PedidoResumoApiModel {
     private StatusPedido status;
     private OffsetDateTime dataCriacao;
     private RestauranteResumidoApiModel restaurante;
-    private UsuarioApiModel cliente;
+    //private UsuarioApiModel cliente;
+    private String nomeCliente;
 }
