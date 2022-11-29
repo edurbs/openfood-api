@@ -26,7 +26,8 @@ public class VendaQueryServiceImpl implements VendaQueryService {
     private EntityManager manager;
 
     @Override
-    public List<VendaDiaria> consultarVendasDiarias(VendaDiariaFilter filtro) {
+    public List<VendaDiaria> consultarVendasDiarias(VendaDiariaFilter filtro, String timeOffset) {
+        String dataCriacao = "dataCriacao";
         var builder = manager.getCriteriaBuilder();
         var query = builder.createQuery(VendaDiaria.class);
         var root = query.from(Pedido.class);
@@ -37,15 +38,20 @@ public class VendaQueryServiceImpl implements VendaQueryService {
             predicates.add(builder.equal(root.get("restaurante"), filtro.getRestauranteId()));
         }
         if (filtro.getDataCriacaoInicio() != null) {
-            predicates.add(builder.greaterThanOrEqualTo(root.get("dataCriacao"), filtro.getDataCriacaoInicio()));
+            predicates.add(builder.greaterThanOrEqualTo(root.get(dataCriacao), filtro.getDataCriacaoInicio()));
         }   
         if (filtro.getDataCriacaoFim() != null) {
-            predicates.add(builder.lessThanOrEqualTo(root.get("dataCriacao"), filtro.getDataCriacaoFim()));
+            predicates.add(builder.lessThanOrEqualTo(root.get(dataCriacao), filtro.getDataCriacaoFim()));
         }
         
         predicates.add(root.get("status").in(StatusPedido.CONFIRMADO, StatusPedido.ENTREGUE));
+
+        var functionConverTzDataCriacao = builder.function("convert_tz", Date.class, 
+                root.get(dataCriacao), 
+                builder.literal("+00:00"), 
+                builder.literal(timeOffset));
         
-        var functionDateDataCriacao = builder.function("date", Date.class, root.get("dataCriacao"));
+        var functionDateDataCriacao = builder.function("date", Date.class, functionConverTzDataCriacao);
         
         var selection = builder.construct(VendaDiaria.class, 
                 functionDateDataCriacao, 
