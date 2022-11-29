@@ -1,4 +1,4 @@
-package com.edurbs.openfood.infrastructure.service;
+package com.edurbs.openfood.infrastructure.service.query;
 
 import java.util.ArrayList;
 import java.util.Arrays;
