@@ -5,8 +5,11 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.edurbs.openfood.api.model.FotoProdutoApiModel;
+import com.edurbs.openfood.domain.exception.FotoProdutoNaoEncontradoException;
 import com.edurbs.openfood.domain.model.FotoProduto;
 import com.edurbs.openfood.domain.repository.ProdutoRepository;
+import com.edurbs.openfood.domain.service.FotoStorageService.NovaFoto;
 
 @Service
 public class CatalogoFotoProdutoService {
@@ -17,21 +20,50 @@ public class CatalogoFotoProdutoService {
     @Autowired
     private CadastroRestauranteService cadastroRestauranteService;
 
+    @Autowired
+    private FotoStorageService storageFotoService;
+
+    @Autowired
+    private CadastroProdutoService cadastroProdutoService;
+
     @Transactional
     public FotoProduto salvar(FotoProduto fotoProduto) {
         Long restauranteId = fotoProduto.getRestauranteId();
-        Long produtoId = fotoProduto.getProduto().getId();
-        
-        cadastroRestauranteService.buscar(restauranteId);
+        //cadastroRestauranteService.buscar(restauranteId);
 
+        Long produtoId = fotoProduto.getProduto().getId();
+        var produto = cadastroProdutoService.buscarDoRestaurante(restauranteId, produtoId);
+        
+
+        String novoNomeArquivo = storageFotoService.gerarNomeArquivo(fotoProduto.getNomeArquivo());
+        fotoProduto.setNomeArquivo(novoNomeArquivo);
+        
         produtoRepository
                 .findFotoById(restauranteId, produtoId)
                 .ifPresent(this::remover);
+        
+        var fotoSalva = produtoRepository.save(fotoProduto);
+        produtoRepository.flush();
 
-        return produtoRepository.save(fotoProduto);
+        var novaFotoStorage = NovaFoto.builder()
+                .nomeArquivo(novoNomeArquivo)
+                .inputStream(fotoProduto.getInputStream())
+                .build();
+
+        storageFotoService.armazenar(novaFotoStorage);
+
+        return fotoSalva;
     }
 
+    @Transactional
     public void remover(FotoProduto fotoProduto){
         produtoRepository.delete(fotoProduto);
+        storageFotoService.excluir(fotoProduto.getNomeArquivo());
+    }
+
+    public FotoProduto buscar(Long restauranteId, Long produtoId) {
+        return produtoRepository.findFotoById(restauranteId, produtoId)
+            .orElseThrow(() -> new FotoProdutoNaoEncontradoException(restauranteId, produtoId));
+        
     }
 }

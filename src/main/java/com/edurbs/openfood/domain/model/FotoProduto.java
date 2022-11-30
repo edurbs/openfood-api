@@ -1,11 +1,15 @@
 package com.edurbs.openfood.domain.model;
 
+import java.io.InputStream;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
+import javax.transaction.TransactionScoped;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -44,7 +48,14 @@ public class FotoProduto {
     @NotNull    
     private Long tamanho;
 
-    public Long getRestauranteId(){
-        return this.getProduto().getRestaurante().getId();
+    @Transient
+    private InputStream inputStream;
+
+    @Transient
+    private Long restauranteId;
+
+    public boolean restauranteNaoPossuiProduto(){
+        var produtoRestauranteId = this.getProduto().getRestaurante().getId();
+        return produtoRestauranteId != restauranteId;
     }
 }

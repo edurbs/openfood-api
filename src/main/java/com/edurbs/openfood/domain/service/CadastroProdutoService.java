@@ -57,7 +57,7 @@ public class CadastroProdutoService {
 
     public Produto buscarDoRestaurante(Long restauranteId, Long produtoId) {
         cadastroRestauranteService.buscar(restauranteId);        
-        return produtoRepository.findByIdAndRestauranteId(produtoId, restauranteId)
+        return produtoRepository.buscarProdutoNoRestaurante(produtoId, restauranteId)
                 .orElseThrow(()-> new ProdutoNaoEncontradoException(String.format("Produto código %d não existe no restaurante código %d.", produtoId, restauranteId)));
     }
 
