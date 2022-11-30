@@ -5,7 +5,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.edurbs.openfood.api.model.FotoProdutoApiModel;
 import com.edurbs.openfood.domain.exception.FotoProdutoNaoEncontradoException;
 import com.edurbs.openfood.domain.model.FotoProduto;
 import com.edurbs.openfood.domain.repository.ProdutoRepository;
@@ -18,9 +17,6 @@ public class CatalogoFotoProdutoService {
     private ProdutoRepository produtoRepository;
 
     @Autowired
-    private CadastroRestauranteService cadastroRestauranteService;
-
-    @Autowired
     private FotoStorageService storageFotoService;
 
     @Autowired
@@ -29,10 +25,9 @@ public class CatalogoFotoProdutoService {
     @Transactional
     public FotoProduto salvar(FotoProduto fotoProduto) {
         Long restauranteId = fotoProduto.getRestauranteId();
-        //cadastroRestauranteService.buscar(restauranteId);
 
         Long produtoId = fotoProduto.getProduto().getId();
-        var produto = cadastroProdutoService.buscarDoRestaurante(restauranteId, produtoId);
+        cadastroProdutoService.buscarDoRestaurante(restauranteId, produtoId);
         
 
         String novoNomeArquivo = storageFotoService.gerarNomeArquivo(fotoProduto.getNomeArquivo());
@@ -58,7 +53,13 @@ public class CatalogoFotoProdutoService {
     @Transactional
     public void remover(FotoProduto fotoProduto){
         produtoRepository.delete(fotoProduto);
+        produtoRepository.flush();
         storageFotoService.excluir(fotoProduto.getNomeArquivo());
+    }
+
+    public void remover(Long restauranteId, Long produtoId){
+        var fotoProduto = buscar(restauranteId, produtoId);
+        remover(fotoProduto);
     }
 
     public FotoProduto buscar(Long restauranteId, Long produtoId) {
