@@ -2,6 +2,7 @@ package com.edurbs.openfood.api.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -9,8 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpMediaTypeNotAcceptableException;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,18 +22,12 @@ import com.edurbs.openfood.api.assembler.FotoProdutoAssembler;
 import com.edurbs.openfood.api.model.FotoProdutoApiModel;
 import com.edurbs.openfood.api.model.input.FotoProdutoInput;
 import com.edurbs.openfood.domain.exception.EntidadeNaoEncontradaException;
-import com.edurbs.openfood.domain.exception.FotoProdutoNaoEncontradoException;
-import com.edurbs.openfood.domain.exception.ProdutoNaoEncontradoException;
 import com.edurbs.openfood.domain.exception.StorageException;
 import com.edurbs.openfood.domain.model.FotoProduto;
 import com.edurbs.openfood.domain.model.Produto;
-import com.edurbs.openfood.domain.repository.ProdutoRepository;
 import com.edurbs.openfood.domain.service.CadastroProdutoService;
 import com.edurbs.openfood.domain.service.CatalogoFotoProdutoService;
 import com.edurbs.openfood.domain.service.FotoStorageService;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -82,16 +80,30 @@ public class RestauranteProdutoFotoController {
         return fotoProdutoAssembler.toApiModel(fotoProduto);
     }
 
-    @GetMapping(produces = MediaType.IMAGE_PNG_VALUE)
-    public ResponseEntity<InputStreamResource> buscarFoto(@PathVariable Long restauranteId, @PathVariable Long produtoId) {
+    @GetMapping
+    public ResponseEntity<InputStreamResource> buscarFoto(@PathVariable Long restauranteId, @PathVariable Long produtoId, @RequestHeader(name="accept") String acceptHeader) throws HttpMediaTypeNotAcceptableException {
         try {
             FotoProduto fotoProduto = catalogoFotoProdutoService.buscar(restauranteId, produtoId);
+            
+            MediaType mediaTypeFoto = MediaType.parseMediaType(fotoProduto.getContentType());
+            List<MediaType> mediaTypeAceitas = MediaType.parseMediaTypes(acceptHeader);
+            verificarCompatibilidadeMediaType(mediaTypeFoto,mediaTypeAceitas);
+
             InputStream inputStream = fotoStorageService.recuperar(fotoProduto.getNomeArquivo());
             return ResponseEntity.ok()
-                    .contentType(MediaType.IMAGE_PNG)
+                    .contentType(mediaTypeFoto)
                     .body(new InputStreamResource(inputStream));
         } catch (EntidadeNaoEncontradaException e) {
             return ResponseEntity.notFound().build();            
+        }
+    }
+
+    private void verificarCompatibilidadeMediaType(MediaType mediaTypeFoto, List<MediaType> mediaTypeAceitas) throws HttpMediaTypeNotAcceptableException {
+
+        boolean compativel = mediaTypeAceitas.stream()
+                .anyMatch(mediaTypeAceita -> mediaTypeAceita.isCompatibleWith(mediaTypeFoto));
+        if(!compativel){
+            throw new HttpMediaTypeNotAcceptableException(mediaTypeAceitas);
         }
     }
     
