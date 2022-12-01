@@ -29,6 +29,8 @@ public interface FotoStorageService {
     @Builder
     public class NovaFoto {
         private String nomeArquivo;
+        private String contentType;
+        private Long size;
         private InputStream inputStream;
     }
 }

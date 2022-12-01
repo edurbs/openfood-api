@@ -3,7 +3,6 @@ package com.edurbs.openfood.core.storage;
 import java.nio.file.Path;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import com.amazonaws.regions.Regions;
@@ -28,10 +27,10 @@ public class StorageProperties {
     @Getter
     @Setter
     public class S3 {
-        private String idChaveAcesso;
-        private String chaveAcessoSecreta;
+        private String id;
+        private String key;
         private String bucket;
         private Regions regiao;
-        private String photoFolder;
+        private String folder;
     }
 }
