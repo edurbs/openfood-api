@@ -87,10 +87,10 @@ insert ignore into grupo (nome) values ('Gerente'), ('Vendedor'), ('Secretária'
 
 insert ignore into grupo_permissao (grupo_id, permissao_id) values (1, 1), (1, 2), (1, 3), (2, 1), (3, 1), (3, 2), (4, 1), (4,2);
 
-insert ignore into usuario (data_cadastro, email, nome, senha) values (utc_timestamp, 'bastiao@asd.com', 'Bastião', '123456');
-insert ignore into usuario (data_cadastro, email, nome, senha) values (utc_timestamp, 'joaquim@asd.com', 'Joaquim', '123456');
-insert ignore into usuario (data_cadastro, email, nome, senha) values (utc_timestamp, 'jose@asd.com', 'José', '123456');
-insert ignore into usuario (data_cadastro, email, nome, senha) values (utc_timestamp, 'maria@asd.com', 'Maria', '123456');
+insert ignore into usuario (data_cadastro, email, nome, senha) values (utc_timestamp, 'edurbs+bastiao@gmail.com', 'Bastião', '123456');
+insert ignore into usuario (data_cadastro, email, nome, senha) values (utc_timestamp, 'edurbs+joaquim@gmail.com', 'Joaquim', '123456');
+insert ignore into usuario (data_cadastro, email, nome, senha) values (utc_timestamp, 'edurbs+jose@gmail.com', 'José', '123456');
+insert ignore into usuario (data_cadastro, email, nome, senha) values (utc_timestamp, 'edurbs+maria@gmail.com', 'Maria', '123456');
 
 insert ignore into usuario_grupo (usuario_id, grupo_id) values (1,1), (1,2), (2,2), (3,2), (4,3), (4,4);
 
@@ -149,17 +149,6 @@ values (5, '8d774bcf-b238-42f3-aef1-5fb388754d63', 1, 3, 2, 1, '38400-200', 'Rua
 
 insert into item_pedido (id, pedido_id, produto_id, quantidade, preco_unitario, preco_total, observacao)
 values (6, 5, 3, 1, 87.2, 87.2, null);
-
-insert into pedido (id, codigo, restaurante_id, cliente_id, forma_pagamento_id, endereco_cidade_id, endereco_cep, 
-    endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro,
-    status, data_criacao, subtotal, taxa_frete, valor_total)
-values (6, '4e2cf848-3a0d-49d7-a26b-5cb5c06dc46a', 1, 1, 1, 1, '38400-000', 'Rua Floriano Peixoto', '500', 'Apto 801', 'Brasil',
-'CRIADO', utc_timestamp, 298.90, 10, 308.90);
-
-insert into item_pedido (id, pedido_id, produto_id, quantidade, preco_unitario, preco_total, observacao)
-values (7, 1, 1, 1, 78.9, 78.9, null);
-insert into item_pedido (id, pedido_id, produto_id, quantidade, preco_unitario, preco_total, observacao)
-values (8, 1, 2, 2, 110, 220, 'Menos picante, por favor');
 
 
 insert into pedido (id, codigo, restaurante_id, cliente_id, forma_pagamento_id, endereco_cidade_id, endereco_cep, 

@@ -13,7 +13,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.edurbs.openfood.core.storage.StorageProperties;
 import com.edurbs.openfood.domain.service.FotoStorageService;
 
-@Service
+
 public class S3FotoStorageService implements FotoStorageService{
 
     @Autowired

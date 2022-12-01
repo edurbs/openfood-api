@@ -6,13 +6,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 
 import com.edurbs.openfood.core.storage.StorageProperties;
 import com.edurbs.openfood.domain.service.FotoStorageService;
 
 
-//@Service
+
 public class LocalStorageFotoService implements FotoStorageService {
 
     @Autowired
