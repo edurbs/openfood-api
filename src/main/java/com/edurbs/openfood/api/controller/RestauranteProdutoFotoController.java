@@ -24,12 +24,13 @@ import com.edurbs.openfood.api.assembler.FotoProdutoAssembler;
 import com.edurbs.openfood.api.model.FotoProdutoApiModel;
 import com.edurbs.openfood.api.model.input.FotoProdutoInput;
 import com.edurbs.openfood.domain.exception.EntidadeNaoEncontradaException;
-import com.edurbs.openfood.domain.exception.StorageException;
 import com.edurbs.openfood.domain.model.FotoProduto;
 import com.edurbs.openfood.domain.model.Produto;
 import com.edurbs.openfood.domain.service.CadastroProdutoService;
 import com.edurbs.openfood.domain.service.CatalogoFotoProdutoService;
 import com.edurbs.openfood.domain.service.FotoStorageService;
+import com.edurbs.openfood.infrastructure.service.storage.StorageException;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 

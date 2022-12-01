@@ -1,25 +1,22 @@
 package com.edurbs.openfood.infrastructure.service.storage;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FileCopyUtils;
 
-import com.edurbs.openfood.domain.exception.StorageException;
+import com.edurbs.openfood.core.storage.StorageProperties;
 import com.edurbs.openfood.domain.service.FotoStorageService;
 
 
-@Service
+//@Service
 public class LocalStorageFotoService implements FotoStorageService {
 
-    @Value("${openfood.storage.photo.folder}")
-    private Path photoFolder;
+    @Autowired
+    private StorageProperties storageProperties;
     
     @Override
     public void armazenar(NovaFoto novaFoto) {
@@ -38,7 +35,7 @@ public class LocalStorageFotoService implements FotoStorageService {
     }
 
     public Path getPath(String nomeArquivo){
-        return photoFolder.resolve(nomeArquivo);
+        return storageProperties.getLocal().getPhotoFolder().resolve(nomeArquivo);
     }
 
     @Override

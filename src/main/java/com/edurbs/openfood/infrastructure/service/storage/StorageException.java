@@ -1,4 +1,4 @@
-package com.edurbs.openfood.domain.exception;
+package com.edurbs.openfood.infrastructure.service.storage;
 
 public class StorageException extends RuntimeException  {
 
