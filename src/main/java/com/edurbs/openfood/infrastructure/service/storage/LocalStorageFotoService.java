@@ -52,10 +52,13 @@ public class LocalStorageFotoService implements FotoStorageService {
     }
 
     @Override
-    public InputStream recuperar(String nomeArquivo) {
-        var pathNomeArquivo = getPath(nomeArquivo);
+    public FotoRecuperada recuperar(String nomeArquivo) {
         try {
-            return Files.newInputStream(pathNomeArquivo);
+            var pathNomeArquivo = getPath(nomeArquivo);
+            FotoRecuperada fotoRecuperada = FotoRecuperada.builder()
+                    .inputStream(Files.newInputStream(pathNomeArquivo))
+                    .build();
+            return fotoRecuperada;
         } catch (Exception e) {
             throw new StorageException("Não foi possível ler o arquivo.", e);
         }
