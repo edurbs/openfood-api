@@ -17,6 +17,11 @@ import lombok.Setter;
 public class StorageProperties {
     private Local local = new Local();
     private S3 s3 = new S3();
+    private TypeStorage type = TypeStorage.LOCAL;
+
+    public enum TypeStorage {
+        LOCAL, S3
+    }
 
     @Getter
     @Setter
