@@ -1,8 +1,8 @@
 package com.edurbs.openfood.api.model;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import com.edurbs.openfood.domain.model.Estado;
 

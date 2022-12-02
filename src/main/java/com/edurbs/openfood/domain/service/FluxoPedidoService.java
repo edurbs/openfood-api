@@ -1,11 +1,11 @@
 package com.edurbs.openfood.domain.service;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.edurbs.openfood.domain.service.SendEmailService.Message;
+import com.edurbs.openfood.domain.repository.PedidoRepository;
 
 @Component
 public class FluxoPedidoService {
@@ -14,7 +14,8 @@ public class FluxoPedidoService {
     private CadastroPedidoService cadastroPedidoService;
 
     @Autowired
-    private SendEmailService sendEmailService;
+    private PedidoRepository pedidoRepository;
+
 
     @Transactional
     public void confirmar(String codigoPedido) {
@@ -22,15 +23,7 @@ public class FluxoPedidoService {
 
         pedido.confirmar();
 
-        var message = Message.builder()
-                .subject(pedido.getRestaurante().getNome()+" - Pedido confirmado")
-                .body("order-confirmed.html")
-                .variable("pedido", pedido)
-                .recipient(pedido.getCliente().getEmail())
-                .build();
-
-        sendEmailService.send(message);
-
+        pedidoRepository.save(pedido); // to send the event
     }
 
     @Transactional

@@ -1,6 +1,6 @@
 package com.edurbs.openfood.api.model.input;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 public class EstadoInput {
     

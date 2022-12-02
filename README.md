@@ -6,7 +6,7 @@ A delivery system API like iFood written in Java.
 
 - Java 17
 - Domain Driven Design
-- Spring Framework 2.7.5
+- Spring Boot 3.0.0
 - Lombok
 - MySQL
 - Hibernate

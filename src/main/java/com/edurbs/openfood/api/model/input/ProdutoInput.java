@@ -2,8 +2,8 @@ package com.edurbs.openfood.api.model.input;
 
 import java.math.BigDecimal;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PositiveOrZero;
 
 import org.springframework.lang.NonNull;
 

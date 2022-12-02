@@ -2,7 +2,6 @@ package com.edurbs.openfood.api.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +20,8 @@ import com.edurbs.openfood.domain.exception.EntidadeNaoEncontradaException;
 import com.edurbs.openfood.domain.exception.NegocioException;
 import com.edurbs.openfood.domain.model.Cidade;
 import com.edurbs.openfood.domain.service.CadastroCidadeService;
+
+import jakarta.validation.Valid;
 
 
 
@@ -45,7 +46,7 @@ public class CidadeController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public Cidade adicionar(@RequestBody @Valid Cidade cidade) {
+    public Cidade adicionar(@RequestBody  Cidade cidade) {
         try {
             return cadastroCidadeService.salvar(cidade);            
         } catch (EntidadeNaoEncontradaException e) {
