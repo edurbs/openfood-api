@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.edurbs</groupId>
 	<artifactId>openfood-api</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>openfood-api</name>
 	<description>Delivery system api like iFood</description>
 	<properties>
