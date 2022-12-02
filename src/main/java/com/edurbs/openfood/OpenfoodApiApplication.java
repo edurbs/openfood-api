@@ -16,7 +16,7 @@ public class OpenfoodApiApplication {
 		SpringApplication.run(OpenfoodApiApplication.class, args);
 		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
 		// test git-flow
-
+		// this the feature test 1 done
 	}
 
 }
