@@ -21,7 +21,15 @@ public class EmailProperties {
 
     private MailSenderType impl;
 
+    private Sandbox sandbox = new Sandbox();
+
+    @Getter
+    @Setter
+    public class Sandbox {
+        private String recipient;
+    }
+
     public enum MailSenderType{
-        SMTP, FAKE
+        SMTP, FAKE, SANDBOX
     }
 }

@@ -36,7 +36,7 @@ public class SmptSendEmailService implements SendEmailService {
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "UTF-8");
             
             helper.setFrom(emailProperties.getSender());
-            helper.setTo(message.getRecipients().toArray(new String[0]));
+            helper.setTo(getRecipients(message));
             helper.setSubject(message.getSubject());
             helper.setText(body, true);
 
@@ -46,6 +46,10 @@ public class SmptSendEmailService implements SendEmailService {
         } catch (Exception e) {
             throw new EmailException("Não foi possível enviar o email", e);
         }
+    }
+
+    protected String[] getRecipients(Message message){
+        return message.getRecipients().toArray(new String[0]);
     }
 
     protected String processTemplate(Message message){
