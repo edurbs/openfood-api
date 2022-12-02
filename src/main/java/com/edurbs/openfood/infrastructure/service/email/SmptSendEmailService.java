@@ -14,7 +14,6 @@ import com.edurbs.openfood.domain.service.SendEmailService;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 
-@Service
 public class SmptSendEmailService implements SendEmailService {
 
     @Autowired
@@ -49,7 +48,7 @@ public class SmptSendEmailService implements SendEmailService {
         }
     }
 
-    private String processTemplate(Message message){
+    protected String processTemplate(Message message){
 
         try {
             Template template = freeMarkerConfig.getTemplate(message.getBody());

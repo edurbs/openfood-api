@@ -18,4 +18,10 @@ public class EmailProperties {
 
     @NotNull
     private String sender;
+
+    private MailSenderType impl;
+
+    public enum MailSenderType{
+        SMTP, FAKE
+    }
 }
