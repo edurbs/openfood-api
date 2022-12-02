@@ -221,14 +221,9 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-
-
 	    
 	    return handleValidationInternal(ex, headers, status, request, ex.getBindingResult());
 	}
-
-
-
 
     @ExceptionHandler(Exception.class)
 	public ResponseEntity<Object> handleUncaught(Exception ex, WebRequest request) {
@@ -265,6 +260,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                     .collect(Collectors.toList());
 
         Problem problem = createProblemBuilder(status, problemType, detail)
+                .userMessage(detail)
                 .objects(problemObjects)
                 .build();
         return handleExceptionInternal(ex, problem, headers, status, request);        
@@ -278,7 +274,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 .type(problemType.getUri())
                 .title((problemType.getTitle()))
                 .detail(detail)
-                .userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL)
+                .userMessage(detail)
                 .offsetDateTime(OffsetDateTime.now().toString());
     }
 

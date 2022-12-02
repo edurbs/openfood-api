@@ -2,16 +2,13 @@ package com.edurbs.openfood.api.controller;
 
 import java.util.List;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
-
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.http.server.ServletServerHttpRequest;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,14 +22,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.edurbs.openfood.api.assembler.RestauranteModelAssembler;
 import com.edurbs.openfood.api.model.RestauranteApiModel;
 import com.edurbs.openfood.api.model.input.RestauranteInput;
-import com.edurbs.openfood.api.model.view.RestauranteView;
 import com.edurbs.openfood.domain.exception.CidadeNaoEncontradaException;
 import com.edurbs.openfood.domain.exception.CozinhaNaoEncontradaException;
 import com.edurbs.openfood.domain.exception.NegocioException;
 import com.edurbs.openfood.domain.model.Restaurante;
 import com.edurbs.openfood.domain.service.CadastroRestauranteService;
 
-
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/restaurantes")
@@ -51,25 +48,6 @@ public class RestauranteController {
        
     }
 
-    // @GetMapping(params = "projecao=resumo")
-    // public MappingJacksonValue listarResumo() {
-    //     var listaRestaurantes= cadastroRestauranteService.listar();
-    //     var listaRestaurantesApiModel = restauranteModelAssembler.toCollectionApiModel(listaRestaurantes);
-
-    //     MappingJacksonValue restauranteWrapper = new MappingJacksonValue(listaRestaurantesApiModel);
-
-    //     restauranteWrapper.setSerializationView(RestauranteView.Resumo.class);
-
-    //     return restauranteWrapper;
-    // }
-
-    // @GetMapping(params = "projecao=apenas-nome")
-    // public MappingJacksonValue listarApenasNome() {
-    //     var listaRestaurantesApiModel = restauranteModelAssembler.toCollectionApiModel(cadastroRestauranteService.listar());
-    //     MappingJacksonValue restauranteWrapper = new MappingJacksonValue(listaRestaurantesApiModel);
-    //     restauranteWrapper.setSerializationView(RestauranteView.ApenasNome.class);
-    //     return restauranteWrapper;
-    // }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
