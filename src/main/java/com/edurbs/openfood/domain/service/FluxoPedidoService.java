@@ -21,7 +21,7 @@ public class FluxoPedidoService {
     public void confirmar(String codigoPedido) {
         var pedido = cadastroPedidoService.buscar(codigoPedido);
 
-        pedido.confirmar();
+        pedido.confirmar(); // registro do evento
 
         pedidoRepository.save(pedido); // to send the event
     }
