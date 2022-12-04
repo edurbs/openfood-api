@@ -16,12 +16,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.ServletWebRequest;
+import org.springframework.web.filter.ShallowEtagHeaderFilter;
 
 import com.amazonaws.Response;
 import com.edurbs.openfood.api.assembler.FormaPagamentoAssembler;
 import com.edurbs.openfood.api.model.FormaPagamentoApiModel;
 import com.edurbs.openfood.api.model.input.FormaPagamentoInput;
 import com.edurbs.openfood.domain.model.FormaPagamento;
+import com.edurbs.openfood.domain.repository.FormaPagamentoRepository;
 import com.edurbs.openfood.domain.service.CadastroFormaPagamentoService;
 
 import jakarta.validation.Valid;
@@ -36,27 +39,56 @@ public class FormaPagamentoController {
     @Autowired
     private CadastroFormaPagamentoService cadastroFormaPagamentoService;
 
+    @Autowired 
+    private FormaPagamentoRepository formaPagamentoRepository;
+
     @Autowired
     private FormaPagamentoAssembler formaPagamentoAssembler;
 
     @GetMapping
-    public ResponseEntity<List<FormaPagamentoApiModel>> list() {
+    public ResponseEntity<List<FormaPagamentoApiModel>> list(ServletWebRequest webRequest) {
+
+        ShallowEtagHeaderFilter.disableContentCaching(webRequest.getRequest());
+        String eTag = "0";
+        var lastDateUpdated = formaPagamentoRepository.getLastDateUpdated();
+        if(lastDateUpdated.isPresent()){
+            eTag = String.valueOf(lastDateUpdated.get().toEpochSecond());
+        }
+
+        if(webRequest.checkNotModified(eTag)){
+            return null;
+        }
+
         List<FormaPagamento> lista = cadastroFormaPagamentoService.listar();
         List<FormaPagamentoApiModel> listaApiModel = formaPagamentoAssembler.toCollectionApiModel(lista);
-        CacheControl maxAge = CacheControl.maxAge(10, TimeUnit.SECONDS);
+        CacheControl cachoControl = CacheControl.maxAge(10, TimeUnit.SECONDS);
         return ResponseEntity.ok()
-                .cacheControl(maxAge)
-                    .body(listaApiModel);
+                .cacheControl(cachoControl)
+                .eTag(eTag)
+                .body(listaApiModel);
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<FormaPagamentoApiModel> search(@PathVariable Long id) {
+    public ResponseEntity<FormaPagamentoApiModel> search(@PathVariable Long id, ServletWebRequest webRequest) {
+        ShallowEtagHeaderFilter.disableContentCaching(webRequest.getRequest());
+        String eTag = "0";
+
+        var dateUpdated = formaPagamentoRepository.getLastDateUpdatedById(id);
+        if(dateUpdated.isPresent()){
+            eTag = String.valueOf(dateUpdated.get().toEpochSecond());
+        }
+
+        if(webRequest.checkNotModified(eTag)){
+            return null;
+        }
+
         FormaPagamento formaPagamento = cadastroFormaPagamentoService.buscar(id);
         FormaPagamentoApiModel formaPagamentoApiModel = formaPagamentoAssembler.toApiModel(formaPagamento);
         CacheControl cacheControl = CacheControl.maxAge(10, TimeUnit.SECONDS);
         return ResponseEntity.ok()
                 .cacheControl(cacheControl)
+                .eTag(eTag)
                 .body(formaPagamentoApiModel);
 
                 
