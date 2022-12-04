@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.amazonaws.Response;
 import com.edurbs.openfood.api.assembler.FormaPagamentoAssembler;
 import com.edurbs.openfood.api.model.FormaPagamentoApiModel;
 import com.edurbs.openfood.api.model.input.FormaPagamentoInput;
@@ -39,7 +40,7 @@ public class FormaPagamentoController {
     private FormaPagamentoAssembler formaPagamentoAssembler;
 
     @GetMapping
-    public ResponseEntity<List<FormaPagamentoApiModel>> listar() {
+    public ResponseEntity<List<FormaPagamentoApiModel>> list() {
         List<FormaPagamento> lista = cadastroFormaPagamentoService.listar();
         List<FormaPagamentoApiModel> listaApiModel = formaPagamentoAssembler.toCollectionApiModel(lista);
         CacheControl maxAge = CacheControl.maxAge(10, TimeUnit.SECONDS);
@@ -50,8 +51,15 @@ public class FormaPagamentoController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public FormaPagamentoApiModel buscar(@PathVariable Long id) {
-        return formaPagamentoAssembler.toApiModel(cadastroFormaPagamentoService.buscar(id));
+    public ResponseEntity<FormaPagamentoApiModel> search(@PathVariable Long id) {
+        FormaPagamento formaPagamento = cadastroFormaPagamentoService.buscar(id);
+        FormaPagamentoApiModel formaPagamentoApiModel = formaPagamentoAssembler.toApiModel(formaPagamento);
+        CacheControl cacheControl = CacheControl.maxAge(10, TimeUnit.SECONDS);
+        return ResponseEntity.ok()
+                .cacheControl(cacheControl)
+                .body(formaPagamentoApiModel);
+
+                
     }
 
     @PostMapping
