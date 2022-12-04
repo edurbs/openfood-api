@@ -1,20 +1,15 @@
 package com.edurbs.openfood.api.model;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-
-import com.edurbs.openfood.domain.model.Estado;
-
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@EqualsAndHashCode
 public class CidadeApiModel {
 
-    @NotBlank
+    private Long id;
     private String nome;
-
-    private Estado estado;
+    private EstadoApiModel estado;
 }

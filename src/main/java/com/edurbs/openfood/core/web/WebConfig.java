@@ -27,10 +27,10 @@ public class WebConfig implements WebMvcConfigurer {
                 .maxAge(3600);
     }
 
-    @Bean
-    public Filter shallowEtagHeaderFilter(){
-            return new ShallowEtagHeaderFilter();
-    }
+    // @Bean
+    // public Filter shallowEtagHeaderFilter(){
+    //         return new ShallowEtagHeaderFilter();
+    // }
 
     
 }
