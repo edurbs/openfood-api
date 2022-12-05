@@ -2,7 +2,6 @@ package com.edurbs.openfood.api.model;
 
 import java.io.Serializable;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
