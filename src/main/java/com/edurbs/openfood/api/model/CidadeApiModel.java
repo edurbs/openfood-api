@@ -1,20 +1,19 @@
 package com.edurbs.openfood.api.model;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import java.io.Serializable;
 
-import com.edurbs.openfood.domain.model.Estado;
-
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class CidadeApiModel {
+public class CidadeApiModel implements Serializable {
+    
 
-    @NotBlank
+    private static final long serialVersionUID = -8881742535695619217L;
+
+    private Long id;
     private String nome;
-
-    private Estado estado;
+    private EstadoApiModel estado;
 }

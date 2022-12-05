@@ -36,10 +36,10 @@ insert into cozinha (id, nome) values (2, 'Indiana');
 insert into cozinha (id, nome) values (3, 'Argentina');
 insert into cozinha (id, nome) values (4, 'Brasileira');
 
-INSERT ignore INTO forma_pagamento (id, descricao) VALUES(1, 'Dinheiro');
-INSERT ignore INTO forma_pagamento (id, descricao) VALUES(2, 'Pix');
-INSERT ignore INTO forma_pagamento (id, descricao) VALUES(3, 'Cartão crédito');
-INSERT ignore INTO forma_pagamento (id, descricao) VALUES(4, 'Cartão débito');
+INSERT ignore INTO forma_pagamento (id, descricao, date_updated) VALUES(1, 'Dinheiro', utc_timestamp);
+INSERT ignore INTO forma_pagamento (id, descricao, date_updated) VALUES(2, 'Pix', utc_timestamp);
+INSERT ignore INTO forma_pagamento (id, descricao, date_updated) VALUES(3, 'Cartão crédito', utc_timestamp);
+INSERT ignore INTO forma_pagamento (id, descricao, date_updated) VALUES(4, 'Cartão débito', utc_timestamp);
 
 INSERT ignore INTO estado (id, nome) VALUES(1, 'Minas Gerais');
 INSERT ignore INTO estado (id, nome) VALUES(2, 'São Paulo');
