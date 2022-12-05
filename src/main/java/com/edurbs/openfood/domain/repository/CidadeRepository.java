@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.edurbs.openfood.domain.model.Cidade;
 
-@Repository
+//@Repository
 public interface CidadeRepository extends JpaRepository<Cidade, Long> {
 
 }

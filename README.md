@@ -6,6 +6,7 @@ A delivery system API like iFood written in Java.
 
 - Java 17
 - Domain Driven Design
+- Domain Events
 - Spring Boot 3.0.0
 - Lombok
 - MySQL
@@ -17,3 +18,5 @@ A delivery system API like iFood written in Java.
 - AWS SDK with Amazon S3
 - JavaMail with Amazon SES
 - Apache FreeMarker
+- Shallow ETags
+- REDIS
