@@ -18,6 +18,7 @@ A delivery system API like iFood written in Java.
 - AWS SDK with Amazon S3
 - JavaMail with Amazon SES
 - Apache FreeMarker
-- Shallow ETags
+- ETags
 - REDIS
 - OpenAPI 3 with Springdoc (swagger)
+- Docker Compose

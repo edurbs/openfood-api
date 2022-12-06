@@ -1,6 +1,7 @@
 package com.edurbs.openfood.domain.model;
 
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

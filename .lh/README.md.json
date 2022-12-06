@@ -1,0 +1,26 @@
+{
+    "sourceFile": "README.md",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1670349558984,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1670349569886,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,5 +19,5 @@\n - JavaMail with Amazon SES\r\n - Apache FreeMarker\r\n - ETags\r\n - REDIS\r\n-- OpenAPI 3 with Springdoc (swagger)\n\\ No newline at end of file\n+- OpenAPI 3 with Springdoc (swagger)\r\n"
+                },
+                {
+                    "date": 1670350000284,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,4 +20,5 @@\n - Apache FreeMarker\r\n - ETags\r\n - REDIS\r\n - OpenAPI 3 with Springdoc (swagger)\r\n+- Docker Compose\r\n"
+                }
+            ],
+            "date": 1670349558984,
+            "name": "Commit-0",
+            "content": "# OpenFood\r\n\r\nA delivery system API like iFood written in Java.\r\n\r\n## Developed with\r\n\r\n- Java 17\r\n- Domain Driven Design\r\n- Domain Events\r\n- Spring Boot 2.7.6\r\n- Lombok\r\n- MySQL\r\n- Hibernate\r\n- Flyway\r\n- REST Assured\r\n- ModelMapper\r\n- JasperReports\r\n- AWS SDK with Amazon S3\r\n- JavaMail with Amazon SES\r\n- Apache FreeMarker\r\n- ETags\r\n- REDIS\r\n- OpenAPI 3 with Springdoc (swagger)"
+        }
+    ]
+}

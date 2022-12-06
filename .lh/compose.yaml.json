@@ -1,0 +1,58 @@
+{
+    "sourceFile": "compose.yaml",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 10,
+            "patches": [
+                {
+                    "date": 1670346190533,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1670346223960,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,4 @@\n+  redis:\r\n+    image: 'redislabs/redismod'\r\n+    ports:\r\n+      - '6379:6379'\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1670346274524,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,5 @@\n+services:\r\n   redis:\r\n     image: 'redislabs/redismod'\r\n     ports:\r\n       - '6379:6379'\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1670346334327,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,7 @@\n services:\r\n   redis:\r\n     image: 'redislabs/redismod'\r\n     ports:\r\n-      - '6379:6379'\n\\ No newline at end of file\n+      - '6379:6379'\r\n+  db:\r\n+    image: mysql:8\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1670346645326,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,5 +3,8 @@\n     image: 'redislabs/redismod'\r\n     ports:\r\n       - '6379:6379'\r\n   db:\r\n-    image: mysql:8\n\\ No newline at end of file\n+    image: mysql:8\r\n+    restart: always\r\n+    expose: \r\n+      - \"3306:3306\"\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1670346679796,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,5 +6,5 @@\n   db:\r\n     image: mysql:8\r\n     restart: always\r\n     expose: \r\n-      - \"3306:3306\"\n\\ No newline at end of file\n+      - \"3306\"\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1670346774841,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,5 +6,8 @@\n   db:\r\n     image: mysql:8\r\n     restart: always\r\n     expose: \r\n-      - \"3306\"\n\\ No newline at end of file\n+      - \"3306\"\r\n+    environment:\r\n+      - MYSQL_ROOT_PASSWORD=admin\r\n+      - MYSQL_USER= root\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1670346943768,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,8 +6,8 @@\n   db:\r\n     image: mysql:8\r\n     restart: always\r\n     expose: \r\n-      - \"3306\"\r\n+      - '3306'\r\n     environment:\r\n       - MYSQL_ROOT_PASSWORD=admin\r\n\\ No newline at end of file\n-      - MYSQL_USER= root\n+      - MYSQL_USER=root\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1670347708949,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,6 +8,5 @@\n     restart: always\r\n     expose: \r\n       - '3306'\r\n     environment:\r\n-      - MYSQL_ROOT_PASSWORD=admin\r\n-      - MYSQL_USER=root\n\\ No newline at end of file\n+      - MYSQL_ROOT_PASSWORD=admin\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1670348016792,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n services:\r\n   redis:\r\n-    image: 'redislabs/redismod'\r\n+    image: 'redis'\r\n     ports:\r\n       - '6379:6379'\r\n   db:\r\n     image: mysql:8\r\n"
+                },
+                {
+                    "date": 1670348216862,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,8 +5,10 @@\n       - '6379:6379'\r\n   db:\r\n     image: mysql:8\r\n     restart: always\r\n+    ports:\r\n+      - '3306:3306'\r\n     expose: \r\n       - '3306'\r\n     environment:\r\n       - MYSQL_ROOT_PASSWORD=admin\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1670346190533,
+            "name": "Commit-0",
+            "content": ""
+        }
+    ]
+}
