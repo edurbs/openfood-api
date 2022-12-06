@@ -1,3 +1,4 @@
+package com.edurbs.openfood.core.web;
 // package com.edurbs.openfood.core;
 
 // import org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties;

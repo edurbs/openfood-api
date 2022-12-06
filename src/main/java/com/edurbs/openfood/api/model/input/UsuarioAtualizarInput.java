@@ -3,6 +3,8 @@ package com.edurbs.openfood.api.model.input;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +12,8 @@ import lombok.Setter;
 @Setter
 public class UsuarioAtualizarInput {
     
+    
+    @Schema(description = "Nome do usuário")
     @NotBlank
     private String nome;
 
