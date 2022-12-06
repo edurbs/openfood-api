@@ -1,6 +1,6 @@
 package com.edurbs.openfood.api.model.input;
 
-import jakarta.validation.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.stereotype.Component;
 

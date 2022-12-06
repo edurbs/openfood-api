@@ -31,7 +31,7 @@ import com.edurbs.openfood.domain.model.Cidade;
 import com.edurbs.openfood.domain.repository.CidadeRepository;
 import com.edurbs.openfood.domain.service.CadastroCidadeService;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
 
 

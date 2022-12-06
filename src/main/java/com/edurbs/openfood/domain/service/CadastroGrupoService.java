@@ -3,7 +3,7 @@ package com.edurbs.openfood.domain.service;
 import java.util.Collection;
 import java.util.List;
 
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;

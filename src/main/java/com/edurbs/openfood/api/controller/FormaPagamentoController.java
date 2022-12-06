@@ -27,7 +27,7 @@ import com.edurbs.openfood.domain.model.FormaPagamento;
 import com.edurbs.openfood.domain.repository.FormaPagamentoRepository;
 import com.edurbs.openfood.domain.service.CadastroFormaPagamentoService;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
 
 

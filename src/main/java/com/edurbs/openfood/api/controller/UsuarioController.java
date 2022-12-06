@@ -3,8 +3,8 @@ package com.edurbs.openfood.api.controller;
 import java.util.Collection;
 import java.util.List;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.hibernate.TypeMismatchException;

@@ -2,8 +2,8 @@ package com.edurbs.openfood.api.controller;
 
 import java.util.List;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.flywaydb.core.internal.util.ExceptionUtils;
 import org.hibernate.TypeMismatchException;
