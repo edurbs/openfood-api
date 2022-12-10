@@ -54,7 +54,7 @@ public class CadastroCidadeService {
         return cidadeRepository.findAll();
     }
 
-    public Cidade buscar(Long id) {
+    public Cidade find(Long id) {
         return cidadeRepository.findById(id)
             .orElseThrow(() -> new CidadeNaoEncontradaException(id));
     }

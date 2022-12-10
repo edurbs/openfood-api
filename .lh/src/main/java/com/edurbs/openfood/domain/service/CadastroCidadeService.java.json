@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/main/java/com/edurbs/openfood/domain/service/CadastroCidadeService.java",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1670361616113,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1670361616113,
+            "name": "Commit-0",
+            "content": "package com.edurbs.openfood.domain.service;\r\n\r\nimport java.util.List;\r\n\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.dao.DataIntegrityViolationException;\r\nimport org.springframework.dao.EmptyResultDataAccessException;\r\nimport org.springframework.stereotype.Service;\r\n\r\nimport com.edurbs.openfood.domain.exception.CidadeNaoEncontradaException;\r\nimport com.edurbs.openfood.domain.exception.EntidadeEmUsoException;\r\nimport com.edurbs.openfood.domain.model.Cidade;\r\nimport com.edurbs.openfood.domain.repository.CidadeRepository;\r\nimport com.edurbs.openfood.domain.repository.EstadoRepository;\r\n\r\n@Service\r\npublic class CadastroCidadeService {\r\n\r\n\r\n    private static final String ESTADO_EM_USO = \"Estado código %d em uso\";\r\n\r\n    @Autowired\r\n    CidadeRepository cidadeRepository;\r\n\r\n    @Autowired\r\n    EstadoRepository estadoRepository;\r\n\r\n    @Autowired\r\n    CadastroEstadoService cadastroEstadoService;\r\n\r\n\r\n    public Cidade salvar(Cidade cidade) {\r\n        var estadoId = cidade.getEstado().getId();\r\n        var estado = cadastroEstadoService.buscar(estadoId);\r\n        cidade.setEstado(estado);        \r\n        return cidadeRepository.save(cidade);\r\n                  \r\n\r\n    }\r\n\r\n    public void remover(Long id) {\r\n        try {\r\n            cidadeRepository.deleteById(id);\r\n        } catch (DataIntegrityViolationException e) {\r\n            throw new EntidadeEmUsoException(String.format(ESTADO_EM_USO, id));\r\n        } catch (EmptyResultDataAccessException e) {\r\n            throw new CidadeNaoEncontradaException(id);\r\n        }\r\n\r\n\r\n    }\r\n\r\n    public List<Cidade> listar() {\r\n        return cidadeRepository.findAll();\r\n    }\r\n\r\n    public Cidade find(Long id) {\r\n        return cidadeRepository.findById(id)\r\n            .orElseThrow(() -> new CidadeNaoEncontradaException(id));\r\n    }\r\n\r\n}\r\n"
+        }
+    ]
+}

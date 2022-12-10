@@ -71,7 +71,7 @@ public class CidadeController {
     @Cacheable(cacheNames = CITY, key = ID_CACHE)
     public CidadeApiModel getCity(@PathVariable Long id) {        
              
-        var cidade = cadastroCidadeService.buscar(id);        
+        var cidade = cadastroCidadeService.find(id);        
 
         return cidadeModelAssembler.toApiModel(cidade);
 
@@ -101,7 +101,7 @@ public class CidadeController {
             evict = @CacheEvict(cacheNames = CITIES, allEntries = true))
     public CidadeApiModel updateCity(@PathVariable Long id, @RequestBody @Valid CidadeInput cidadeInput) {
         try {
-            cadastroCidadeService.buscar(id);        
+            cadastroCidadeService.find(id);        
             Cidade cidade = cidadeModelAssembler.toDomainModel(cidadeInput);
             cidade.setId(id);
             

@@ -37,6 +37,7 @@ import com.edurbs.openfood.domain.model.Usuario;
 import com.edurbs.openfood.domain.service.CadastroUsuarioService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 
@@ -66,7 +67,7 @@ public class UsuarioController {
         @Operation(summary = "Busca um usuário por ID")
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public UsuarioApiModel buscar(@PathVariable Long id, HttpServletRequest httpServletRequest) {
+    public UsuarioApiModel buscar(@Parameter(name = "Id do Usuário") @PathVariable Long id, HttpServletRequest httpServletRequest) {
         ServletServerHttpRequest serverHttpRequest = new ServletServerHttpRequest(httpServletRequest);
         try {
             Usuario usuario = cadastroUsuarioService.buscar(id);

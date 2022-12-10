@@ -87,7 +87,7 @@ public class CidadeControllerMockTest {
     @Test
     public void shouldReturnCidade1_whenGetCidade1() throws Exception {
         Long cidadeId = cidade1.getId();
-        when(cadastroCidadeService.buscar(cidadeId)).thenReturn(cidade1);        
+        when(cadastroCidadeService.find(cidadeId)).thenReturn(cidade1);        
         
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/cidades/"+cidadeId)

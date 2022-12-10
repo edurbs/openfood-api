@@ -13,7 +13,7 @@ import lombok.Setter;
 public class UsuarioAtualizarInput {
     
     
-    @Schema(description = "Nome do usuário")
+    // @Schema(description = "Nome do usuário", requiredMode = RequiredMode.REQUIRED, required = true)
     @NotBlank
     private String nome;
 

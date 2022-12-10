@@ -81,7 +81,7 @@ public class CadastroPedidoService {
         }       
 
         var cidadeId = pedido.getEnderecoEntrega().getCidade().getId();
-        var cidade = cadastroCidadeService.buscar(cidadeId);
+        var cidade = cadastroCidadeService.find(cidadeId);
         pedido.getEnderecoEntrega().setCidade(cidade);
     }
 
