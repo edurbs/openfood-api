@@ -23,16 +23,16 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.edurbs.openfood.domain.exception.CidadeNaoEncontradaException;
-import com.edurbs.openfood.domain.model.Cidade;
+import com.edurbs.openfood.domain.model.City;
 import com.edurbs.openfood.domain.model.Estado;
-import com.edurbs.openfood.domain.service.CadastroCidadeService;
+import com.edurbs.openfood.domain.service.RegistryCityService;
 
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 
 
-@WebMvcTest(controllers = CidadeController.class)
+@WebMvcTest(controllers = CityController.class)
 @AutoConfigureMockMvc(addFilters = false)
 public class CidadeControllerMockTest {
 
@@ -42,16 +42,16 @@ public class CidadeControllerMockTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private CadastroCidadeService cadastroCidadeService;
+    private RegistryCityService cadastroCidadeService;
 
     // @Autowired
     // private ObjectMapper objectMapper;
 
 
-    private Cidade cidade1;
-    private Cidade cidade2;
-    private Cidade cidade3;
-    private List<Cidade> cidades = new ArrayList<>();
+    private City cidade1;
+    private City cidade2;
+    private City cidade3;
+    private List<City> cidades = new ArrayList<>();
     private Estado estado;
 
 
@@ -71,9 +71,9 @@ public class CidadeControllerMockTest {
 
         
         // estado = podamFactory.manufacturePojo(Estado.class);
-        cidade1 = podamFactory.manufacturePojo(Cidade.class);
-        cidade2 = podamFactory.manufacturePojo(Cidade.class);
-        cidade3 = podamFactory.manufacturePojo(Cidade.class);
+        cidade1 = podamFactory.manufacturePojo(City.class);
+        cidade2 = podamFactory.manufacturePojo(City.class);
+        cidade3 = podamFactory.manufacturePojo(City.class);
         
         
         cidades.add(cidade1);
@@ -97,7 +97,7 @@ public class CidadeControllerMockTest {
                 //.content(objectMapper.writeValueAsString(cidade))
                 .andExpectAll(
                         MockMvcResultMatchers.status().isOk(),
-                        MockMvcResultMatchers.jsonPath("$.nome", Matchers.is(cidade1.getNome())),
+                        MockMvcResultMatchers.jsonPath("$.nome", Matchers.is(cidade1.getName())),
                         MockMvcResultMatchers.jsonPath("$.id", Matchers.is(cidade1.getId()), Long.class),
                         MockMvcResultMatchers.jsonPath("$.estado.id", Matchers.is(cidade1.getEstado().getId()), Long.class),
                         MockMvcResultMatchers.jsonPath("$.estado.nome", Matchers.is(cidade1.getEstado().getNome()))

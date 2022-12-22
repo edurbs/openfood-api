@@ -27,8 +27,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.edurbs.openfood.core.validation.ValidacaoException;
 import com.edurbs.openfood.domain.exception.EntidadeEmUsoException;
-import com.edurbs.openfood.domain.exception.EntidadeNaoEncontradaException;
-import com.edurbs.openfood.domain.exception.NegocioException;
+import com.edurbs.openfood.domain.exception.EntityNotFoundException;
+import com.edurbs.openfood.domain.exception.BusinessException;
 import com.fasterxml.jackson.databind.JsonMappingException.Reference;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.PropertyBindingException;
@@ -134,8 +134,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		return handleExceptionInternal(ex, problem, headers, status, request);
 	}
 
-    @ExceptionHandler(EntidadeNaoEncontradaException.class)
-    public ResponseEntity<Object> handleEntidadeNaoEncontrada (EntidadeNaoEncontradaException ex, WebRequest request){
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<Object> handleEntidadeNaoEncontrada (EntityNotFoundException ex, WebRequest request){
 
         HttpStatus status = HttpStatus.NOT_FOUND;
         ProblemType problemType = ProblemType.RECURSO_NAO_ENCONTRADO;
@@ -158,8 +158,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
     }
     
-    @ExceptionHandler(NegocioException.class)
-    public ResponseEntity<Object> handleNegocioException(NegocioException ex, WebRequest request){
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<Object> handleNegocioException(BusinessException ex, WebRequest request){
         
         HttpStatus status = HttpStatus.BAD_REQUEST;
         ProblemType problemType = ProblemType.ERRO_GENERICO;

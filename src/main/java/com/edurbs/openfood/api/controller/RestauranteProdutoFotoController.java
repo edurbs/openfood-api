@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.edurbs.openfood.api.assembler.FotoProdutoAssembler;
 import com.edurbs.openfood.api.model.FotoProdutoApiModel;
 import com.edurbs.openfood.api.model.input.FotoProdutoInput;
-import com.edurbs.openfood.domain.exception.EntidadeNaoEncontradaException;
+import com.edurbs.openfood.domain.exception.EntityNotFoundException;
 import com.edurbs.openfood.domain.model.FotoProduto;
 import com.edurbs.openfood.domain.model.Produto;
 import com.edurbs.openfood.domain.service.CadastroProdutoService;
@@ -112,7 +112,7 @@ public class RestauranteProdutoFotoController {
                         .contentType(mediaTypeFoto)
                         .body(new InputStreamResource(fotoRecuperada.getInputStream()));
                 }
-        } catch (EntidadeNaoEncontradaException e) {
+        } catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();            
         }
     }

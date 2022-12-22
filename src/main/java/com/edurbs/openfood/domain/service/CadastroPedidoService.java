@@ -8,7 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.edurbs.openfood.domain.exception.NegocioException;
+import com.edurbs.openfood.domain.exception.BusinessException;
 import com.edurbs.openfood.domain.exception.PedidoNaoEncontradoException;
 import com.edurbs.openfood.domain.model.FormaPagamento;
 import com.edurbs.openfood.domain.model.Pedido;
@@ -28,7 +28,7 @@ public class CadastroPedidoService {
     private CadastroRestauranteService cadastroRestauranteService;
 
     @Autowired
-    private CadastroCidadeService cadastroCidadeService;
+    private RegistryCityService cadastroCidadeService;
 
     @Autowired
     private CadastroFormaPagamentoService cadastroFormaPagamentoService;
@@ -77,12 +77,12 @@ public class CadastroPedidoService {
         var formaPagamento = cadastroFormaPagamentoService.buscar(formaPagamentoId);
         pedido.setFormaPagamento(formaPagamento);
         if(restauranteNaoAceitaFormaPagamento(formaPagamento, formasPagamentoAceitas)){
-            throw new NegocioException(String.format("Restaurante código %d não aceita forma de pagamento código %d", restauranteId, formaPagamentoId));
+            throw new BusinessException(String.format("Restaurante código %d não aceita forma de pagamento código %d", restauranteId, formaPagamentoId));
         }       
 
-        var cidadeId = pedido.getEnderecoEntrega().getCidade().getId();
+        var cidadeId = pedido.getEnderecoEntrega().getCity().getId();
         var cidade = cadastroCidadeService.find(cidadeId);
-        pedido.getEnderecoEntrega().setCidade(cidade);
+        pedido.getEnderecoEntrega().setCity(cidade);
     }
 
     public void validaItensPedido(Pedido pedido){
@@ -96,7 +96,7 @@ public class CadastroPedidoService {
             var produto = cadastroProdutoService.buscar(produtoId);
 
             if(restauranteNaoContemProduto(produto, produtosDoRestaurante)){
-                throw new NegocioException(String.format("Produto código %d não está cadastradado no restaurante código %d", produtoId, restauranteId));
+                throw new BusinessException(String.format("Produto código %d não está cadastradado no restaurante código %d", produtoId, restauranteId));
             }
 
             item.setProduto(produto);

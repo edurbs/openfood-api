@@ -25,7 +25,7 @@ import com.edurbs.openfood.api.assembler.GrupoAssembler;
 import com.edurbs.openfood.api.model.GrupoApiModel;
 import com.edurbs.openfood.api.model.input.GrupoInput;
 import com.edurbs.openfood.domain.exception.GrupoNaoEncontradoException;
-import com.edurbs.openfood.domain.exception.NegocioException;
+import com.edurbs.openfood.domain.exception.BusinessException;
 import com.edurbs.openfood.domain.model.Grupo;
 import com.edurbs.openfood.domain.service.CadastroGrupoService;
 
@@ -73,7 +73,7 @@ public class GrupoController {
             
             
         } catch (GrupoNaoEncontradoException e) {
-            throw new NegocioException(e.getMessage());
+            throw new BusinessException(e.getMessage());
         }
     }
     
@@ -87,7 +87,7 @@ public class GrupoController {
             return grupoAssembler.toApiModel(grupoSalvo);
 
         } catch (GrupoNaoEncontradoException e) {
-            throw new NegocioException(e.getMessage());
+            throw new BusinessException(e.getMessage());
         }       
         
     }

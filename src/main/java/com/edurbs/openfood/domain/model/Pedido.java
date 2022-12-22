@@ -24,7 +24,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.domain.AbstractAggregateRoot;
 
 import com.edurbs.openfood.domain.event.OrderConfirmedEvent;
-import com.edurbs.openfood.domain.exception.NegocioException;
+import com.edurbs.openfood.domain.exception.BusinessException;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -115,7 +115,7 @@ public class Pedido extends AbstractAggregateRoot<Pedido>{
 
     private void setStatus(StatusPedido novoStatus){
         if(getStatus().naoPodeAlterarPara(novoStatus)){
-            throw new NegocioException(
+            throw new BusinessException(
                     String.format("Status do pedido %s não pode ser alterado de %s para %s.",
                             getCodigo(), 
                             getStatus().getDescricao(), 

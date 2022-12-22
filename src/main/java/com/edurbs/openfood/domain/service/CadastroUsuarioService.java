@@ -12,7 +12,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.edurbs.openfood.domain.exception.EntidadeEmUsoException;
-import com.edurbs.openfood.domain.exception.NegocioException;
+import com.edurbs.openfood.domain.exception.BusinessException;
 import com.edurbs.openfood.domain.exception.UsuarioNaoEncontradoException;
 import com.edurbs.openfood.domain.model.Grupo;
 import com.edurbs.openfood.domain.model.Usuario;
@@ -37,7 +37,7 @@ public class CadastroUsuarioService {
         Optional<Usuario> usuarioExistente = usuarioRepository.findByEmail(usuario.getEmail());
 
         if(usuarioExistente.isPresent() && !usuarioExistente.get().equals(usuario)){
-            throw new NegocioException(String.format("Já existe um usuário com o email %s", usuario.getEmail()));
+            throw new BusinessException(String.format("Já existe um usuário com o email %s", usuario.getEmail()));
         }
         
         return usuarioRepository.save(usuario);
@@ -68,9 +68,9 @@ public class CadastroUsuarioService {
     public void alterarSenha(Long usuarioId, String senhaAtual, String senhaNova){
         var usuario = buscar(usuarioId);
         if(usuario.senhaNaoCoincideCom(senhaAtual)){
-            throw new NegocioException("Senha atual informada não coincide com a senha do usuário.");
+            throw new BusinessException("Senha atual informada não coincide com a senha do usuário.");
         }else if(usuario.senhaCoincideCom(senhaNova)){
-            throw new NegocioException("Nova senha não pode ser igual a senha atual.");
+            throw new BusinessException("Nova senha não pode ser igual a senha atual.");
         }
         usuario.setSenha(senhaNova);
     }

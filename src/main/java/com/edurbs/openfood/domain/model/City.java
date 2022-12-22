@@ -23,7 +23,7 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Cidade {
+public class City {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +32,7 @@ public class Cidade {
 
 
     @Column(nullable = false)
-    private String nome;
+    private String name;
     
     @ManyToOne
     @JoinColumn(nullable = false)

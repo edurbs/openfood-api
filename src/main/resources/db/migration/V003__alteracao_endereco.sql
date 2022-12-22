@@ -1,1 +1,1 @@
-ALTER TABLE restaurante CHANGE cidade_id endereco_cidade_id bigint NULL;
+ALTER TABLE restaurante CHANGE city_id endereco_city_id bigint NULL;

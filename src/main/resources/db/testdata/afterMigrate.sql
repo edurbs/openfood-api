@@ -1,6 +1,6 @@
 set foreign_key_checks = 0;
 
-delete from cidade;
+delete from city;
 delete from cozinha;
 delete from estado;
 delete from forma_pagamento;
@@ -19,7 +19,7 @@ delete from foto_produto;
 
 set foreign_key_checks = 1;
 
-alter table cidade auto_increment = 1;
+alter table city auto_increment = 1;
 alter table cozinha auto_increment = 1;
 alter table estado auto_increment = 1;
 alter table forma_pagamento auto_increment = 1;
@@ -49,21 +49,21 @@ INSERT ignore INTO estado (id, nome) VALUES(5, 'Rio Grande do Sul');
 INSERT ignore INTO estado (id, nome) VALUES(6, 'Mato Grosso do Norte');
 INSERT ignore INTO estado (id, nome) VALUES(7, 'Amazonas');
 
-INSERT ignore INTO cidade (id, nome, estado_id) VALUES(1, 'Varginha', 1);
-INSERT ignore INTO cidade (id, nome, estado_id) VALUES(2, 'Passos', 1);
-INSERT ignore INTO cidade (id, nome, estado_id) VALUES(3, 'Manhumirom', 1);
-INSERT ignore INTO cidade (id, nome, estado_id) VALUES(4, 'Franca', 2);
-INSERT ignore INTO cidade (id, nome, estado_id) VALUES(5, 'Niterói', 3);
+INSERT ignore INTO city (id, name, estado_id) VALUES(1, 'Varginha', 1);
+INSERT ignore INTO city (id, name, estado_id) VALUES(2, 'Passos', 1);
+INSERT ignore INTO city (id, name, estado_id) VALUES(3, 'Manhumirom', 1);
+INSERT ignore INTO city (id, name, estado_id) VALUES(4, 'Franca', 2);
+INSERT ignore INTO city (id, name, estado_id) VALUES(5, 'Niterói', 3);
 
-insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, ativo, endereco_cidade_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro) values (1, 'Thai Gourmet', 10, 1, utc_timestamp, utc_timestamp, true, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
-insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, ativo, endereco_cidade_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro) values (2, 'Thai Delivery', 9.50, 1, utc_timestamp, utc_timestamp, true, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
-insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, ativo, endereco_cidade_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro) values (3, 'Tuk Tuk Comida Indiana', 15, 2, utc_timestamp, utc_timestamp, true, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
-insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, ativo, endereco_cidade_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro) values (4, 'Java Steakhouse', 12, 3, utc_timestamp, utc_timestamp, true, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
-insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, ativo, endereco_cidade_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro) values (5, 'Lanchonete do Tio Sam', 11, 4, utc_timestamp, utc_timestamp, true, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
-insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, ativo, endereco_cidade_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro) values (6, 'Bar da Maria', 0, 4, utc_timestamp, utc_timestamp, true, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
-insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, ativo, endereco_cidade_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro) values (7, 'Bar da Sonia', 0, 1, utc_timestamp, utc_timestamp, false, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
-insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, ativo, endereco_cidade_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro) values (8, 'Bar da Josélia', 0, 1, utc_timestamp, utc_timestamp, true, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
-insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, ativo, endereco_cidade_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro) values (9, 'Bar da Creuza', 0, 1, utc_timestamp, utc_timestamp, false, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
+insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, ativo, endereco_city_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro) values (1, 'Thai Gourmet', 10, 1, utc_timestamp, utc_timestamp, true, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
+insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, ativo, endereco_city_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro) values (2, 'Thai Delivery', 9.50, 1, utc_timestamp, utc_timestamp, true, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
+insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, ativo, endereco_city_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro) values (3, 'Tuk Tuk Comida Indiana', 15, 2, utc_timestamp, utc_timestamp, true, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
+insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, ativo, endereco_city_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro) values (4, 'Java Steakhouse', 12, 3, utc_timestamp, utc_timestamp, true, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
+insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, ativo, endereco_city_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro) values (5, 'Lanchonete do Tio Sam', 11, 4, utc_timestamp, utc_timestamp, true, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
+insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, ativo, endereco_city_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro) values (6, 'Bar da Maria', 0, 4, utc_timestamp, utc_timestamp, true, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
+insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, ativo, endereco_city_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro) values (7, 'Bar da Sonia', 0, 1, utc_timestamp, utc_timestamp, false, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
+insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, ativo, endereco_city_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro) values (8, 'Bar da Josélia', 0, 1, utc_timestamp, utc_timestamp, true, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
+insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, ativo, endereco_city_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro) values (9, 'Bar da Creuza', 0, 1, utc_timestamp, utc_timestamp, false, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
 
 update restaurante set aberto=false;
 
@@ -98,7 +98,7 @@ insert ignore into restaurante_usuario_responsavel (usuario_id, restaurante_id) 
 
 
 
-insert into pedido (id, codigo, restaurante_id, cliente_id, forma_pagamento_id, endereco_cidade_id, endereco_cep, 
+insert into pedido (id, codigo, restaurante_id, cliente_id, forma_pagamento_id, endereco_city_id, endereco_cep, 
                     endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro,
 	                status, data_criacao, subtotal, taxa_frete, valor_total)
 values (1, 'f9981ca4-5a5e-4da3-af04-933861df3e55', 1, 1, 1, 1, '38400-000', 'Rua Floriano Peixoto', '500', 'Apto 801', 'Brasil',
@@ -111,7 +111,7 @@ insert into item_pedido (id, pedido_id, produto_id, quantidade, preco_unitario, 
 values (2, 1, 2, 2, 110, 220, 'Menos picante, por favor');
 
 
-insert into pedido (id, codigo, restaurante_id, cliente_id, forma_pagamento_id, endereco_cidade_id, endereco_cep, 
+insert into pedido (id, codigo, restaurante_id, cliente_id, forma_pagamento_id, endereco_city_id, endereco_cep, 
                     endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro,
 	                status, data_criacao, subtotal, taxa_frete, valor_total)
 values (2, 'd178b637-a785-4768-a3cb-aa1ce5a8cdab', 4, 1, 2, 1, '38400-111', 'Rua Acre', '300', 'Casa 2', 'Centro',
@@ -121,7 +121,7 @@ insert into item_pedido (id, pedido_id, produto_id, quantidade, preco_unitario, 
 values (3, 2, 6, 1, 79, 79, 'Ao ponto');
 
 
-insert into pedido (id, codigo, restaurante_id, cliente_id, forma_pagamento_id, endereco_cidade_id, endereco_cep, 
+insert into pedido (id, codigo, restaurante_id, cliente_id, forma_pagamento_id, endereco_city_id, endereco_cep, 
                     endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro,
 	                status, data_criacao, data_confirmacao, data_entrega, subtotal, taxa_frete, valor_total)
 values (3, 'b5741512-8fbc-47fa-9ac1-b530354fc0ff', 1, 1, 1, 1, '38400-222', 'Rua Natal', '200', null, 'Brasil',
@@ -131,7 +131,7 @@ insert into item_pedido (id, pedido_id, produto_id, quantidade, preco_unitario, 
 values (4, 3, 2, 1, 110, 110, null);
 
 
-insert into pedido (id, codigo, restaurante_id, cliente_id, forma_pagamento_id, endereco_cidade_id, endereco_cep, 
+insert into pedido (id, codigo, restaurante_id, cliente_id, forma_pagamento_id, endereco_city_id, endereco_cep, 
                     endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro,
 	                status, data_criacao, data_confirmacao, data_entrega, subtotal, taxa_frete, valor_total)
 values (4, '5c621c9a-ba61-4454-8631-8aabefe58dc2', 1, 2, 1, 1, '38400-800', 'Rua Fortaleza', '900', 'Apto 504', 'Centro',
@@ -141,7 +141,7 @@ insert into item_pedido (id, pedido_id, produto_id, quantidade, preco_unitario, 
 values (5, 4, 3, 2, 87.2, 174.4, null);
 
 
-insert into pedido (id, codigo, restaurante_id, cliente_id, forma_pagamento_id, endereco_cidade_id, endereco_cep, 
+insert into pedido (id, codigo, restaurante_id, cliente_id, forma_pagamento_id, endereco_city_id, endereco_cep, 
                     endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro,
 	                status, data_criacao, data_confirmacao, data_entrega, subtotal, taxa_frete, valor_total)
 values (5, '8d774bcf-b238-42f3-aef1-5fb388754d63', 1, 3, 2, 1, '38400-200', 'Rua 10', '930', 'Casa 20', 'Martins',
@@ -151,7 +151,7 @@ insert into item_pedido (id, pedido_id, produto_id, quantidade, preco_unitario, 
 values (6, 5, 3, 1, 87.2, 87.2, null);
 
 
-insert into pedido (id, codigo, restaurante_id, cliente_id, forma_pagamento_id, endereco_cidade_id, endereco_cep, 
+insert into pedido (id, codigo, restaurante_id, cliente_id, forma_pagamento_id, endereco_city_id, endereco_cep, 
         endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro,
         status, data_criacao, subtotal, taxa_frete, valor_total)
 values (7, 'fa6f94e5-c4ef-4504-ab58-7a9678359bd3', 4, 1, 2, 1, '38400-111', 'Rua Acre', '300', 'Casa 2', 'Centro',

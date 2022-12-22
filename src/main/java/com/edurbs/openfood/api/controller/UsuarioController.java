@@ -30,7 +30,7 @@ import com.edurbs.openfood.api.model.input.UsuarioAdicionarInput;
 import com.edurbs.openfood.api.model.input.UsuarioAtualizarInput;
 import com.edurbs.openfood.api.model.input.UsuarioSenhaInput;
 import com.edurbs.openfood.domain.exception.GrupoNaoEncontradoException;
-import com.edurbs.openfood.domain.exception.NegocioException;
+import com.edurbs.openfood.domain.exception.BusinessException;
 import com.edurbs.openfood.domain.exception.UsuarioNaoEncontradoException;
 import com.edurbs.openfood.domain.model.Grupo;
 import com.edurbs.openfood.domain.model.Usuario;
@@ -88,7 +88,7 @@ public class UsuarioController {
             Usuario usuarioSalvo = cadastroUsuarioService.salvar(usuario);
             return usuarioAssembler.toApiModel(usuarioSalvo);
         } catch (UsuarioNaoEncontradoException e) {
-            throw new NegocioException(e.getMessage());
+            throw new BusinessException(e.getMessage());
         }
     }
 
@@ -102,7 +102,7 @@ public class UsuarioController {
             Usuario usuarioSalvo = cadastroUsuarioService.salvar(usuarioAtual);
             return usuarioAssembler.toApiModel(usuarioSalvo);
         } catch (GrupoNaoEncontradoException e) {
-            throw new NegocioException(e.getMessage());
+            throw new BusinessException(e.getMessage());
         }
         
     }
@@ -126,7 +126,7 @@ public class UsuarioController {
                     usuarioSenhaInput.getSenhaNova()
                 );
         } catch (UsuarioNaoEncontradoException e) {
-            throw new NegocioException(e.getLocalizedMessage());
+            throw new BusinessException(e.getLocalizedMessage());
         }
     }
 

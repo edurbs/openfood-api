@@ -1,6 +1,6 @@
 package com.edurbs.openfood.domain.exception;
 
-public class ProdutoNaoEncontradoException extends EntidadeNaoEncontradaException {
+public class ProdutoNaoEncontradoException extends EntityNotFoundException {
 
     public ProdutoNaoEncontradoException(String msg) {
         super(msg);

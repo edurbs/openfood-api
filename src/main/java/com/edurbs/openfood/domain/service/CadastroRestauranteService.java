@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.edurbs.openfood.domain.exception.EntidadeEmUsoException;
 import com.edurbs.openfood.domain.exception.RestauranteNaoEncontradoException;
-import com.edurbs.openfood.domain.model.Cidade;
+import com.edurbs.openfood.domain.model.City;
 import com.edurbs.openfood.domain.model.Cozinha;
 import com.edurbs.openfood.domain.model.Restaurante;
 import com.edurbs.openfood.domain.repository.RestauranteRepository;
@@ -28,7 +28,7 @@ public class CadastroRestauranteService {
     private CadastroCozinhaService cadastroCozinhaService;
 
     @Autowired
-    private CadastroCidadeService cadastroCidadeService;
+    private RegistryCityService cadastroCidadeService;
 
     @Autowired
     private CadastroFormaPagamentoService cadastroFormaPagamentoService;
@@ -39,13 +39,13 @@ public class CadastroRestauranteService {
     @Transactional
     public Restaurante salvar(Restaurante restaurante) {
         Long cozinhaId = restaurante.getCozinha().getId();
-        Long cidadeId = restaurante.getEndereco().getCidade().getId();
+        Long cidadeId = restaurante.getEndereco().getCity().getId();
         
         Cozinha cozinha = cadastroCozinhaService.buscar(cozinhaId);
-        Cidade cidade = cadastroCidadeService.find(cidadeId);
+        City cidade = cadastroCidadeService.find(cidadeId);
         
         restaurante.setCozinha(cozinha);
-        restaurante.getEndereco().setCidade(cidade);
+        restaurante.getEndereco().setCity(cidade);
 
         return restauranteRepository.save(restaurante);
     }

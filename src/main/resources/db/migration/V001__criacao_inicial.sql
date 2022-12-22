@@ -56,15 +56,15 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
--- cidade definition
+-- city definition
 
-CREATE TABLE `cidade` (
+CREATE TABLE `city` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `nome` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
   `estado_id` bigint DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_cidade_estado` (`estado_id`),
-  CONSTRAINT `FK_cidade_estado` FOREIGN KEY (`estado_id`) REFERENCES `estado` (`id`)
+  KEY `FK_city_estado` (`estado_id`),
+  CONSTRAINT `FK_city_estado` FOREIGN KEY (`estado_id`) REFERENCES `estado` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
@@ -96,12 +96,12 @@ CREATE TABLE `restaurante` (
   `nome` varchar(255) NOT NULL,
   `taxa_frete` decimal(19,2) NOT NULL,
   `cozinha_id` bigint DEFAULT NULL,
-  `cidade_id` bigint DEFAULT NULL,
+  `city_id` bigint DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_restaurante_cozinha` (`cozinha_id`),
-  KEY `FK_restaurante_cidade` (`cidade_id`),
+  KEY `FK_restaurante_city` (`city_id`),
   CONSTRAINT `FK_restaurante_cozinha` FOREIGN KEY (`cozinha_id`) REFERENCES `cozinha` (`id`),
-  CONSTRAINT `FK_restaurante_cidade` FOREIGN KEY (`cidade_id`) REFERENCES `cidade` (`id`)
+  CONSTRAINT `FK_restaurante_city` FOREIGN KEY (`city_id`) REFERENCES `city` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 

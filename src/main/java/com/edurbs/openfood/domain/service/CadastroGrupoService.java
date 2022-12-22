@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.edurbs.openfood.domain.exception.EntidadeEmUsoException;
 import com.edurbs.openfood.domain.exception.GrupoNaoEncontradoException;
-import com.edurbs.openfood.domain.model.Cidade;
+import com.edurbs.openfood.domain.model.City;
 import com.edurbs.openfood.domain.model.Grupo;
 import com.edurbs.openfood.domain.model.Permissao;
 import com.edurbs.openfood.domain.repository.GrupoRepository;

@@ -1,6 +1,6 @@
 package com.edurbs.openfood.domain.exception;
 
-public class EntidadeEmUsoException extends NegocioException {
+public class EntidadeEmUsoException extends BusinessException {
 
     public EntidadeEmUsoException(String message) {
         super( message);       

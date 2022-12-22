@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.edurbs.openfood.domain.exception.EntidadeNaoEncontradaException;
+import com.edurbs.openfood.domain.exception.EntityNotFoundException;
 import com.edurbs.openfood.domain.exception.PermissaoNaoEncontradaException;
 import com.edurbs.openfood.domain.model.Permissao;
 import com.edurbs.openfood.domain.repository.PermissaoRepository;
