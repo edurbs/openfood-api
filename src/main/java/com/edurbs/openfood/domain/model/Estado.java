@@ -1,6 +1,8 @@
 package com.edurbs.openfood.domain.model;
 
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,9 +23,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 
-public class Estado {
+public class Estado implements Serializable {
     
  
+    private static final long serialVersionUID = -6396416890371700743L;
+
     @Id
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)

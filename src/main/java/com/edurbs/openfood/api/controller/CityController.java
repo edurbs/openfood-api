@@ -1,8 +1,8 @@
 package com.edurbs.openfood.api.controller;
 
-import java.net.URI;
 import java.util.List;
-import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -13,7 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpHeaders;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,22 +24,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.edurbs.openfood.api.assembler.CityModelAssembler;
 import com.edurbs.openfood.api.model.CityApiModel;
 import com.edurbs.openfood.api.model.input.CityInput;
 import com.edurbs.openfood.api.util.ResourceUriHelper;
-import com.edurbs.openfood.domain.exception.EntityNotFoundException;
 import com.edurbs.openfood.domain.exception.BusinessException;
+import com.edurbs.openfood.domain.exception.EntityNotFoundException;
 import com.edurbs.openfood.domain.model.City;
 import com.edurbs.openfood.domain.repository.CityRepository;
 import com.edurbs.openfood.domain.service.RegistryCityService;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 
 
@@ -65,7 +59,7 @@ public class CityController {
     private CityRepository cityRepository;
 
     @GetMapping
-    @Cacheable(cacheNames = CITIES, key = "#pageable")
+    //@Cacheable(cacheNames = CITIES, key = "#pageable")
     public Page<CityApiModel> listCities( @PageableDefault Pageable pageable) {
         Page<City> citiesPage = cityRepository.findAll(pageable);
         List<City> citiesList = citiesPage.getContent();
@@ -76,19 +70,24 @@ public class CityController {
 
     @GetMapping(ID_MAPPING)
     @ResponseStatus(HttpStatus.OK)
-    @Cacheable(cacheNames = CITY, key = ID_CACHE)
+    //@Cacheable(cacheNames = CITY, key = ID_CACHE)
     public CityApiModel getCity(@PathVariable Long id) {        
-             
         var city = registryCityService.find(id);        
 
-        return cityModelAssembler.toApiModel(city);
+        var cityApiModel = cityModelAssembler.toApiModel(city);
+        
+        cityApiModel.add(Link.of("http://localhost:8080/cities/"+id));
+        cityApiModel.add(Link.of("http://localhost:8080/cities", "cities"));
 
+        cityApiModel.getEstado().add(Link.of("http://localhost:8080/estados/"+cityApiModel.getEstado().getId()));
+        return cityApiModel;
+     
      }
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)    
-    @Caching(put = @CachePut(cacheNames = CITY, key=RESULT_ID),
-            evict = @CacheEvict(cacheNames = CITIES, allEntries = true))
+    //@Caching(put = @CachePut(cacheNames = CITY, key=RESULT_ID),
+    //        evict = @CacheEvict(cacheNames = CITIES, allEntries = true))
     public CityApiModel addCity(@RequestBody @Valid CityInput cityInput) {
         try {
             City city = cityModelAssembler.toDomainModel(cityInput);
@@ -106,8 +105,8 @@ public class CityController {
 
     @PutMapping(ID_MAPPING)
     @ResponseStatus(HttpStatus.OK)
-    @Caching(put = @CachePut(cacheNames = CITY, key=ID_CACHE),
-            evict = @CacheEvict(cacheNames = CITIES, allEntries = true))
+    //@Caching(put = @CachePut(cacheNames = CITY, key=ID_CACHE),
+    //        evict = @CacheEvict(cacheNames = CITIES, allEntries = true))
     public CityApiModel updateCity(@PathVariable Long id, @RequestBody @Valid CityInput cityInput) {
         try {
             registryCityService.find(id);        
@@ -125,10 +124,10 @@ public class CityController {
     }
 
     @DeleteMapping(ID_MAPPING)
-    @Caching(evict = {
-        @CacheEvict(cacheNames = CITY, key = ID_CACHE),
-        @CacheEvict(cacheNames = CITIES, allEntries = true)
-    })
+    // @Caching(evict = {
+    //     @CacheEvict(cacheNames = CITY, key = ID_CACHE),
+    //     @CacheEvict(cacheNames = CITIES, allEntries = true)
+    // })
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCity(@PathVariable Long id){        
         registryCityService.remover(id);    
