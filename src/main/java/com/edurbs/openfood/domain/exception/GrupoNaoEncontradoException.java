@@ -1,6 +1,6 @@
 package com.edurbs.openfood.domain.exception;
 
-public class GrupoNaoEncontradoException extends EntidadeNaoEncontradaException {
+public class GrupoNaoEncontradoException extends EntityNotFoundException {
     
     public GrupoNaoEncontradoException(String msg){
         super(msg);

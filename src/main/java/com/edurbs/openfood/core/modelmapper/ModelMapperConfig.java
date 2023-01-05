@@ -23,7 +23,7 @@ public class ModelMapperConfig {
 
         modelMapper.createTypeMap(Endereco.class, EnderecoApiModel.class)
                 .<String>addMapping(
-                        enderecoDomainModel -> enderecoDomainModel.getCidade().getEstado().getNome(), 
+                        enderecoDomainModel -> enderecoDomainModel.getCity().getEstado().getNome(), 
                         (enderecoApiModel, valor) -> enderecoApiModel.getCidade().setEstado(valor) );
 
         return modelMapper;

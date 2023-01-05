@@ -1,7 +1,7 @@
 package com.edurbs.openfood.api.model.input;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.multipart.MultipartFile;

@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.ContentNegotiationConfi
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import jakarta.servlet.Filter;
+import javax.servlet.Filter;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {

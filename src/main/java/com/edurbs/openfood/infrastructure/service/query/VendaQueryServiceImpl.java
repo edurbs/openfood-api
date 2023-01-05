@@ -5,11 +5,11 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.criteria.Expression;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.CriteriaBuilder.In;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.CriteriaBuilder.In;
 
 import org.springframework.stereotype.Repository;
 

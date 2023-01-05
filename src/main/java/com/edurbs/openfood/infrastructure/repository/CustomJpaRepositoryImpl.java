@@ -2,7 +2,7 @@ package com.edurbs.openfood.infrastructure.repository;
 
 import java.util.Optional;
 
-import jakarta.persistence.EntityManager;
+import javax.persistence.EntityManager;
 
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;

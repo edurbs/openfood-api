@@ -1,6 +1,6 @@
 package com.edurbs.openfood.domain.exception;
 
-public class CidadeNaoEncontradaException extends EntidadeNaoEncontradaException{
+public class CidadeNaoEncontradaException extends EntityNotFoundException{
 
     public CidadeNaoEncontradaException(String msg) {
         super(msg);

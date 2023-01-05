@@ -9,18 +9,18 @@ import org.springframework.stereotype.Service;
 
 import com.edurbs.openfood.domain.exception.CidadeNaoEncontradaException;
 import com.edurbs.openfood.domain.exception.EntidadeEmUsoException;
-import com.edurbs.openfood.domain.model.Cidade;
-import com.edurbs.openfood.domain.repository.CidadeRepository;
+import com.edurbs.openfood.domain.model.City;
+import com.edurbs.openfood.domain.repository.CityRepository;
 import com.edurbs.openfood.domain.repository.EstadoRepository;
 
 @Service
-public class CadastroCidadeService {
+public class RegistryCityService {
 
 
     private static final String ESTADO_EM_USO = "Estado código %d em uso";
 
     @Autowired
-    CidadeRepository cidadeRepository;
+    CityRepository cidadeRepository;
 
     @Autowired
     EstadoRepository estadoRepository;
@@ -29,7 +29,7 @@ public class CadastroCidadeService {
     CadastroEstadoService cadastroEstadoService;
 
 
-    public Cidade salvar(Cidade cidade) {
+    public City salvar(City cidade) {
         var estadoId = cidade.getEstado().getId();
         var estado = cadastroEstadoService.buscar(estadoId);
         cidade.setEstado(estado);        
@@ -50,11 +50,11 @@ public class CadastroCidadeService {
 
     }
 
-    public List<Cidade> listar() {
+    public List<City> listar() {
         return cidadeRepository.findAll();
     }
 
-    public Cidade buscar(Long id) {
+    public City find(Long id) {
         return cidadeRepository.findById(id)
             .orElseThrow(() -> new CidadeNaoEncontradaException(id));
     }

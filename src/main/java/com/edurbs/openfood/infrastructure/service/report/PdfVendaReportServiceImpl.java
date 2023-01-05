@@ -6,7 +6,7 @@ import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.edurbs.openfood.domain.exception.NegocioException;
+import com.edurbs.openfood.domain.exception.BusinessException;
 import com.edurbs.openfood.domain.filter.VendaDiariaFilter;
 import com.edurbs.openfood.domain.service.VendaQueryService;
 import com.edurbs.openfood.domain.service.VendaReportService;

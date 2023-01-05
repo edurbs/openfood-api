@@ -7,8 +7,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import java.lang.annotation.ElementType;
 
-import jakarta.validation.Constraint;
-import jakarta.validation.Payload;
+import javax.validation.Constraint;
+import javax.validation.Payload;
 
 
 @Target({ ElementType.TYPE })

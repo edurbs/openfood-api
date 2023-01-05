@@ -5,7 +5,7 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.Embedded;
+import javax.persistence.Embedded;
 
 import com.edurbs.openfood.domain.model.StatusPedido;
 

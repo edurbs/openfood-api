@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/main/java/com/edurbs/openfood/domain/model/Cidade.java",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1670349824502,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1670349824502,
+            "name": "Commit-0",
+            "content": "package com.edurbs.openfood.domain.model;\r\n\r\n\r\n\r\nimport javax.persistence.Column;\r\nimport javax.persistence.Entity;\r\nimport javax.persistence.GeneratedValue;\r\nimport javax.persistence.GenerationType;\r\nimport javax.persistence.Id;\r\nimport javax.persistence.JoinColumn;\r\nimport javax.persistence.ManyToOne;\r\nimport lombok.AllArgsConstructor;\r\nimport lombok.Builder;\r\nimport lombok.EqualsAndHashCode;\r\nimport lombok.Getter;\r\nimport lombok.NoArgsConstructor;\r\nimport lombok.Setter;\r\n\r\n@Entity\r\n@Getter\r\n@Setter\r\n@EqualsAndHashCode(onlyExplicitlyIncluded = true)\r\n@Builder\r\n@AllArgsConstructor\r\n@NoArgsConstructor\r\npublic class Cidade {\r\n\r\n    @Id\r\n    @GeneratedValue(strategy = GenerationType.IDENTITY)\r\n    @EqualsAndHashCode.Include\r\n    private Long id;\r\n\r\n\r\n    @Column(nullable = false)\r\n    private String nome;\r\n    \r\n    @ManyToOne\r\n    @JoinColumn(nullable = false)\r\n    private Estado estado;\r\n}\r\n"
+        }
+    ]
+}

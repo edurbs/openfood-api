@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/main/resources/application.properties",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1670348921177,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1670348921177,
+            "name": "Commit-0",
+            "content": "spring.profiles.active=dev\r\nserver.port=8080\r\nnotificador.email.host-servidor=stmp.fake-uptabi.com.br\r\nnotificador.email.porta-servidor=26\r\n#spring.datasource.url=jdbc:mysql://localhost:3306/openfood?createDatabaseIfNotExist=true&serverTimezone=UTC\r\nspring.datasource.username=root\r\nspring.datasource.password=admin\r\nspring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect\r\n#spring.jpa.generate-ddl=true\r\n#spring.jpa.hibernate.ddl-auto=create\r\nspring.jackson.deserialization.fail-on-unknown-properties=true\r\nspring.jackson.deserialization.fail-on-ignored-properties=true\r\n\r\nspring.mvc.throw-exception-if-no-handler-found=true\r\n#spring.resources.add-mappings=false\r\nspring.web.resources.add-mappings=false\r\n\r\n"
+        }
+    ]
+}

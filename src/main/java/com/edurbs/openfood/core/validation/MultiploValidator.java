@@ -2,8 +2,8 @@ package com.edurbs.openfood.core.validation;
 
 import java.math.BigDecimal;
 
-import jakarta.validation.ConstraintValidator;
-import jakarta.validation.ConstraintValidatorContext;
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
 
 public class MultiploValidator implements ConstraintValidator<Multiplo, Number> {
 

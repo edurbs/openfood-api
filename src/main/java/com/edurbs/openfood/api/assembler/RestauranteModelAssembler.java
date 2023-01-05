@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.edurbs.openfood.api.model.RestauranteApiModel;
 import com.edurbs.openfood.api.model.input.RestauranteInput;
-import com.edurbs.openfood.domain.model.Cidade;
+import com.edurbs.openfood.domain.model.City;
 import com.edurbs.openfood.domain.model.Cozinha;
 import com.edurbs.openfood.domain.model.Endereco;
 import com.edurbs.openfood.domain.model.Restaurante;
@@ -43,7 +43,7 @@ public class RestauranteModelAssembler {
         restaurante.setCozinha(new Cozinha());
 
         if(restaurante.getEndereco() != null){
-            restaurante.getEndereco().setCidade(new Cidade());
+            restaurante.getEndereco().setCity(new City());
         }        
 
         modelMapper.map(restauranteInput, restaurante);

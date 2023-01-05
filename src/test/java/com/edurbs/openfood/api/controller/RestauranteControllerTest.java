@@ -18,7 +18,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.edurbs.openfood.api.model.input.CozinhaIdInput;
 import com.edurbs.openfood.api.model.input.RestauranteInput;
-import com.edurbs.openfood.domain.service.CadastroCidadeService;
+import com.edurbs.openfood.domain.service.RegistryCityService;
 import com.edurbs.openfood.domain.service.CadastroCozinhaService;
 import com.edurbs.openfood.domain.service.CadastroEstadoService;
 import com.edurbs.openfood.domain.service.CadastroRestauranteService;

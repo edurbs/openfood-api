@@ -10,7 +10,7 @@ import com.edurbs.openfood.domain.service.SendEmailService;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-import jakarta.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMessage;
 
 public class SmptSendEmailService implements SendEmailService {
 

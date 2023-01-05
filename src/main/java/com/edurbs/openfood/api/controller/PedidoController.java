@@ -2,7 +2,7 @@ package com.edurbs.openfood.api.controller;
 
 import java.util.List;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +26,8 @@ import com.edurbs.openfood.api.model.PedidoApiModel;
 import com.edurbs.openfood.api.model.PedidoResumoApiModel;
 import com.edurbs.openfood.api.model.input.PedidoInput;
 import com.edurbs.openfood.core.data.PageableTranslator;
-import com.edurbs.openfood.domain.exception.EntidadeNaoEncontradaException;
-import com.edurbs.openfood.domain.exception.NegocioException;
+import com.edurbs.openfood.domain.exception.EntityNotFoundException;
+import com.edurbs.openfood.domain.exception.BusinessException;
 import com.edurbs.openfood.domain.filter.PedidoFilter;
 import com.edurbs.openfood.domain.model.Pedido;
 import com.edurbs.openfood.domain.model.Usuario;
@@ -122,8 +122,8 @@ public class PedidoController {
         try {
             var pedidoSalvo = cadastroPedidoService.salvar(pedido);
             return pedidoAssembler.toApiModel(pedidoSalvo);
-        } catch (EntidadeNaoEncontradaException e) {
-            throw new NegocioException(e.getMessage());            
+        } catch (EntityNotFoundException e) {
+            throw new BusinessException(e.getMessage());            
         }
         
         

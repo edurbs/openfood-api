@@ -24,12 +24,12 @@ import com.edurbs.openfood.api.model.RestauranteApiModel;
 import com.edurbs.openfood.api.model.input.RestauranteInput;
 import com.edurbs.openfood.domain.exception.CidadeNaoEncontradaException;
 import com.edurbs.openfood.domain.exception.CozinhaNaoEncontradaException;
-import com.edurbs.openfood.domain.exception.NegocioException;
+import com.edurbs.openfood.domain.exception.BusinessException;
 import com.edurbs.openfood.domain.model.Restaurante;
 import com.edurbs.openfood.domain.service.CadastroRestauranteService;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/restaurantes")
@@ -82,7 +82,7 @@ public class RestauranteController {
             return restauranteModelAssembler.toApiModel(salvar);  
             
         } catch (CozinhaNaoEncontradaException | CidadeNaoEncontradaException e) {
-            throw new NegocioException(e.getMessage());
+            throw new BusinessException(e.getMessage());
         }
         
     }
@@ -101,7 +101,7 @@ public class RestauranteController {
         
             return restauranteModelAssembler.toApiModel(cadastroRestauranteService.salvar(restauranteAtual));  
         } catch (CozinhaNaoEncontradaException | CidadeNaoEncontradaException e) {
-            throw new NegocioException(e.getMessage());
+            throw new BusinessException(e.getMessage());
         }
     }
 
@@ -123,7 +123,7 @@ public class RestauranteController {
         try {
             cadastroRestauranteService.ativar(restauranteIds);
         } catch (Exception e) {
-            throw new NegocioException(e.getMessage());
+            throw new BusinessException(e.getMessage());
         }
 
     }
